@@ -1,0 +1,12 @@
+n_p=1.80186 n_s=1.82720 n_i=1.77652  Delta n_g=0.05080  (phase-index diff n_s-n_i=0.05068)  rho=85.38 mrad
+
+ geometry                      L(mm)  W(um)  R_thin(/s/mW)  walk-off factor  R_est(/s/mW)  idler FWHM(nm)
+ walk-off-matched, 30 mm       30.0   1450          322            0.43          138         1.08   (z_R = 8845 mm)
+ walk-off-matched, 10 mm       10.0    482          971            0.43          415         3.25   (z_R = 977 mm)
+ walk-off-matched, 2 mm         2.0     96         4897            0.42         2079        16.24   (z_R = 39 mm)
+ walk-off-matched, 0.5 mm       0.5     24        19586            0.42         8315        64.94   (z_R = 2 mm)
+ 10 mm, 60-um waist            10.0     60        62677            0.01          486         3.25   (z_R = 15 mm)
+ 1 mm, 60-um waist              1.0     60         6268            0.55         3474        32.47   (z_R = 15 mm)
+ 1 mm, 30-um waist              1.0     30        25071            0.19         4819        32.47   (z_R = 4 mm)
+
+ Ling 2008 BBO check with their inputs and phase-index difference 0.0692: R_T = 4121 /s/mW (they report 2 x 0.23 x R_T = 1100 -> R_T ~ 2390; observed ~800)

@@ -1,0 +1,49 @@
+% fig4_purity_families -- best unfiltered heralded purity (adaptive window)
+% along each GVM family, versus pump wavelength.  The horizontal guide is the
+% sinc-limited ceiling of symmetric GVM.
+% Data: data/purity_<seq>_<target>.csv
+% Compile standalone:  pdflatex fig4_purity_families.tex  (twice)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\newcommand{\purplot}[3]{% #1 seq, #2 target, #3 style
+  \addplot[#3, forget plot, mark=*, mark size=1.1pt]
+    table [col sep=comma, x=lam_p_um, y=purity]
+    {\figdatadir/purity_#1_#2.csv};}
+\begin{groupplot}[
+  group style={group size=3 by 1, horizontal sep=9mm},
+  bibopanel, width=50mm, height=50mm,
+  tick label style={font=\footnotesize}, label style={font=\footnotesize},
+  title style={font=\footnotesize}, legend style={font=\footnotesize},
+  xmin=0.63, xmax=1.15, ymin=0, ymax=1.0,
+  xlabel={pump wavelength ($\mu$m)},
+  xtick={0.7,0.8,0.9,1.0,1.1},
+]
+\nextgroupplot[title={$oeo$ (type II)}, ylabel={heralded purity $P$}]
+  \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
+  \purplot{oeo}{0}{g0line}
+  \purplot{oeo}{45}{g45line}
+  \purplot{oeo}{90}{g90line}
+  \node[font=\footnotesize, anchor=north east] at (axis cs:1.14,0.815)
+    {sinc ceiling};
+\nextgroupplot[title={$ooe$ (type I)}, ylabel={},
+  legend style={at={(0.97,0.97)}, anchor=north east, draw=none, fill=none,
+                font=\footnotesize},
+  legend cell align=left]
+  \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
+  \purplot{ooe}{0}{g0line}
+  \purplot{ooe}{45}{g45line}
+  \purplot{ooe}{90}{g90line}
+  \addlegendimage{g0line, mark=*, mark size=1.1pt}
+    \addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
+  \addlegendimage{g45line, mark=*, mark size=1.1pt}\addlegendentry{$45^\circ$}
+  \addlegendimage{g90line, mark=*, mark size=1.1pt}\addlegendentry{$90^\circ$}
+\nextgroupplot[title={$eeo$ (type I)}, ylabel={}]
+  \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
+  \purplot{eeo}{0}{g0line}
+  \purplot{eeo}{45}{g45line}
+  \purplot{eeo}{90}{g90line}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

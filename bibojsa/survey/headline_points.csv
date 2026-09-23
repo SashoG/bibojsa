@@ -1,0 +1,8 @@
+tag,plane,interaction,target_deg,pump_nm,lambda_s_um,lambda_i_um,angle_deg,abs_deff_pm_V,d32_fs_mm,d31_fs_mm,theta_pm_deg,L_mm,pump_fwhm_nm,purity,edge,purity_T90,purity_T70,rho_max_mrad,L_eff_60um_mm,lambda_i_in_transparency,note
+A,xz,oeo,0,682.241,1.36448,1.36448,45.9683,2.224,-0.002,169.442,0.001,10.0,8.0,0.94948,0.01195,0.98754,0.99439,85.38,1.2456,1,asymmetric GVM at frequency degeneracy
+B,xz,oeo,0,722.0,1.15598,1.92369,41.3598,2.404,0.051,137.174,-0.021,10.0,12.0,0.94447,0.01047,0.98469,0.99286,84.43,1.2595,1,"asymmetric GVM, Ti:sapphire-accessible member"
+C,xz,oeo,90,1116.841,2.23368,2.23368,46.1099,2.218,-166.38,-0.0,90.0,10.0,16.0,0.93923,0.01611,0.96272,0.98249,81.98,1.2973,1,"asymmetric GVM at frequency degeneracy, long-pump family"
+D,xz,oeo,45,869.583,1.73917,1.73917,43.7704,2.311,-72.864,72.86,45.002,2.0,12.0,0.83147,0.05627,0.91821,0.98032,83.4,1.2752,1,extended phase matching at frequency degeneracy
+E,xz,ooe,0,818.696,1.63739,1.63739,11.036,3.141,0.002,0.002,-45.0,10.0,32.0,0.21192,0.02825,0.22952,0.27693,30.67,3.4679,1,"triple-GVM degenerate point, largest deff"
+F,xz,eeo,0,896.76,1.79352,1.79352,34.908,1.558,0.001,0.001,-45.0,10.0,32.0,0.33319,0.03053,0.36092,0.42811,76.26,1.3945,1,"triple-GVM degenerate point, eeo"
+R,xz,oeo,45,810.0,1.1388,2.8053,39.4221,2.472,-30.465,30.461,45.004,5.0,8.0,0.81153,0.11321,0.88692,0.94989,83.12,1.2795,0,nondegenerate EPM member (idler beyond the transparency window)

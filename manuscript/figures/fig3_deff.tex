@@ -1,0 +1,56 @@
+% fig3_deff -- |deff| along each GVM family, versus pump wavelength, and the
+% group-delay scale that sets the required crystal length.
+% Data: data/deff_<seq>_<target>.csv
+% Compile standalone:  pdflatex fig3_deff.tex  (twice)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\newcommand{\deffplot}[3]{% #1 seq, #2 target, #3 style
+  \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=abs_deff]
+    {\figdatadir/deff_#1_#2.csv};}
+\newcommand{\gvmplot}[3]{%
+  \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=gvm_fs_mm]
+    {\figdatadir/deff_#1_#2.csv};}
+\begin{groupplot}[
+  group style={group size=2 by 1, horizontal sep=15mm},
+  bibopanel, width=62mm, height=50mm,
+  tick label style={font=\footnotesize}, label style={font=\footnotesize},
+  title style={font=\footnotesize}, legend style={font=\footnotesize},
+  xmin=0.63, xmax=1.15,
+  xlabel={pump wavelength ($\mu$m)},
+]
+\nextgroupplot[ylabel={$|d_{\mathrm{eff}}|$ (pm/V)}, ymin=0, ymax=3.6,
+  title={effective nonlinearity}]
+  \deffplot{oeo}{0}{coeo, solid}
+  \deffplot{oeo}{45}{coeo, solid}
+  \deffplot{oeo}{90}{coeo, solid}
+  \deffplot{ooe}{0}{cooe, densely dashed}
+  \deffplot{ooe}{45}{cooe, densely dashed}
+  \deffplot{ooe}{90}{cooe, densely dashed}
+  \deffplot{eeo}{0}{ceeo, densely dashdotted}
+  \deffplot{eeo}{45}{ceeo, densely dashdotted}
+  \deffplot{eeo}{90}{ceeo, densely dashdotted}
+  \node[font=\footnotesize, coeo] at (axis cs:0.90,2.62) {$oeo$};
+  \node[font=\footnotesize, cooe] at (axis cs:0.75,3.32) {$ooe$};
+  \node[font=\footnotesize, ceeo] at (axis cs:0.86,1.38) {$eeo$};
+\nextgroupplot[ylabel={$\max(|\Delta_{31}|,|\Delta_{32}|)$ (fs/mm)},
+  ymode=log, ymin=0.3, ymax=400, title={group-delay scale},
+  legend style={at={(0.99,0.03)}, anchor=south east, draw=none, fill=none,
+               font=\footnotesize, legend image post style={xscale=0.6}},
+  legend cell align=left]
+  \gvmplot{oeo}{0}{g0line}
+  \gvmplot{oeo}{45}{g45line}
+  \gvmplot{oeo}{90}{g90line}
+  \gvmplot{ooe}{0}{g0line}
+  \gvmplot{ooe}{45}{g45line}
+  \gvmplot{ooe}{90}{g90line}
+  \gvmplot{eeo}{0}{g0line}
+  \gvmplot{eeo}{45}{g45line}
+  \gvmplot{eeo}{90}{g90line}
+  \addlegendimage{g0line}\addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
+  \addlegendimage{g45line}\addlegendentry{$45^\circ$}
+  \addlegendimage{g90line}\addlegendentry{$90^\circ$}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

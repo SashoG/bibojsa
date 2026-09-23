@@ -1,0 +1,2 @@
+point_id,crossing_type_deg,pump_nm,plane,interaction,lambda_s_um,lambda_i_um,angle_deg,theta_pm_deg,deff_pm_V,abs_deff_pm_V,region_ok,rho_pump_mrad,rho_signal_mrad,rho_idler_mrad,GD_p_ps_mm,GD_s_ps_mm,GD_i_ps_mm
+2,45,775.0,xz,eeo,1.0670764160616024,2.83139677485402,35.37748986927806,-135.0000000178641,-1.5672353341508667,1.5672353341508667,1,0.0,79.39645994173331,72.58433624389211,6.137731412068681,6.124059032306844,6.151403791839043

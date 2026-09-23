@@ -1,0 +1,52 @@
+% fig2_tpm_degenerate -- JSA ridge orientation along the frequency-degenerate
+% line of each x-z interaction.  theta_PM is wrapped into a single continuous
+% branch; -45 deg is the anticorrelated orientation.  The two type-I curves
+% lie exactly on -45 deg at every pump wavelength and coincide.
+% Data: data/tpmdeg_<seq>.csv
+% Compile standalone:  pdflatex fig2_tpm_degenerate.tex  (twice)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  bibopanel, width=84mm, height=52mm,
+  xmin=0.60, xmax=1.16, ymin=-62, ymax=104,
+  xlabel={pump wavelength ($\mu$m)},
+  ylabel={$\theta_{\mathrm{PM}}$ at degeneracy (deg)},
+  ytick={-45,0,45,90}, yticklabels={$-45$,$0$,$45$,$90$},
+  legend style={at={(1.03,1.0)}, anchor=north west, draw=none, fill=none,
+                cells={anchor=west}},
+  legend cell align=left,
+]
+  \addplot[cbound, densely dotted, forget plot, domain=0.60:1.16]{0};
+  \addplot[cbound, densely dotted, forget plot, domain=0.60:1.16]{45};
+  \addplot[cbound, densely dotted, forget plot, domain=0.60:1.16]{90};
+  \addplot[coeo, solid, line width=0.9pt]
+    table [col sep=comma, x=lam_p_um, y=theta_pm_deg]
+    {\figdatadir/tpmdeg_oeo.csv};
+  \addlegendentry{$oeo$ (type II)}
+  \addplot[cooe, solid, line width=2.2pt, opacity=0.35]
+    table [col sep=comma, x=lam_p_um, y=theta_pm_deg]
+    {\figdatadir/tpmdeg_ooe.csv};
+  \addlegendentry{$ooe$ (type I)}
+  \addplot[ceeo, densely dashed]
+    table [col sep=comma, x=lam_p_um, y=theta_pm_deg]
+    {\figdatadir/tpmdeg_eeo.csv};
+  \addlegendentry{$eeo$ (type I)}
+  \addplot[degmark, forget plot] coordinates {(0.682241,0) (0.869583,45)
+    (1.116841,90)};
+  \addlegendimage{degmark}\addlegendentry{degenerate GVM}
+  \addplot[only marks, mark=x, mark size=2.6pt, black, forget plot]
+    coordinates {(0.818696,-45) (0.896760,-45)};
+  \addlegendimage{only marks, mark=x, mark size=2.6pt, black}
+    \addlegendentry{triple GVM}
+  \node[font=\scriptsize, anchor=south west] at (axis cs:0.690,1)  {A};
+  \node[font=\scriptsize, anchor=south west] at (axis cs:0.878,46) {D};
+  \node[font=\scriptsize, anchor=south east] at (axis cs:1.108,91) {C};
+  \node[font=\scriptsize, anchor=north east] at (axis cs:0.814,-47) {E};
+  \node[font=\scriptsize, anchor=north west] at (axis cs:0.902,-47) {F};
+  \node[font=\scriptsize, anchor=south] at (axis cs:0.88,-42)
+    {anticorrelated};
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,3 @@
+  lp=722 phi=  0.0 theta= 40.555 ls=1.0946 li=2.1211 |D31|=128.1 fs/mm |deff|=2.431 rho=84.2 fom=0.0289
+  lp=722 phi=  0.0 theta= 41.363 ls=1.1558 li=1.9237 |D31|=137.2 fs/mm |deff|=2.402 rho=84.4 fom=0.0284
+done

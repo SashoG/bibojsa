@@ -1,0 +1,59 @@
+% fig5_jsa_maps -- normalized |f(omega_s, omega_i)| for the featured operating
+% points, in angular-frequency detuning with equal scales on both axes, so
+% that the ridge orientation on the page IS the theta_PM of Eq. (3): a
+% symmetric-GVM ridge appears at +45 deg and the anticorrelated one at -45.
+% Data: data/jsa_<tag>.csv (meshes in long format, cropped to each panel's
+% window by make_figure_data.py; the mesh dimensions come from
+% data/jsa_mesh.tex, written by the same script).  Keep the xmin/xmax
+% below in step with JSA_WINDOW in make_figure_data.py.
+% Compile standalone:  lualatex fig5_jsa_maps.tex
+%   (6 meshes of up to 150x150 cells exceed pdflatex's main memory)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\input{\figdatadir/jsa_mesh}
+\newcommand{\jsamap}[1]{%
+  \addplot[matrix plot*, mesh/cols=\csname jsacols#1\endcsname,
+           mesh/rows=\csname jsarows#1\endcsname,
+           point meta=explicit, forget plot]
+    table [col sep=comma, x=dws_rad_ps, y=dwi_rad_ps, meta=amp]
+    {\figdatadir/jsa_#1.csv};}
+\begin{groupplot}[
+  group style={group size=3 by 2, horizontal sep=15mm, vertical sep=16mm},
+  bibopanel, width=37mm, height=37mm,
+  colormap name=viridis,
+  point meta min=0, point meta max=1,
+  xlabel={$\delta\omega_s$ (rad/ps)},
+  ylabel={$\delta\omega_i$ (rad/ps)},
+  enlargelimits=false,
+  title style={font=\scriptsize, align=center, yshift=-3pt},
+]
+\nextgroupplot[title={A: $682$\,nm $oeo$, $0^\circ$\\$L=10$\,mm, $8$\,nm},
+  xmin=-70, xmax=70, ymin=-70, ymax=70, xtick={-50,0,50}, ytick={-50,0,50}]
+  \jsamap{A}
+\nextgroupplot[title={B: $722$\,nm $oeo$, $0^\circ$\\$L=10$\,mm, $12$\,nm},
+  xmin=-80, xmax=80, ymin=-80, ymax=80, xtick={-50,0,50}, ytick={-50,0,50}]
+  \jsamap{B}
+\nextgroupplot[title={C: $1117$\,nm $oeo$, $90^\circ$\\$L=10$\,mm, $16$\,nm},
+  xmin=-60, xmax=60, ymin=-60, ymax=60, xtick={-50,0,50}, ytick={-50,0,50},
+  colorbar, colorbar style={width=2.5mm, tick label style={font=\tiny},
+                            ylabel={}}]
+  \jsamap{C}
+\nextgroupplot[title={D: $870$\,nm $oeo$, $45^\circ$\\$L=2$\,mm, $12$\,nm},
+  xmin=-115, xmax=115, ymin=-115, ymax=115, xtick={-100,0,100},
+  ytick={-100,0,100}]
+  \jsamap{D}
+\nextgroupplot[title={E: $819$\,nm $ooe$, triple\\$L=10$\,mm, $32$\,nm},
+  xmin=-509, xmax=509, ymin=-509, ymax=509, xtick={-400,0,400},
+  ytick={-400,0,400}]
+  \jsamap{E}
+\nextgroupplot[title={R: $810$\,nm $oeo$, $45^\circ$\\$L=5$\,mm, $8$\,nm},
+  xmin=-92, xmax=92, ymin=-92, ymax=92, xtick={-50,0,50},
+  ytick={-50,0,50},
+  colorbar, colorbar style={width=2.5mm, tick label style={font=\tiny},
+                            ylabel={}}]
+  \jsamap{R}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

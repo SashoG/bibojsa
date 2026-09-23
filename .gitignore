@@ -1,0 +1,36 @@
+# Whitelist: the working folder holds more than the public repository.
+# Everything is ignored unless listed below with "!".
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/LICENSE
+!/LICENSE-DATA
+!/CITATION.cff
+!/.zenodo.json
+
+# the Python project, complete
+!/bibojsa/
+/bibojsa/survey/figures_png/
+
+# from manuscript/: only the figure pipeline and the exploration
+!/manuscript/
+/manuscript/*
+!/manuscript/figures/
+!/manuscript/exploration_2026-09-21/
+
+# build products and clutter, anywhere
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+desktop.ini
+Thumbs.db
+.DS_Store

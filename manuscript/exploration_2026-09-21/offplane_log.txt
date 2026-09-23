@@ -1,0 +1,97 @@
+== validation against the manuscript's x-z (phi=0) results ==
+  pump 682.2 nm along theta=45.968: n_fast=1.80186 (n_y=1.80186), n_slow=1.85353; D_fast=[ 0. -1.  0.], D_slow=[ 0.695  0.    -0.719]
+  degenerate PM pumps for (f,s,f) at theta=45.968, phi=0: [0.68225 1.10847]
+    lp=682.25 nm: D32=-0.000 D31=0.169 fs/mm, deff=2.2242 pm/V, rho_slow=85.38 mrad rho_fast=0.00 mrad
+    lp=1108.47 nm: D32=-0.163 D31=0.002 fs/mm, deff=2.2242 pm/V, rho_slow=82.03 mrad rho_fast=0.00 mrad
+  LPR2010 x-z oeo: d12 cos(theta) = 2.2242
+  x-z ooe at theta=11.036 (f,f,s) deff=-0.6238  vs -d14 sin2theta = -0.6238
+  y-z eeo (s,s,f) theta=11.1: |deff|=2.3889 vs LPR2010 |-/+d12cos2 -/+d13 sin2 + d14 sin2t| = 2.3889 / 3.6434
+  y-z eeo (s,s,f) theta=168.9: |deff|=3.6434 vs LPR2010 |-/+d12cos2 -/+d13 sin2 + d14 sin2t| = 3.6434 / 2.3889
+  x-y (f,f,s) at phi=30: |deff|=1.4376 vs |d13 sin phi|=0.8800;  (s,f,s): 0.8800 vs |d14 sin2phi|=1.4376
+  bibojsa eigenindices_general(45.968,0.0) -> (np.float64(1.82721109023246), np.float64(1.7765277053553152)) ; mine (fast, slow) = (1.776528, 1.827211)
+  bibojsa eigenindices_general(50.0,30.0) -> (np.float64(1.8420416341031418), np.float64(1.769385560144286)) ; mine (fast, slow) = (1.769386, 1.842042)
+  bibojsa eigenindices_general(120.0,70.0) -> (np.float64(1.8716067733406139), np.float64(1.7540739503710245)) ; mine (fast, slow) = (1.754074, 1.871607)
+
+== tracing degenerate GVM loci for fsf over phi = 0..90 ==
+  fsf  0deg phi=  0.0 theta= 45.968 lp=  682.24 nm |deff|=2.224 rho_max=85.4 scale=0.2 fom=0.0261
+  fsf 90deg phi=  0.0 theta= 46.110 lp= 1116.84 nm |deff|=2.218 rho_max=82.0 scale=0.2 fom=0.0271
+  fsf 90deg phi=  0.0 theta=133.890 lp= 1116.84 nm |deff|=2.218 rho_max=82.0 scale=0.2 fom=0.0271
+  fsf  0deg phi=  0.0 theta=134.032 lp=  682.24 nm |deff|=2.224 rho_max=85.4 scale=0.2 fom=0.0261
+  fsf  0deg phi=  5.0 theta= 45.798 lp=  681.82 nm |deff|=2.450 rho_max=85.2 scale=0.2 fom=0.0288
+  fsf 90deg phi=  5.0 theta= 45.944 lp= 1117.06 nm |deff|=2.440 rho_max=81.8 scale=0.2 fom=0.0298
+  fsf  0deg phi=  5.0 theta=134.202 lp=  681.82 nm |deff|=1.815 rho_max=85.2 scale=0.2 fom=0.0213
+  fsf 90deg phi=  5.0 theta=134.056 lp= 1117.06 nm |deff|=1.832 rho_max=81.8 scale=0.2 fom=0.0224
+  fsf  0deg phi= 10.0 theta= 45.289 lp=  680.57 nm |deff|=2.472 rho_max=84.5 scale=0.2 fom=0.0293
+  fsf 90deg phi= 10.0 theta= 45.449 lp= 1117.72 nm |deff|=2.478 rho_max=81.2 scale=0.2 fom=0.0305
+  fsf  0deg phi= 10.0 theta=134.711 lp=  680.57 nm |deff|=1.259 rho_max=84.5 scale=0.2 fom=0.0149
+  fsf 90deg phi= 10.0 theta=134.551 lp= 1117.72 nm |deff|=1.313 rho_max=81.2 scale=0.2 fom=0.0162
+  fsf  0deg phi= 15.0 theta= 44.451 lp=  678.54 nm |deff|=2.290 rho_max=83.3 scale=0.2 fom=0.0275
+  fsf 90deg phi= 15.0 theta= 44.636 lp= 1118.83 nm |deff|=2.331 rho_max=80.3 scale=0.2 fom=0.0290
+  fsf 90deg phi= 15.0 theta=135.364 lp= 1118.83 nm |deff|=0.703 rho_max=80.3 scale=0.2 fom=0.0088
+  fsf  0deg phi= 15.0 theta=135.549 lp=  678.54 nm |deff|=0.609 rho_max=83.3 scale=0.2 fom=0.0073
+  fsf  0deg phi= 20.0 theta= 43.299 lp=  675.80 nm |deff|=1.926 rho_max=81.6 scale=0.2 fom=0.0236
+  fsf 90deg phi= 20.0 theta= 43.522 lp= 1120.42 nm |deff|=2.015 rho_max=78.9 scale=0.2 fom=0.0255
+  fsf 90deg phi= 20.0 theta=136.478 lp= 1120.42 nm |deff|=0.057 rho_max=78.9 scale=0.2 fom=0.0007
+  fsf  0deg phi= 20.0 theta=136.701 lp=  675.80 nm |deff|=0.074 rho_max=81.6 scale=0.2 fom=0.0009
+  fsf  0deg phi= 25.0 theta= 41.860 lp=  672.48 nm |deff|=1.422 rho_max=79.4 scale=0.2 fom=0.0179
+  fsf 90deg phi= 25.0 theta= 42.137 lp= 1122.50 nm |deff|=1.563 rho_max=77.1 scale=0.2 fom=0.0203
+  fsf 90deg phi= 25.0 theta=137.863 lp= 1122.50 nm |deff|=0.567 rho_max=77.1 scale=0.2 fom=0.0074
+  fsf  0deg phi= 25.0 theta=138.140 lp=  672.48 nm |deff|=0.719 rho_max=79.4 scale=0.2 fom=0.0091
+  fsf  0deg phi= 30.0 theta= 40.170 lp=  668.76 nm |deff|=0.843 rho_max=76.8 scale=0.2 fom=0.0110
+  fsf 90deg phi= 30.0 theta= 40.520 lp= 1125.03 nm |deff|=1.029 rho_max=74.9 scale=0.2 fom=0.0137
+  fsf 90deg phi= 30.0 theta=139.480 lp= 1125.03 nm |deff|=1.110 rho_max=74.9 scale=0.2 fom=0.0148
+  fsf  0deg phi= 30.0 theta=139.830 lp=  668.76 nm |deff|=1.263 rho_max=76.8 scale=0.2 fom=0.0164
+  fsf  0deg phi= 35.0 theta= 38.285 lp=  664.86 nm |deff|=0.263 rho_max=73.8 scale=0.2 fom=0.0036
+  fsf 90deg phi= 35.0 theta= 38.728 lp= 1127.97 nm |deff|=0.477 rho_max=72.4 scale=0.2 fom=0.0066
+  fsf 90deg phi= 35.0 theta=141.272 lp= 1127.97 nm |deff|=1.523 rho_max=72.4 scale=0.2 fom=0.0211
+  fsf  0deg phi= 35.0 theta=141.715 lp=  664.86 nm |deff|=1.653 rho_max=73.8 scale=0.2 fom=0.0224
+  fsf  0deg phi= 40.0 theta= 36.272 lp=  661.02 nm |deff|=0.249 rho_max=70.5 scale=0.2 fom=0.0035
+  fsf 90deg phi= 40.0 theta= 36.828 lp= 1131.16 nm |deff|=0.029 rho_max=69.5 scale=0.2 fom=0.0004
+  fsf 90deg phi= 40.0 theta=143.172 lp= 1131.16 nm |deff|=1.778 rho_max=69.5 scale=0.2 fom=0.0256
+  fsf  0deg phi= 40.0 theta=143.728 lp=  661.02 nm |deff|=1.867 rho_max=70.5 scale=0.2 fom=0.0265
+  fsf  0deg phi= 45.0 theta= 34.219 lp=  657.47 nm |deff|=0.638 rho_max=67.0 scale=0.2 fom=0.0095
+  fsf 90deg phi= 45.0 theta= 34.902 lp= 1134.44 nm |deff|=0.434 rho_max=66.6 scale=0.2 fom=0.0065
+  fsf 90deg phi= 45.0 theta=145.098 lp= 1134.44 nm |deff|=1.871 rho_max=66.6 scale=0.2 fom=0.0281
+  fsf  0deg phi= 45.0 theta=145.781 lp=  657.47 nm |deff|=1.909 rho_max=67.0 scale=0.2 fom=0.0285
+  fsf  0deg phi= 50.0 theta= 32.219 lp=  654.38 nm |deff|=0.882 rho_max=63.7 scale=0.2 fom=0.0139
+  fsf 90deg phi= 50.0 theta= 33.031 lp= 1137.58 nm |deff|=0.712 rho_max=63.6 scale=0.2 fom=0.0112
+  fsf 90deg phi= 50.0 theta=146.969 lp= 1137.58 nm |deff|=1.825 rho_max=63.6 scale=0.2 fom=0.0287
+  fsf  0deg phi= 50.0 theta=147.781 lp=  654.38 nm |deff|=1.812 rho_max=63.7 scale=0.2 fom=0.0284
+  fsf  0deg phi= 55.0 theta= 30.360 lp=  651.83 nm |deff|=0.988 rho_max=60.6 scale=0.2 fom=0.0163
+  fsf 90deg phi= 55.0 theta= 31.293 lp= 1140.40 nm |deff|=0.858 rho_max=60.9 scale=0.2 fom=0.0141
+  fsf 90deg phi= 55.0 theta=148.707 lp= 1140.40 nm |deff|=1.676 rho_max=60.9 scale=0.2 fom=0.0275
+  fsf  0deg phi= 55.0 theta=149.640 lp=  651.83 nm |deff|=1.623 rho_max=60.6 scale=0.2 fom=0.0268
+  fsf  0deg phi= 60.0 theta= 28.710 lp=  649.83 nm |deff|=0.981 rho_max=57.9 scale=0.2 fom=0.0169
+  fsf 90deg phi= 60.0 theta= 29.745 lp= 1142.80 nm |deff|=0.891 rho_max=58.4 scale=0.2 fom=0.0152
+  fsf 90deg phi= 60.0 theta=150.255 lp= 1142.80 nm |deff|=1.464 rho_max=58.4 scale=0.2 fom=0.0251
+  fsf  0deg phi= 60.0 theta=151.290 lp=  649.83 nm |deff|=1.386 rho_max=57.9 scale=0.2 fom=0.0239
+  fsf  0deg phi= 65.0 theta= 27.310 lp=  648.31 nm |deff|=0.893 rho_max=55.7 scale=0.2 fom=0.0160
+  fsf 90deg phi= 65.0 theta= 28.425 lp= 1144.73 nm |deff|=0.837 rho_max=56.4 scale=0.2 fom=0.0148
+  fsf 90deg phi= 65.0 theta=151.575 lp= 1144.73 nm |deff|=1.221 rho_max=56.4 scale=0.2 fom=0.0217
+  fsf  0deg phi= 65.0 theta=152.690 lp=  648.31 nm |deff|=1.134 rho_max=55.7 scale=0.2 fom=0.0204
+  fsf  0deg phi= 70.0 theta= 26.179 lp=  647.21 nm |deff|=0.753 rho_max=53.9 scale=0.2 fom=0.0140
+  fsf 90deg phi= 70.0 theta= 27.350 lp= 1146.21 nm |deff|=0.721 rho_max=54.7 scale=0.2 fom=0.0132
+  fsf 90deg phi= 70.0 theta=152.650 lp= 1146.21 nm |deff|=0.969 rho_max=54.7 scale=0.2 fom=0.0177
+  fsf  0deg phi= 70.0 theta=153.821 lp=  647.21 nm |deff|=0.886 rho_max=53.9 scale=0.2 fom=0.0164
+  fsf  0deg phi= 75.0 theta= 25.314 lp=  646.43 nm |deff|=0.582 rho_max=52.6 scale=0.2 fom=0.0111
+  fsf 90deg phi= 75.0 theta= 26.524 lp= 1147.29 nm |deff|=0.567 rho_max=53.4 scale=0.2 fom=0.0106
+  fsf 90deg phi= 75.0 theta=153.476 lp= 1147.29 nm |deff|=0.718 rho_max=53.4 scale=0.2 fom=0.0134
+  fsf  0deg phi= 75.0 theta=154.686 lp=  646.43 nm |deff|=0.649 rho_max=52.6 scale=0.2 fom=0.0123
+  fsf  0deg phi= 80.0 theta= 24.708 lp=  645.92 nm |deff|=0.395 rho_max=51.7 scale=0.2 fom=0.0076
+  fsf 90deg phi= 80.0 theta= 25.941 lp= 1148.01 nm |deff|=0.389 rho_max=52.6 scale=0.2 fom=0.0074
+  fsf 90deg phi= 80.0 theta=154.059 lp= 1148.01 nm |deff|=0.473 rho_max=52.6 scale=0.2 fom=0.0090
+  fsf  0deg phi= 80.0 theta=155.292 lp=  645.92 nm |deff|=0.424 rho_max=51.7 scale=0.2 fom=0.0082
+  fsf  0deg phi= 85.0 theta= 24.350 lp=  645.63 nm |deff|=0.199 rho_max=51.1 scale=0.2 fom=0.0039
+  fsf 90deg phi= 85.0 theta= 25.594 lp= 1148.43 nm |deff|=0.197 rho_max=52.0 scale=0.2 fom=0.0038
+  fsf 90deg phi= 85.0 theta=154.406 lp= 1148.43 nm |deff|=0.235 rho_max=52.0 scale=0.2 fom=0.0045
+  fsf  0deg phi= 85.0 theta=155.650 lp=  645.63 nm |deff|=0.210 rho_max=51.1 scale=0.2 fom=0.0041
+  fsf  0deg phi= 90.0 theta= 24.231 lp=  645.54 nm |deff|=0.000 rho_max=50.9 scale=0.2 fom=0.0000
+  fsf 90deg phi= 90.0 theta= 25.480 lp= 1148.56 nm |deff|=0.000 rho_max=51.9 scale=0.2 fom=0.0000
+  fsf 90deg phi= 90.0 theta=154.520 lp= 1148.56 nm |deff|=0.000 rho_max=51.9 scale=0.2 fom=0.0000
+  fsf  0deg phi= 90.0 theta=155.769 lp=  645.54 nm |deff|=0.000 rho_max=50.9 scale=0.2 fom=0.0000
+
+== tracing degenerate GVM loci for sfs over phi = 0..90 ==
+
+== 0-deg family of (f,s,f) at fixed pump vs phi ==
+/tmp/claude-0/-home-claude/829fca14-98bd-50e5-8376-6b233a6d754d/scratchpad/explore/offplane.py:49: RuntimeWarning: invalid value encountered in sqrt
+  out.append(np.sqrt(A + B / (lam ** 2 - C) - D * lam ** 2))

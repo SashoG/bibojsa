@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or data, please cite both the paper (preferred-citation)
+  and the archived release (this record).
+type: software
+title: "bibojsa: group-velocity matching and photon-pair purity in BiB3O6"
+abstract: >-
+  Python package, survey data and figure sources for collinear spontaneous
+  parametric down-conversion in the monoclinic biaxial crystal BiB3O6 (BIBO):
+  Sellmeier dispersion, biaxial phase matching, point-group-2 effective
+  nonlinearity, group-velocity-matching classification as level curves in pump
+  wavelength, and joint-spectral-amplitude purity of heralded photons.
+version: 1.0.0
+date-released: "2026-09-22"
+license: MIT
+repository-code: "https://github.com/SashoG/bibojsa"
+doi: 10.5281/zenodo.XXXXXXX
+authors:
+  - family-names: Gaydardzhiev
+    given-names: Alexander
+    email: a.gaydardzhiev@phys.uni-sofia.bg
+    affiliation: "Faculty of Physics, Sofia University \"St. Kliment Ohridski\", 5 James Bourchier Blvd., 1164 Sofia, Bulgaria"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+keywords:
+  - spontaneous parametric down-conversion
+  - group-velocity matching
+  - joint spectral amplitude
+  - heralded single photons
+  - spectral purity
+  - BiB3O6
+  - BIBO
+  - biaxial crystal
+  - nonlinear optics
+preferred-citation:
+  type: article
+  title: "Mapping group-velocity matching in monoclinic BiB3O6 for high-purity photon pairs"
+  authors:
+    - family-names: Gaydardzhiev
+      given-names: Alexander
+      orcid: "https://orcid.org/0000-0000-0000-0000"
+  journal: "Optics Express"
+  year: 2026
+  notes: "submitted"

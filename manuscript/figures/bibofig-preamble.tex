@@ -1,0 +1,57 @@
+% ---------------------------------------------------------------------
+% Shared preamble for the bibojsa manuscript figures (fig1..fig6).
+%
+% Loaded twice-compatible: (a) by each standalone fig<N>.tex, and
+% (b) by the manuscript when \figsfromdatatrue (the `standalone'
+% package skips the subfile preambles, so everything the figures need
+% must be defined here).
+%
+% \figdatadir points at the plot-ready CSVs derived from the survey
+% data by make_figure_data.py.  Standalone default: data/ next to the
+% figure sources; the manuscript redefines it to figures/data.
+% ---------------------------------------------------------------------
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{groupplots}
+
+\providecommand{\figdatadir}{data}
+
+% interaction colors (idler-signal-pump o/e labels, LPR2010 Table 1)
+\definecolor{ceeo}{RGB}{214,39,40}   % eeo  red
+\definecolor{coeo}{RGB}{31,119,180}  % oeo  blue
+\definecolor{cooe}{RGB}{44,160,44}   % ooe  green
+\definecolor{ceoe}{RGB}{148,103,189} % eoe  purple
+% GVM-condition colors (figs 1, 3, 4)
+\definecolor{cg0}{RGB}{31,119,180}   % theta_PM = 0  deg
+\definecolor{cg45}{RGB}{230,140,10}  % theta_PM = 45 deg
+\definecolor{cg90}{RGB}{44,120,44}   % theta_PM = 90 deg
+% domain boundaries
+\definecolor{cbound}{RGB}{120,120,120}
+\definecolor{cwarn}{RGB}{200,60,60}
+\definecolor{cfilt}{RGB}{158,202,225}
+
+\pgfplotsset{
+  bibopanel/.style={%
+    width=53mm, height=46mm, scale only axis=false,
+    tick label style={font=\scriptsize},
+    label style={font=\scriptsize},
+    title style={font=\scriptsize, yshift=-2pt},
+    legend style={font=\scriptsize},
+    every axis plot/.append style={line width=0.7pt},
+    axis on top,
+  },
+  % GVM level curves, by target orientation
+  g0line/.style={cg0, solid},
+  g45line/.style={cg45, densely dashed},
+  g90line/.style={cg90, densely dotted, line width=0.9pt},
+  % domain boundaries in the (lambda_p, lambda_s) plane
+  degline/.style={cbound, solid, line width=0.5pt, forget plot},
+  transline/.style={cwarn, dashdotted, line width=0.6pt, forget plot},
+  sellline/.style={cbound, densely dotted, line width=0.5pt, forget plot},
+  % markers at the frequency-degenerate members
+  degmark/.style={only marks, mark=*, mark size=1.7pt, black},
+  % legend-image twins without forget plot
+  legimg/.style={},
+  % nan rows inserted by make_figure_data.py break the line
+  unbounded coords=jump,
+}

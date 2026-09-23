@@ -1,0 +1,49 @@
+% fig6_filter -- heralded purity versus the fraction of the heralding flux a
+% Gaussian filter on the idler arm transmits.  The right-hand end of each
+% curve (transmission = 1) is the unfiltered purity.
+% Colours follow the GVM-condition scheme of figs 1/3/4 (cg0/cg45/cg90);
+% the triple-GVM point E is black.  F is omitted (qualitatively identical to E).
+% Data: data/filter_<tag>.csv
+% Compile standalone:  pdflatex fig6_filter.tex  (twice)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  bibopanel, width=76mm, height=54mm,
+  xmin=0.08, xmax=1.02, ymin=0.1, ymax=1.02,
+  xlabel={fraction of heralding flux transmitted},
+  ylabel={heralded purity $P$},
+  legend style={at={(1.03,1.0)}, anchor=north west, draw=none, fill=none},
+  legend cell align=left,
+]
+  \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
+    coordinates {(0.9,0.1) (0.9,1.02)};
+  \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
+    coordinates {(0.7,0.1) (0.7,1.02)};
+  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.895,0.11) {$P_{90}$};
+  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.695,0.11) {$P_{70}$};
+  \addplot[cg0, solid] table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_A.csv};
+  \addlegendentry{A\; $682$\,nm, $0^\circ$}
+  \addplot[cg0, densely dashed] table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_B.csv};
+  \addlegendentry{B\; $722$\,nm, $0^\circ$}
+  \addplot[cg90, densely dotted, line width=0.9pt]
+    table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_C.csv};
+  \addlegendentry{C\; $1117$\,nm, $90^\circ$}
+  \addplot[cg45, densely dashdotted]
+    table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_D.csv};
+  \addlegendentry{D\; $870$\,nm, $45^\circ$}
+  \addplot[cg45, solid, line width=0.5pt]
+    table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_R.csv};
+  \addlegendentry{R\; $810$\,nm, $45^\circ$}
+  \addplot[black, densely dashed] table [col sep=comma, x=transmission, y=purity]
+    {\figdatadir/filter_E.csv};
+  \addlegendentry{E\; $819$\,nm, triple}
+\end{axis}
+\end{tikzpicture}
+\end{document}

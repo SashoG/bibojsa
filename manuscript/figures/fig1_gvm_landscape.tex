@@ -1,0 +1,71 @@
+% fig1_gvm_landscape -- signal and idler wavelengths along the
+% theta_PM = 0/45/90 deg level curves of the three phase-matchable x-z
+% interactions, as a function of pump wavelength.  Each family carries two
+% branches (signal and idler); they meet at the frequency-degenerate member.
+% Data: data/gvmcurve_<seq>_<target>.csv.  v0.4: absorption line at 2.60 um
+% (1/cm level, Ghotbi 2006 / LPR2010) replaces the 2.50 um 'transparency'
+% line; the nondegenerate point B is marked with open circles (labelled
+% in the panel; v0.5 moved the A label off the axis; 18 Sep 2026: A label
+% moved left of the marker, clear of the full 0-deg curve).
+% Compile standalone:  pdflatex fig1_gvm_landscape.tex  (twice)
+\documentclass[margin=2pt]{standalone}
+\input{bibofig-preamble}
+\begin{document}
+\begin{tikzpicture}
+\newcommand{\gvmpair}[3]{% #1 seq, #2 target, #3 style
+  \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=lam_s_um]
+    {\figdatadir/gvmcurve_#1_#2.csv};
+  \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=lam_i_um]
+    {\figdatadir/gvmcurve_#1_#2.csv};}
+\newcommand{\winlimits}{%
+  \addplot[transline, domain=0.62:1.16]{2.60};
+  \addplot[sellline, domain=0.62:1.16]{3.05};}
+\begin{groupplot}[
+  group style={group size=3 by 1, horizontal sep=10mm},
+  bibopanel, width=42mm, height=44mm,
+  xmin=0.62, xmax=1.16, ymin=0.75, ymax=3.25,
+  xlabel={pump wavelength ($\mu$m)},
+  ylabel={daughter wavelengths ($\mu$m)},
+  xtick={0.7,0.8,0.9,1.0,1.1},
+]
+\nextgroupplot[title={$oeo$ (type II)}]
+  \winlimits
+  \gvmpair{oeo}{0}{g0line}
+  \gvmpair{oeo}{45}{g45line}
+  \gvmpair{oeo}{90}{g90line}
+  \addplot[degmark, forget plot] coordinates {(0.682241,1.364482)
+    (0.869583,1.739166) (1.116841,2.233682)};
+  \addplot[degmark, fill=white, forget plot] coordinates {(0.722,1.155982)
+    (0.722,1.923690)};
+  \node[font=\scriptsize, anchor=east] at (axis cs:0.673,1.364) {A};
+  \node[font=\scriptsize, anchor=west] at (axis cs:0.732,1.156) {B};
+  \node[font=\scriptsize, anchor=west] at (axis cs:0.732,1.924) {B};
+  \node[font=\scriptsize, anchor=north] at (axis cs:0.870,1.63) {D};
+  \node[font=\scriptsize, anchor=east] at (axis cs:1.100,2.234) {C};
+\nextgroupplot[title={$ooe$ (type I)}, ylabel={}]
+  \winlimits
+  \gvmpair{ooe}{0}{g0line}
+  \gvmpair{ooe}{45}{g45line}
+  \gvmpair{ooe}{90}{g90line}
+  \addplot[degmark, forget plot] coordinates {(0.818696,1.637392)};
+  \node[font=\scriptsize, anchor=west] at (axis cs:0.836,1.637) {E};
+\nextgroupplot[title={$eeo$ (type I)}, ylabel={},
+  legend style={at={(1.04,1.0)}, anchor=north west, draw=none,
+                fill=none, cells={anchor=west}},
+  legend cell align=left,
+]
+  \winlimits
+  \gvmpair{eeo}{0}{g0line}
+  \gvmpair{eeo}{45}{g45line}
+  \gvmpair{eeo}{90}{g90line}
+  \addplot[degmark, forget plot] coordinates {(0.896760,1.793520)};
+  \node[font=\scriptsize, anchor=west] at (axis cs:0.914,1.794) {F};
+  \addlegendimage{g0line}\addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
+  \addlegendimage{g45line}\addlegendentry{$45^\circ$}
+  \addlegendimage{g90line}\addlegendentry{$90^\circ$}
+  \addlegendimage{cwarn, dashdotted}\addlegendentry{1\,cm$^{-1}$ absorption}
+  \addlegendimage{cbound, densely dotted}\addlegendentry{Sellmeier limit}
+  \addlegendimage{degmark}\addlegendentry{degenerate}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bibojsa"
+version = "1.0.0"
+description = "Computational core for group-velocity-matched SPDC in BiB3O6 (BIBO): dispersion, biaxial phase matching, GVM classification, and joint spectral amplitude analysis."
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["bibojsa*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
