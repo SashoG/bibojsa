@@ -9,7 +9,7 @@ bibojsa/survey/*.csv  --make_figure_data.py-->  data/*.csv  --fig<N>.tex-->  fig
 
 | figure | source file | data files | manuscript label |
 |---|---|---|---|
-| 1 | `fig1_gvm_landscape.tex` | `data/gvmcurve_*.csv` (the `bound_*.csv` files are written but the boundaries are drawn as constants) | `fig:landscape` |
+| 1 | `fig1_gvm_landscape.tex` | `data/gvmcurve_*.csv` (the 2.60/3.05 µm idler limits are drawn as constants) | `fig:landscape` |
 | 2 | `fig2_tpm_degenerate.tex` | `data/tpmdeg_*.csv` | `fig:tpmdeg` |
 | 3 | `fig3_deff.tex` | `data/deff_*.csv` | `fig:deff` |
 | 4 | `fig4_purity_families.tex` | `data/purity_*.csv` | `fig:familypurity` |
@@ -23,7 +23,7 @@ make                         # builds all six PDFs from data/
 python make_figure_data.py   # only if the survey changed: re-derives data/
 ```
 
-`data/` (48 CSVs plus `jsa_mesh.tex`, ~3 MB) is kept in the folder. It is derived output —
+`data/` (42 CSVs plus `jsa_mesh.tex`, ~3.5 MB; only files a figure reads) is kept in the folder. It is derived output —
 `make_figure_data.py` regenerates it from `../../bibojsa/survey` in a few
 seconds — but it is the exact input the six figures were drawn from, so
 it is version-controlled with them rather than reconstructed on demand.
@@ -33,8 +33,7 @@ Where the numbers come from, in order:
 
 | layer | location | what it is |
 |---|---|---|
-| survey output | `../../bibojsa/survey/*.csv` | the computation itself: 1160 traced GVM points, the degenerate members, per-point purity and convergence grids |
-| complete survey | `../data_file_1.zip` | the whole survey tree, including `landscape_field.csv` and the 162 per-point files under `points2/` that are too bulky to keep loose |
+| survey output | `../../bibojsa/survey/` | the computation itself, complete: 1160 traced GVM points, the degenerate members, `landscape_field.csv`, and the per-point purity and convergence grids under `points2/`; `survey/README.txt` documents every file |
 | plot-ready slices | `data/*.csv` | this folder: the columns each `\addplot` actually reads |
 
 fig1–fig4 and fig6 compile with `pdflatex` (run twice — the shared

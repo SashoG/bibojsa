@@ -4,18 +4,19 @@ Reads   ../../bibojsa/survey/*.csv   (relative to manuscript/figures/)
 Writes  data/*.csv
 
   fig1  gvmcurve_<seq>_<target>.csv   GVM level curves in the (lambda_p,
-                                      lambda_s) plane
-        bound_degeneracy.csv          lambda_s = 2 lambda_p
-        bound_transparency.csv        lambda_i = 2.60 um (BIBO 1/cm absorption onset)
-        bound_sellmeier.csv           lambda_i = 3.05 um (fit validity)
+                                      lambda_s) plane (the 2.60/3.05 um idler
+                                      limits are drawn as constants in the .tex)
   fig2  tpmdeg_<seq>.csv              theta_PM at frequency degeneracy vs pump
-        tpmdeg_cross.csv              the degenerate GVM points
   fig3  deff_<seq>_<target>.csv       |deff| along each family vs pump
   fig4  purity_<seq>_<target>.csv     best converged purity along each family
   fig5  jsa_<tag>.csv                 |f| in angular-frequency detuning,
-                                      cropped to the panel window
+                                      cropped to the panel window (A-E, R)
         jsa_mesh.tex                  mesh/cols, mesh/rows per panel
   fig6  filter_<tag>.csv              purity vs transmitted heralding flux
+                                      (A-E, R)
+
+Only files that a figure reads are written.  Point F is in Table 2 but in
+neither Fig. 5 nor Fig. 6 (qualitatively identical to E), so no jsa_F/filter_F.
 
 Run from manuscript/figures/:   python3 make_figure_data.py
 """
@@ -29,9 +30,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SURVEY = os.path.normpath(os.path.join(HERE, "..", "..", "bibojsa", "survey"))
 OUT = os.path.join(HERE, "data")
 
-TRANSPARENCY_HI_UM = 2.60   # 1 cm^-1 absorption onset (Ghotbi 2006 OE; LPR2010 Table 4), not a transmission cutoff
-SELLMEIER_HI_UM = 3.05
-FEATURED = ["A", "B", "C", "D", "E", "F", "R"]
+FIGURE_TAGS = ["A", "B", "C", "D", "E", "R"]   # panels of Fig. 5 / curves of Fig. 6
 XZ_SEQS = ["oeo", "ooe", "eeo"]
 TARGETS = [0, 45, 90]
 
@@ -101,22 +100,6 @@ def fig1_and_3_and_4():
         wr(f"deff_{seq}_{tgt}.csv",
            ["lam_p_um", "abs_deff", "gvm_fs_mm"], d)
 
-    # boundaries of the (lambda_p, lambda_s) domain
-    lp = np.linspace(0.34, 1.52, 300)
-    wr("bound_degeneracy.csv", ["lam_p_um", "lam_s_um"],
-       [[round(x, 6), round(2 * x, 6)] for x in lp])
-    for name, hi in (("bound_transparency.csv", TRANSPARENCY_HI_UM),
-                     ("bound_sellmeier.csv", SELLMEIER_HI_UM)):
-        rows = []
-        for x in lp:
-            den = 1.0 / x - 1.0 / hi
-            if den <= 0:
-                continue
-            ls = 1.0 / den
-            if ls <= 2 * x and ls >= x:
-                rows.append([round(x, 6), round(ls, 6)])
-        wr(name, ["lam_p_um", "lam_s_um"], rows)
-
     # fig4: purity along each family
     pur = rd("family_purity.csv")
     fam4 = {}
@@ -160,14 +143,6 @@ def fig2():
                          round(float(np.degrees(th)), 4)])
         wr(f"tpmdeg_{seq}.csv", ["lam_p_um", "theta_pm_deg", "theta_deg"], rows)
 
-    deg = rd("landscape_degenerate.csv")
-    wr("tpmdeg_cross.csv",
-       ["lam_p_um", "theta_pm_deg", "interaction", "target", "abs_deff"],
-       [[round(float(r["pump_nm"]) / 1000.0, 6), r["target_deg"],
-         r["interaction"], r["target_deg"], r["abs_deff_pm_V"]]
-        for r in deg if r["plane"] == "xz"
-        and float(r["abs_deff_pm_V"]) >= 0.5])
-
 
 JSA_COLS = 150
 
@@ -180,7 +155,7 @@ JSA_WINDOW = {"A": 70, "B": 80, "C": 60, "D": 115, "E": 509, "R": 92}
 
 def fig5_and_6():
     cols = {}
-    for tag in FEATURED:
+    for tag in FIGURE_TAGS:
         src = os.path.join(SURVEY, f"headline_jsa_{tag}.csv")
         if not os.path.exists(src):
             continue
@@ -221,6 +196,8 @@ def fig5_and_6():
     for r in filt:
         by.setdefault(r["tag"], []).append(r)
     for tag, rows in by.items():
+        if tag not in FIGURE_TAGS:
+            continue
         # keep the transmission = 1 row (empty ratio): it is the unfiltered
         # purity that the caption of Fig. 6 refers to
         rows.sort(key=lambda r: float(r["transmission"]))
