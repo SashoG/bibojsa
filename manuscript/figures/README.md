@@ -60,7 +60,13 @@ compile the figures there.
 
 - Global style (colors, line styles, panel sizes, markers):
   `bibofig-preamble.tex`. The GVM conditions are colour-coded there:
-  `cg0` / `cg45` / `cg90` for θ_PM = 0°, 45°, 90°.
+  `cg0` / `cg45` / `cg90` for θ_PM = 0°, 45°, 90°; the interactions use a
+  separate palette (`coeo` / `cooe` / `ceeo`, since 14 Oct 2026 purple /
+  teal / brown) so that one colour never means both an interaction and a
+  GVM condition (fig3 right panel: colour = interaction, line style = GVM
+  condition). fig4 draws members with `inwin = 0` (idler beyond the
+  2.6-µm absorption onset) as open markers via `scatter/classes`; fig6
+  plots the impurity 1 − P on a log axis.
 - Per-figure layout (panels, ranges, legends, annotations): the
   `fig<N>.tex` files — plain pgfplots, every `\addplot` names the CSV
   it draws.

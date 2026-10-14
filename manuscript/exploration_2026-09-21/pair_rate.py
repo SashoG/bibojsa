@@ -11,13 +11,17 @@ neglected in d(Delta k)/d omega_s); the spectral integral of sinc^2 is
 really 2 pi / (L |k_s' - k_i'|), so Delta_n is the GROUP-index
 difference c |k_s' - k_i'| here (0.0508 at A).
 
-Walk-off: the e-polarized daughter beam is displaced by rho z; with
-amplitude modes of waist W the z-dependent overlap is exp(-(rho z)^2 / (2 W^2))
-(product of two Gaussians of equal waist displaced by rho z), so the
-coherent effective length is L_eff = int_0^L exp(-(rho z)^2/(2W^2)) dz and the
-rate scales as (L_eff/L)^2 relative to the no-walk-off value.  This is a
-transverse-overlap estimate only (the longitudinal phase is unaffected
-in the plane-wave limit); it is indicative, like Eq. (8) of the paper.
+Walk-off (revised 14 Oct 2026, REVIEW_2026-10-14 item A2): the e-polarized
+daughter beam is displaced by rho z.  With the pump and the o-daughter on
+axis and only the e-daughter displaced, the three-beam transverse overlap
+at depth z is h(z) = exp(-2 (rho z)^2 / (3 W^2)) relative to z = 0 (equal
+waists W).  The spectrally integrated pair rate is proportional to
+(1/L) int_0^L h(z)^2 dz (Parseval: the sinc^2 integral becomes the
+z-integral of the squared longitudinal weight), so the walk-off factor is
+that mean of h^2 -- not the on-axis amplitude squared ((1/L) int h dz)^2
+used before 14 Oct 2026, which agreed at 10 mm / 0.48 mm (0.43 either way)
+but understated the 1-mm / 30-um case (0.19 vs 0.27).  Still a
+transverse-overlap estimate only; indicative, like Eq. (8) of the paper.
 """
 import numpy as np
 from scipy.integrate import quad
@@ -41,8 +45,8 @@ def rate_thin(L_m, W_m, P_W=1e-3):
 
 
 def walkoff_factor(L_m, W_m):
-    Leff = quad(lambda z: np.exp(-(rho * z) ** 2 / (2 * W_m ** 2)), 0, L_m)[0]
-    return (Leff / L_m) ** 2
+    # mean over z of the squared three-beam overlap, h(z)^2 = exp(-4 (rho z)^2 / (3 W^2))
+    return quad(lambda z: np.exp(-4 * (rho * z) ** 2 / (3 * W_m ** 2)), 0, L_m)[0] / L_m
 
 
 def bandwidth_nm(L_m):
@@ -65,7 +69,8 @@ for name, L, W in (("walk-off-matched, 30 mm", 30e-3, 1450e-6),
     zR = np.pi * W ** 2 * n_s / (ls * 1e-6)
     print(f" {name:28s} {L*1e3:5.1f} {W*1e6:6.0f} {Rt:12.0f} {wf:15.2f} {Rt*wf:12.0f} {bandwidth_nm(L):12.2f}   (z_R = {zR*1e3:.0f} mm)")
 
-# sanity: Ling's BBO example, their own inputs (phase-index difference as they used it)
+# NOT a validation (14 Oct 2026): Ling's BBO measurement was non-collinear (3.1 deg external),
+# so the collinear formula need not reproduce it; kept only as an order-of-magnitude reference.
 # BBO type-II at 702 nm (351.1 nm pump), theta_pm ~ 49.2 deg: n_o(702)=1.6642, n_e(702)=1.5487
 no, ne = 1.6642, 1.5487
 th = np.radians(49.2); ne_th = 1 / np.sqrt(np.cos(th) ** 2 / no ** 2 + np.sin(th) ** 2 / ne ** 2)

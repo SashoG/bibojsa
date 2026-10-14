@@ -30,6 +30,7 @@ from landscape_points import (FILTERS, adaptive_axes, brightness_rows,
 
 from bibojsa import landscape as L
 from bibojsa.jsa import (apply_heralding_filter_gaussian, build_jsa,
+                         heralding_axis,
                          fwhm_omega_from_fwhm_wavelength, schmidt_decompose)
 from bibojsa.materials.bibo import BIBO
 from bibojsa.sellmeier import lambda_um_to_omega
@@ -83,17 +84,23 @@ def filter_curve(f):
     res = build_jsa(wsa, wia, wp0, theta, cfg, X, Y, Z, L_m, fw,
                     pump_shape="gaussian", include_phase=True)
     tot = float(np.sum(np.abs(res.f) ** 2))
+    # heralding filter on the narrow arm: idler (axis 1) at theta_PM = 0,
+    # signal (axis 0) at theta_PM = 90; symmetric points keep the idler
+    hax = heralding_axis(res.f, wsa, wia)
+    h_axis, h0, lam_h = (wsa, ws0, ls) if hax == 0 else (wia, wi0, li)
     rows = []
     for k in FILTER_RATIOS:
-        ff = apply_heralding_filter_gaussian(res.f, wia, wi0, k * fw, 1)
+        ff = apply_heralding_filter_gaussian(res.f, h_axis, h0, k * fw, hax)
         p = schmidt_decompose(ff)[1]
         t = float(np.sum(np.abs(ff) ** 2)) / tot
-        # filter intensity FWHM expressed as a wavelength width on the idler
-        dlam_nm = (k * fw) * (li * 1e-6) ** 2 / (2 * np.pi * 2.99792458e8) * 1e9
-        rows.append({"tag": tag, "ratio": round(float(k), 4),
+        # filter intensity FWHM expressed as a wavelength width on the heralding arm
+        dlam_nm = (k * fw) * (lam_h * 1e-6) ** 2 / (2 * np.pi * 2.99792458e8) * 1e9
+        rows.append({"tag": tag, "herald_arm": "signal" if hax == 0 else "idler",
+                     "ratio": round(float(k), 4),
                      "filter_fwhm_nm": round(dlam_nm, 3),
                      "transmission": round(t, 5), "purity": round(p, 5)})
-    rows.append({"tag": tag, "ratio": "", "filter_fwhm_nm": "",
+    rows.append({"tag": tag, "herald_arm": "signal" if hax == 0 else "idler",
+                 "ratio": "", "filter_fwhm_nm": "",
                  "transmission": 1.0, "purity": round(res.purity, 5)})
     return rows, res
 
@@ -198,6 +205,7 @@ def main():
                 "theta_pm_deg": round(float(gf["theta_pm"]), 3),
                 "L_mm": Lmm, "pump_fwhm_nm": bw,
                 "purity": round(res.purity, 5), "edge": round(edge, 5),
+                "herald_arm": fc[0]["herald_arm"],
                 "purity_T90": round(p90, 5), "purity_T70": round(p70, 5),
                 "rho_max_mrad": round(rho * 1e3, 2),
                 "L_eff_60um_mm": leff60,

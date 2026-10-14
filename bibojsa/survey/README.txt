@@ -65,7 +65,13 @@ points2/point<id>_brightness.csv   aperture length and brightness proxy
 Featured points (examples/landscape_headline.py)
 ------------------------------------------------
 headline_points.csv       Table 2 of the manuscript (points A-F, R).
-headline_filter.csv       Purity vs transmitted heralding flux.
+                          purity_T90/T70: heralding filter on the arm
+                          named in herald_arm (the narrower marginal:
+                          idler at theta_PM = 0, signal at 90; idler by
+                          convention at symmetric points) -- since
+                          14 Oct 2026; before, always the idler.
+headline_filter.csv       Purity vs transmitted heralding flux (same
+                          arm convention, column herald_arm).
 headline_convergence.csv  Window/grid convergence at the quoted
                           configurations.
 headline_jsa_<tag>.csv    |f| in angular-frequency detuning.

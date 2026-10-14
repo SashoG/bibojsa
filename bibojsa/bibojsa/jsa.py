@@ -144,6 +144,31 @@ def schmidt_decompose(f: np.ndarray) -> tuple[np.ndarray, float, float]:
     return lambdas, purity, K
 
 
+def heralding_axis(f: np.ndarray, omega_s: np.ndarray, omega_i: np.ndarray,
+                   tol: float = 0.9) -> int:
+    """Pick the heralding arm as the one with the *narrower* marginal
+    spectrum: axis 0 (signal/omega_s) or axis 1 (idler/omega_i).
+
+    For an asymmetric-GVM point the phase-matching ridge runs along one
+    frequency axis and the other arm's spectrum is narrow; a heralding
+    filter only removes the sinc tails if it acts on that narrow arm
+    (theta_PM = 0: idler; theta_PM = 90: signal).  The marginal widths are
+    compared as intensity FWHM in angular frequency (the two axes may have
+    different spacings); the signal arm is chosen only if it is narrower
+    than `tol` times the idler width, so that symmetric (EPM, triple-GVM)
+    points keep the idler by convention.
+    """
+    I = np.abs(f) ** 2
+
+    def fwhm(m, axis):
+        m = m / m.max()
+        return float(np.count_nonzero(m >= 0.5)) * float(abs(axis[1] - axis[0]))
+
+    w_s = fwhm(I.sum(axis=1), omega_s)   # marginal in omega_s
+    w_i = fwhm(I.sum(axis=0), omega_i)   # marginal in omega_i
+    return 0 if w_s < tol * w_i else 1
+
+
 def apply_heralding_filter_gaussian(f: np.ndarray, omega_axis: np.ndarray,
                                      omega0: float, fwhm_omega: float,
                                      herald_axis: int) -> np.ndarray:

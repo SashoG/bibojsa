@@ -20,9 +20,9 @@ At degeneracy the phase-matching condition fixes λ_p for each (θ, φ), so each
 |---|---|---|---|---|---|
 | A, θ_PM = 0° | θ 45.97°, 682.2 nm, d_eff 2.22, ρ 85.4 | θ 24.2°, 645.5 nm, d_eff 0, ρ 50.9 | −37 nm | 169 → 174 fs/mm | 0.9488 → 0.9511 |
 | D, θ_PM = 45° | θ 43.77°, 869.6 nm, d_eff 2.31, ρ 83.4 | θ 19.7°, 843.7 nm, d_eff 0, ρ 42.5 | −26 nm | 72.9 (½·mismatch) | — |
-| C, θ_PM = 90° | θ 46.11°, 1116.8 nm, d_eff 2.22, ρ 82.0 | θ 25.5°, 1148.6 nm, d_eff 0, ρ 51.9 | +32 nm | 166 → 174 | — |
+| C, θ_PM = 90° | θ 46.11°, 1116.8 nm, d_eff 2.22, ρ 82.0 | θ 25.5°, 1148.6 nm, d_eff 0, ρ 51.9 | +32 nm | 166 → 189 (corrected 25 Sep 2026; was misprinted as 174) | — |
 
-So the off-plane freedom does not tune the degenerate points: the GVM wavelengths are set by the dispersion of the two branches, which off-plane are mixtures of the same three principal indices. The group-delay scale and the purity are unchanged along each locus (purity checked at φ = 10° and 45° on the A locus, both octants).
+So the off-plane freedom does not tune the degenerate points: the GVM wavelengths are set by the dispersion of the two branches, which off-plane are mixtures of the same three principal indices. The group-delay scale and the purity barely change along the A locus (purity checked at φ = 10° and 45°, both octants); along the C locus the scale grows by 14 % (166 → 189 fs/mm, `offplane_degenerate_loci.csv` × 1000). Corrected 25 Sep 2026 (REVIEW_2026-09-25.md item 6).
 
 ### Result 2 — octant splitting and a weak optimum near φ ≈ 10°
 
@@ -44,7 +44,7 @@ The principal plane is within about 10 % of the off-plane optimum in the brightn
 
 Sec. 5.3 (i), replacing the speculative "would turn each degenerate member into a two-parameter family" sentence, ~10 lines; one clause in the conclusions ("which propagation off the principal plane improves by at most 10 %"). No figure was added (page budget); `offplane_loci.png` and the CSVs are here if you want a supplementary figure — a pgfplots version from `offplane_degenerate_loci.csv` + `offplane_epm_locus.csv` would take an hour.
 
-Note on units: the `d31_fs_mm`/`d32_fs_mm`/`scale_fs_mm` columns of `offplane_degenerate_loci.csv` are in **ps/mm** (label slip; multiply by 1000). `offplane_epm_locus.csv` and the fixed-pump CSVs are correct as labelled (fs/mm).
+Note on units (corrected 14 Oct 2026): until 14 Oct the `*_fs_mm` columns of `offplane_degenerate_loci.csv` and `offplane_epm_locus.csv` held ps/mm (the fixed-pump CSVs were already fs/mm) (`offplane.gvm()` scaled k' by 1e3 instead of 1e6). The CSVs were converted in place (x1000) and `offplane.gvm()` now returns fs/mm; `fixed_pump.py` no longer applies its own x1000. All columns are now fs/mm as labelled.
 
 ## 2. Absolute pair rate at point A
 

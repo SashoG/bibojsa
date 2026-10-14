@@ -1,7 +1,11 @@
 % fig6_filter -- heralded purity versus the fraction of the heralding flux a
-% Gaussian filter on the idler arm transmits.  The right-hand end of each
+% Gaussian filter on the heralding arm transmits.  The right-hand end of each
 % curve (transmission = 1) is the unfiltered purity.
-% Colours follow the GVM-condition scheme of figs 1/3/4 (cg0/cg45/cg90);
+% v0.9 (14 Oct 2026, REVIEW_2026-10-14 item C/Fig. 6): the impurity 1 - P is
+% plotted on a log axis (on a linear P axis A-D and R all sat in 0.8-1.0),
+% and the filter acts on the *narrow* arm -- the idler at A, B, D, R, E, the
+% signal at C (landscape_headline.py, heralding_axis()).
+% Colours follow the GVM-condition scheme of figs 1/4 (cg0/cg45/cg90);
 % the triple-GVM point E is black.  F is omitted (qualitatively identical to E).
 % Data: data/filter_<tag>.csv
 % Compile standalone:  pdflatex fig6_filter.tex  (twice)
@@ -11,37 +15,39 @@
 \begin{tikzpicture}
 \begin{axis}[
   bibopanel, width=76mm, height=54mm,
-  xmin=0.08, xmax=1.02, ymin=0.1, ymax=1.02,
+  xmin=0.08, xmax=1.02, ymin=0.003, ymax=1.0, ymode=log,
   xlabel={fraction of heralding flux transmitted},
-  ylabel={heralded purity $P$},
+  ylabel={impurity $1-P$},
+  ytick={0.003,0.01,0.03,0.1,0.3,1}, yticklabels={0.003,0.01,0.03,0.1,0.3,1},
+  log ticks with fixed point,
   legend style={at={(1.03,1.0)}, anchor=north west, draw=none, fill=none},
   legend cell align=left,
 ]
   \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
-    coordinates {(0.9,0.1) (0.9,1.02)};
+    coordinates {(0.9,0.003) (0.9,1.0)};
   \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
-    coordinates {(0.7,0.1) (0.7,1.02)};
-  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.895,0.11) {$P_{90}$};
-  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.695,0.11) {$P_{70}$};
-  \addplot[cg0, solid] table [col sep=comma, x=transmission, y=purity]
+    coordinates {(0.7,0.003) (0.7,1.0)};
+  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.895,0.0032) {$P_{90}$};
+  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.695,0.0032) {$P_{70}$};
+  \addplot[cg0, solid] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_A.csv};
   \addlegendentry{A\; $682$\,nm, $0^\circ$}
-  \addplot[cg0, densely dashed] table [col sep=comma, x=transmission, y=purity]
+  \addplot[cg0, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_B.csv};
   \addlegendentry{B\; $722$\,nm, $0^\circ$}
   \addplot[cg90, densely dotted, line width=0.9pt]
-    table [col sep=comma, x=transmission, y=purity]
+    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_C.csv};
   \addlegendentry{C\; $1117$\,nm, $90^\circ$}
   \addplot[cg45, densely dashdotted]
-    table [col sep=comma, x=transmission, y=purity]
+    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_D.csv};
   \addlegendentry{D\; $870$\,nm, $45^\circ$}
   \addplot[cg45, solid, line width=0.5pt]
-    table [col sep=comma, x=transmission, y=purity]
+    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_R.csv};
   \addlegendentry{R\; $810$\,nm, $45^\circ$}
-  \addplot[black, densely dashed] table [col sep=comma, x=transmission, y=purity]
+  \addplot[black, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_E.csv};
   \addlegendentry{E\; $819$\,nm, triple}
 \end{axis}

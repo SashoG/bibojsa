@@ -127,7 +127,7 @@ def degenerate_pumps(s, mp, ms, mi, lo=LMIN, hi=1.52, n=120):
 def gvm(lp, ls, s, mp, ms, mi):
     li = 1.0 / (1.0 / lp - 1.0 / ls)
     kp, ks, ki = kprime(lp, s, mp), kprime(ls, s, ms), kprime(li, s, mi)
-    d32, d31 = (kp - ks) * 1e3, (kp - ki) * 1e3    # fs/mm
+    d32, d31 = (kp - ks) * 1e6, (kp - ki) * 1e6    # fs/mm (k' in ps/um; was x1e3 = ps/mm before 14 Oct 2026)
     g0, g45, g90 = d32, (d32 + d31) / 2, d31
     return g0, g45, g90, d31, d32
 

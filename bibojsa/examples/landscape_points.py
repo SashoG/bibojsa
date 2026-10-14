@@ -30,6 +30,7 @@ from bibojsa import landscape as L
 from bibojsa.biaxial import walkoff_angle
 from bibojsa.deff import deff_bibo_pm_per_v
 from bibojsa.jsa import (apply_heralding_filter_gaussian, build_jsa,
+                         heralding_axis,
                          fwhm_omega_from_fwhm_wavelength, schmidt_decompose)
 from bibojsa.materials.bibo import BIBO
 from bibojsa.phasematch import ThreeWaveConfig, delta_k
@@ -96,9 +97,12 @@ def run_case(pt, L_mm, fwhm_nm, n=N_GRID, scale=1.0):
     edge = (max(A[0].max(), A[-1].max(), A[:, 0].max(), A[:, -1].max()) / m
             if m else 0.0)
     tot = float(np.sum(A ** 2))
+    # heralding filter on the narrow arm (idler at theta_PM = 0, signal at 90)
+    hax = heralding_axis(res.f, wsa, wia)
+    h_axis, h0 = (wsa, ws0) if hax == 0 else (wia, wi0)
     filt = {}
     for k in FILTERS:
-        ff = apply_heralding_filter_gaussian(res.f, wia, wi0, k * fw, 1)
+        ff = apply_heralding_filter_gaussian(res.f, h_axis, h0, k * fw, hax)
         filt[k] = (schmidt_decompose(ff)[1],
                    float(np.sum(np.abs(ff) ** 2)) / tot if tot else 0.0)
     return res, edge, filt, wsa, wia, wp0, ws0, wi0

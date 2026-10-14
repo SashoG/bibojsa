@@ -6,6 +6,7 @@
 % window by make_figure_data.py; the mesh dimensions come from
 % data/jsa_mesh.tex, written by the same script).  Keep the xmin/xmax
 % below in step with JSA_WINDOW in make_figure_data.py.
+% v0.9 (14 Oct 2026): panel R cropped to its idler grid (no blank band).
 % Compile standalone:  lualatex fig5_jsa_maps.tex
 %   (6 meshes of up to 150x150 cells exceed pdflatex's main memory)
 \documentclass[margin=2pt]{standalone}
@@ -49,10 +50,11 @@
   ytick={-400,0,400}]
   \jsamap{E}
 \nextgroupplot[title={R: $810$\,nm $oeo$, $45^\circ$\\$L=5$\,mm, $8$\,nm},
-  xmin=-92, xmax=92, ymin=-92, ymax=92, xtick={-50,0,50},
-  ytick={-50,0,50},
+  xmin=-92, xmax=92, ymin=-54, ymax=92, xtick={-50,0,50},
+  ytick={-50,0,50}, axis equal image,
   colorbar, colorbar style={width=2.5mm, tick label style={font=\tiny},
                             ylabel={}}]
+  % v0.9: panel cropped to the idler grid (Sellmeier edge at -54 rad/ps)
   \jsamap{R}
 \end{groupplot}
 \end{tikzpicture}

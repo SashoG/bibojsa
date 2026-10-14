@@ -69,7 +69,12 @@ def theta_pm_deg(kp_prime: float, ks_prime: float, ki_prime: float) -> float:
     """
     num = -(kp_prime - ks_prime)
     den = (kp_prime - ki_prime)
-    return np.degrees(np.arctan2(num, den))
+    t = np.degrees(np.arctan2(num, den))
+    # arctan2 returns (-180, 180]; fold into (-90, 90] (ridge orientation is
+    # defined modulo 180 deg)  -- 14 Oct 2026, previously the raw arctan2
+    t = np.where(t > 90.0, t - 180.0, t)
+    t = np.where(t <= -90.0, t + 180.0, t)
+    return float(t) if np.ndim(t) == 0 else t
 
 
 def gvm_regime(kp_prime: float, ks_prime: float, ki_prime: float,

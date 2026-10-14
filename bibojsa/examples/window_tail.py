@@ -35,6 +35,7 @@ from landscape_headline import FEATURED
 from landscape_points import W_MAX, W_MIN, adaptive_axes, cfg_for
 
 from bibojsa.jsa import (apply_heralding_filter_gaussian, build_jsa,
+                         heralding_axis,
                          fwhm_omega_from_fwhm_wavelength, gaussian_pump_sigma,
                          schmidt_decompose)
 from bibojsa.materials.bibo import BIBO
@@ -66,18 +67,21 @@ def purity_on(pt, L_mm, bw_nm, ws, wi):
     return res
 
 
-def transmitted_purity(res, wi, wi0, fw, target):
-    """Gaussian idler filter transmitting `target` of the pairs."""
+def transmitted_purity(res, ws, wi, ws0, wi0, fw, target):
+    """Gaussian filter on the narrow (heralding) arm transmitting `target`
+    of the pairs: idler at theta_PM = 0, signal at theta_PM = 90."""
     from scipy.optimize import brentq
     tot = float(np.sum(np.abs(res.f) ** 2))
+    hax = heralding_axis(res.f, ws, wi)
+    h_axis, h0 = (ws, ws0) if hax == 0 else (wi, wi0)
 
     def trans(k):
-        ff = apply_heralding_filter_gaussian(res.f, wi, wi0, k * fw, 1)
+        ff = apply_heralding_filter_gaussian(res.f, h_axis, h0, k * fw, hax)
         return float(np.sum(np.abs(ff) ** 2)) / tot
 
     k = brentq(lambda k: trans(k) - target, 0.01, 60.0)
-    ff = apply_heralding_filter_gaussian(res.f, wi, wi0, k * fw, 1)
-    return schmidt_decompose(ff)[1], k * fw
+    ff = apply_heralding_filter_gaussian(res.f, h_axis, h0, k * fw, hax)
+    return schmidt_decompose(ff)[1], k * fw, h0
 
 
 def nm_halfwidth(omega0, half):
@@ -128,11 +132,11 @@ def tail_rows():
             ws, wi, _ = axes_for(ws0, wi0, w * sig, PIXEL_RAD_PS)
             res = purity_on(pt, L_mm, bw_nm, ws, wi)
             for target in (0.9, 0.7):
-                P, fwf = transmitted_purity(res, wi, wi0, fw, target)
+                P, fwf, h0 = transmitted_purity(res, ws, wi, ws0, wi0, fw, target)
                 row[f"P_T{int(target*100)}_{int(w)}sig"] = round(P, 5)
                 if w == 6.0:
                     row[f"filter_fwhm_T{int(target*100)}_nm"] = round(
-                        2 * nm_halfwidth(wi0, fwf / 2), 1)
+                        2 * nm_halfwidth(h0, fwf / 2), 1)
         rows.append(row)
         print(tag, {k: v for k, v in row.items() if k.startswith(("P_", "C_", "paper"))})
     return rows

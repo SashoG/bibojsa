@@ -39,18 +39,24 @@
   legend style={at={(0.99,0.03)}, anchor=south east, draw=none, fill=none,
                font=\footnotesize, legend image post style={xscale=0.6}},
   legend cell align=left]
-  \gvmplot{oeo}{0}{g0line}
-  \gvmplot{oeo}{45}{g45line}
-  \gvmplot{oeo}{90}{g90line}
-  \gvmplot{ooe}{0}{g0line}
-  \gvmplot{ooe}{45}{g45line}
-  \gvmplot{ooe}{90}{g90line}
-  \gvmplot{eeo}{0}{g0line}
-  \gvmplot{eeo}{45}{g45line}
-  \gvmplot{eeo}{90}{g90line}
-  \addlegendimage{g0line}\addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
-  \addlegendimage{g45line}\addlegendentry{$45^\circ$}
-  \addlegendimage{g90line}\addlegendentry{$90^\circ$}
+  % v0.9 (14 Oct 2026): colour = interaction (as in the left panel),
+  % line style = GVM condition, so the nine curves are identifiable.
+  \gvmplot{oeo}{0}{coeo, solid}
+  \gvmplot{oeo}{45}{coeo, densely dashed}
+  \gvmplot{oeo}{90}{coeo, densely dotted, line width=0.9pt}
+  \gvmplot{ooe}{0}{cooe, solid}
+  \gvmplot{ooe}{45}{cooe, densely dashed}
+  \gvmplot{ooe}{90}{cooe, densely dotted, line width=0.9pt}
+  \gvmplot{eeo}{0}{ceeo, solid}
+  \gvmplot{eeo}{45}{ceeo, densely dashed}
+  \gvmplot{eeo}{90}{ceeo, densely dotted, line width=0.9pt}
+  \node[font=\footnotesize, coeo, anchor=south] at (axis cs:0.70,185) {$oeo$};
+  \node[font=\footnotesize, coeo, anchor=north west] at (axis cs:1.02,60) {$oeo$};
+  \node[font=\footnotesize, cooe, anchor=north] at (axis cs:0.70,2.3) {$ooe$};
+  \node[font=\footnotesize, ceeo, anchor=south] at (axis cs:0.80,36) {$eeo$};
+  \addlegendimage{black, solid}\addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
+  \addlegendimage{black, densely dashed}\addlegendentry{$45^\circ$}
+  \addlegendimage{black, densely dotted, line width=0.9pt}\addlegendentry{$90^\circ$}
 \end{groupplot}
 \end{tikzpicture}
 \end{document}

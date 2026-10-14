@@ -42,8 +42,8 @@ def trace(lp, phis, assign=('f', 's', 'f'), th_lo=15.0, th_hi=75.0, step=0.25):
                     de = o.deff(lp, ls, li, ss, *assign)
                     rmax = max(o.walkoff(lp, ss, assign[0]), o.walkoff(ls, ss, assign[1]), o.walkoff(li, ss, assign[2])) * 1e3
                     out.append(dict(pump_nm=lp * 1e3, phi_deg=phi, theta_deg=tz, lambda_s_um=ls, lambda_i_um=li,
-                                    d31_fs_mm=d31 * 1e3, abs_deff=abs(de), rho_max_mrad=rmax, fom=abs(de) / rmax))
-                    print(f"  lp={lp*1e3:.0f} phi={phi:5.1f} theta={tz:7.3f} ls={ls:.4f} li={li:.4f} |D31|={abs(d31)*1e3:.1f} fs/mm "
+                                    d31_fs_mm=d31, abs_deff=abs(de), rho_max_mrad=rmax, fom=abs(de) / rmax))
+                    print(f"  lp={lp*1e3:.0f} phi={phi:5.1f} theta={tz:7.3f} ls={ls:.4f} li={li:.4f} |D31|={abs(d31):.1f} fs/mm "
                           f"|deff|={abs(de):.3f} rho={rmax:.1f} fom={abs(de)/rmax:.4f}", flush=True)
             prev = cur
     return out
