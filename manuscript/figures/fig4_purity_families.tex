@@ -1,21 +1,19 @@
 % fig4_purity_families -- best unfiltered heralded purity (adaptive window)
-% along each GVM family, versus pump wavelength.  The horizontal guide is the
-% sinc-limited value of symmetric GVM on the adaptive window (point D, 0.83);
-% its band-independent limit is 0.80 (manuscript Sec. 4.4), so it is labelled
-% "EPM sinc value", not "ceiling" (v0.8, 25 Sep 2026).
-% v0.9 (14 Oct 2026, REVIEW_2026-10-14 item C/Fig. 4): the oeo panel is drawn
-% on 0.70-1.0 (its data occupied the top fifth of a 0-1 axis); members whose
-% idler lies beyond the 2.6-um absorption onset (inwin = 0 in the CSV) are
-% open markers; the type-I panels are markers only (the (L, bandwidth)
-% optimum of a near-triple JSA hops between grid corners, so connecting
-% lines suggested trends that are not there) and use the type-I x-range.
-% Data: data/purity_<seq>_<target>.csv
+% along each GVM level curve, versus pump wavelength.  The horizontal guide is
+% the sinc-limited value of symmetric GVM on the adaptive window (point D,
+% 0.83); its band-independent limit is 0.80 (manuscript Sec. 4.4).
+% v0.11 (17 Oct 2026): x-z type-II curves merged over both halves of the
+% surface (data/purity_xz_<cond>.csv), x-y plane added
+% (data/purity_xy_<cond>.csv), the two type-I interactions in one panel
+% (markers only: the (L, bandwidth) optimum of a near-triple JSA hops between
+% grid corners).  Members whose idler lies beyond the 2.6-um absorption onset
+% (inwin = 0) are open markers.
 % Compile standalone:  pdflatex fig4_purity_families.tex  (twice)
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
-\newcommand{\purplot}[4]{% #1 seq, #2 target, #3 colour, #4 extra style
+\newcommand{\purplot}[4]{% #1 plane-or-seq, #2 cond-or-target, #3 colour, #4 extra style
   \addplot[#4, #3, forget plot, scatter, mark=*, mark size=1.2pt,
     point meta=explicit symbolic,
     scatter/classes={0={mark=o, draw=#3, fill=white, mark size=1.3pt},
@@ -23,42 +21,48 @@
     table [col sep=comma, x=lam_p_um, y=purity, meta=inwin]
     {\figdatadir/purity_#1_#2.csv};}
 \begin{groupplot}[
-  group style={group size=3 by 1, horizontal sep=11mm},
-  bibopanel, width=50mm, height=50mm,
+  group style={group size=3 by 1, horizontal sep=9mm},
+  bibopanel, width=44mm, height=42mm,
   tick label style={font=\footnotesize}, label style={font=\footnotesize},
   title style={font=\footnotesize}, legend style={font=\footnotesize},
   xlabel={pump wavelength ($\mu$m)},
 ]
-\nextgroupplot[title={$oeo$ (type II)}, ylabel={heralded purity $P$},
-  xmin=0.66, xmax=1.14, ymin=0.70, ymax=1.0, xtick={0.7,0.8,0.9,1.0,1.1},
+\nextgroupplot[title={$x$--$z$, type II}, ylabel={heralded purity $P$},
+  xmin=0.46, xmax=1.26, ymin=0.70, ymax=1.0, xtick={0.5,0.7,0.9,1.1},
   ytick={0.7,0.8,0.9,1.0}]
-  \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
-  \purplot{oeo}{0}{cg0}{solid}
-  \purplot{oeo}{45}{cg45}{densely dashed}
-  \purplot{oeo}{90}{cg90}{densely dotted, line width=0.9pt}
-  \node[font=\scriptsize, anchor=north west, cbound, inner sep=1pt, align=left]
-    at (axis cs:0.665,0.827) {EPM sinc\\value};
-\nextgroupplot[title={$ooe$ (type I)}, ylabel={},
+  \addplot[cbound, densely dotted, forget plot, domain=0.40:1.30]{0.8315};
+  \purplot{xz}{ke}{cg0}{solid}
+  \purplot{xz}{epm}{cg45}{densely dashed}
+  \purplot{xz}{ko}{cg90}{densely dotted, line width=0.9pt}
+  \node[font=\scriptsize, anchor=south west, cbound, inner sep=1pt, align=left]
+    at (axis cs:0.47,0.836) {EPM sinc\\value};
+
+\nextgroupplot[title={$x$--$y$, type II}, ylabel={},
+  xmin=0.425, xmax=0.565, ymin=0.70, ymax=1.0, xtick={0.44,0.48,0.52},
+  ytick={0.7,0.8,0.9,1.0}]
+  \addplot[cbound, densely dotted, forget plot, domain=0.40:0.60]{0.8315};
+  \purplot{xy}{ko}{cg90}{densely dotted, line width=0.9pt}
+  \purplot{xy}{epm}{cg45}{densely dashed}
+\nextgroupplot[title={$x$--$z$, type I}, ylabel={},
   xmin=0.64, xmax=0.92, ymin=0, ymax=1.0, xtick={0.7,0.8,0.9},
-  legend style={at={(0.97,0.97)}, anchor=north east, draw=none, fill=none,
-                font=\footnotesize},
+  legend style={at={(1.04,1.0)}, anchor=north west, draw=none, fill=none,
+                font=\scriptsize, cells={anchor=west}},
   legend cell align=left]
   \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
   \purplot{ooe}{0}{cg0}{only marks}
   \purplot{ooe}{45}{cg45}{only marks}
   \purplot{ooe}{90}{cg90}{only marks}
-  \addlegendimage{g0line, mark=*, mark size=1.1pt}
-    \addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
-  \addlegendimage{g45line, mark=*, mark size=1.1pt}\addlegendentry{$45^\circ$}
-  \addlegendimage{g90line, mark=*, mark size=1.1pt}\addlegendentry{$90^\circ$}
+  \purplot{eeo}{0}{cg0}{only marks, mark=triangle*}
+  \purplot{eeo}{45}{cg45}{only marks, mark=triangle*}
+  \purplot{eeo}{90}{cg90}{only marks, mark=triangle*}
+  \addlegendimage{g0line, mark=*, mark size=1.1pt}\addlegendentry{$k_p'=k_e'$}
+  \addlegendimage{g45line, mark=*, mark size=1.1pt}\addlegendentry{EPM}
+  \addlegendimage{g90line, mark=*, mark size=1.1pt}\addlegendentry{$k_p'=k_o'$}
   \addlegendimage{cbound, only marks, mark=o, mark size=1.3pt}
     \addlegendentry{$\lambda_i>2.6\,\mu$m}
-\nextgroupplot[title={$eeo$ (type I)}, ylabel={},
-  xmin=0.64, xmax=0.92, ymin=0, ymax=1.0, xtick={0.7,0.8,0.9}]
-  \addplot[cbound, densely dotted, forget plot, domain=0.63:1.15]{0.8315};
-  \purplot{eeo}{0}{cg0}{only marks}
-  \purplot{eeo}{45}{cg45}{only marks}
-  \purplot{eeo}{90}{cg90}{only marks}
+  \addlegendimage{black, only marks, mark=*, mark size=1.1pt}\addlegendentry{$ooe$}
+  \addlegendimage{black, only marks, mark=triangle*, mark size=1.4pt}\addlegendentry{$eeo$}
+
 \end{groupplot}
 \end{tikzpicture}
 \end{document}

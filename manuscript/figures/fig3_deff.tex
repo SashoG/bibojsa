@@ -1,62 +1,70 @@
-% fig3_deff -- |deff| along each GVM family, versus pump wavelength, and the
-% group-delay scale that sets the required crystal length.
-% Data: data/deff_<seq>_<target>.csv
+% fig3_deff -- |deff| along each GVM level curve, versus pump wavelength, and
+% the group-delay scale that sets the required crystal length.
+% v0.11 (17 Oct 2026): type-II curves on both halves of the surface, merged by
+% physical condition (data/deff_xz_<cond>.csv), plus the x-y plane
+% (data/deff_xy_<cond>.csv); type-I as before (data/deff_<seq>_<target>.csv).
 % Compile standalone:  pdflatex fig3_deff.tex  (twice)
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
-\newcommand{\deffplot}[3]{% #1 seq, #2 target, #3 style
+\newcommand{\deffplot}[3]{% #1 plane-or-seq, #2 cond-or-target, #3 style
   \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=abs_deff]
     {\figdatadir/deff_#1_#2.csv};}
 \newcommand{\gvmplot}[3]{%
   \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=gvm_fs_mm]
     {\figdatadir/deff_#1_#2.csv};}
 \begin{groupplot}[
-  group style={group size=2 by 1, horizontal sep=15mm},
-  bibopanel, width=62mm, height=50mm,
+  group style={group size=2 by 1, horizontal sep=12mm},
+  bibopanel, width=55mm, height=44mm,
   tick label style={font=\footnotesize}, label style={font=\footnotesize},
   title style={font=\footnotesize}, legend style={font=\footnotesize},
-  xmin=0.63, xmax=1.15,
+  xmin=0.42, xmax=1.24, xtick={0.5,0.7,0.9,1.1},
   xlabel={pump wavelength ($\mu$m)},
 ]
 \nextgroupplot[ylabel={$|d_{\mathrm{eff}}|$ (pm/V)}, ymin=0, ymax=3.6,
-  title={effective nonlinearity}]
-  \deffplot{oeo}{0}{coeo, solid}
-  \deffplot{oeo}{45}{coeo, solid}
-  \deffplot{oeo}{90}{coeo, solid}
+  title={effective nonlinearity},
+  legend style={at={(0.99,0.03)}, anchor=south east, draw=none, fill=none,
+               font=\scriptsize, legend image post style={xscale=0.6}},
+  legend cell align=left]
+  \deffplot{xz}{ke}{coeo, solid}
+  \deffplot{xz}{epm}{coeo, solid}
+  \deffplot{xz}{ko}{coeo, solid}
+  \deffplot{xy}{ko}{cxy, solid, line width=0.9pt}
+  \deffplot{xy}{epm}{cxy, solid, line width=0.9pt}
   \deffplot{ooe}{0}{cooe, densely dashed}
   \deffplot{ooe}{45}{cooe, densely dashed}
   \deffplot{ooe}{90}{cooe, densely dashed}
   \deffplot{eeo}{0}{ceeo, densely dashdotted}
   \deffplot{eeo}{45}{ceeo, densely dashdotted}
   \deffplot{eeo}{90}{ceeo, densely dashdotted}
-  \node[font=\footnotesize, coeo] at (axis cs:0.90,2.62) {$oeo$};
-  \node[font=\footnotesize, cooe] at (axis cs:0.75,3.32) {$ooe$};
-  \node[font=\footnotesize, ceeo] at (axis cs:0.86,1.38) {$eeo$};
+  \addlegendimage{coeo, solid}\addlegendentry{$x$--$z$ type II}
+  \addlegendimage{cxy, solid, line width=0.9pt}\addlegendentry{$x$--$y$ type II}
+  \addlegendimage{cooe, densely dashed}\addlegendentry{$ooe$}
+  \addlegendimage{ceeo, densely dashdotted}\addlegendentry{$eeo$}
 \nextgroupplot[ylabel={$\max(|\Delta_{31}|,|\Delta_{32}|)$ (fs/mm)},
   ymode=log, ymin=0.3, ymax=400, title={group-delay scale},
   legend style={at={(0.99,0.03)}, anchor=south east, draw=none, fill=none,
-               font=\footnotesize, legend image post style={xscale=0.6}},
+               font=\scriptsize, legend image post style={xscale=0.6}},
   legend cell align=left]
-  % v0.9 (14 Oct 2026): colour = interaction (as in the left panel),
-  % line style = GVM condition, so the nine curves are identifiable.
-  \gvmplot{oeo}{0}{coeo, solid}
-  \gvmplot{oeo}{45}{coeo, densely dashed}
-  \gvmplot{oeo}{90}{coeo, densely dotted, line width=0.9pt}
+  % colour = plane/interaction (as on the left), line style = GVM condition
+  \gvmplot{xz}{ke}{coeo, solid}
+  \gvmplot{xz}{epm}{coeo, densely dashed}
+  \gvmplot{xz}{ko}{coeo, densely dotted, line width=0.9pt}
+  \gvmplot{xy}{ko}{cxy, densely dotted, line width=1.1pt}
+  \gvmplot{xy}{epm}{cxy, densely dashed, line width=0.9pt}
   \gvmplot{ooe}{0}{cooe, solid}
   \gvmplot{ooe}{45}{cooe, densely dashed}
   \gvmplot{ooe}{90}{cooe, densely dotted, line width=0.9pt}
   \gvmplot{eeo}{0}{ceeo, solid}
   \gvmplot{eeo}{45}{ceeo, densely dashed}
   \gvmplot{eeo}{90}{ceeo, densely dotted, line width=0.9pt}
-  \node[font=\footnotesize, coeo, anchor=south] at (axis cs:0.70,185) {$oeo$};
-  \node[font=\footnotesize, coeo, anchor=north west] at (axis cs:1.02,60) {$oeo$};
-  \node[font=\footnotesize, cooe, anchor=north] at (axis cs:0.70,2.3) {$ooe$};
-  \node[font=\footnotesize, ceeo, anchor=south] at (axis cs:0.80,36) {$eeo$};
-  \addlegendimage{black, solid}\addlegendentry{$\theta_{\mathrm{PM}}=0^\circ$}
-  \addlegendimage{black, densely dashed}\addlegendentry{$45^\circ$}
-  \addlegendimage{black, densely dotted, line width=0.9pt}\addlegendentry{$90^\circ$}
+  \node[font=\footnotesize, cooe, anchor=west] at (axis cs:0.86,4.0) {$ooe$};
+  \node[font=\footnotesize, ceeo, anchor=east] at (axis cs:0.842,52) {$eeo$};
+  \node[font=\footnotesize, cxy, anchor=north] at (axis cs:0.50,150) {$x$--$y$};
+  \addlegendimage{black, solid}\addlegendentry{$k_p'=k_e'$}
+  \addlegendimage{black, densely dashed}\addlegendentry{EPM}
+  \addlegendimage{black, densely dotted, line width=0.9pt}\addlegendentry{$k_p'=k_o'$}
 \end{groupplot}
 \end{tikzpicture}
 \end{document}

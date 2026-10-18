@@ -45,7 +45,12 @@ X, Y, Z = BIBO["x"], BIBO["y"], BIBO["z"]
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "survey")
 
 W_SIGMAS = (6.0, 8.0, 12.0, 16.0, 24.0)
-PIXEL_RAD_PS = 1.0          # checked against 0.5 rad/ps: |dP| < 3e-5
+PIXEL_RAD_PS = 0.25         # 17 Oct 2026: was 1.0 (checked against 0.5 for A-F, R:
+                            # |dP| < 3e-5).  The narrow-arm phase-matching width is
+                            # 2 pi / (L x scale); for G and H (scale ~ 250-300
+                            # fs/mm) it is 0.7 rad/ps at 30 mm, which a 1-rad/ps
+                            # grid cannot resolve (it gave a spurious 0.984 for H at
+                            # 30 mm).  0.25 reproduces a 0.15-rad/ps grid to 4 decimals.
 
 
 def axes_for(ws0, wi0, half, pixel):
@@ -144,7 +149,7 @@ def tail_rows():
 
 def length_rows():
     rows = []
-    for pt in FEATURED[:3]:
+    for pt in [f for f in FEATURED if f[0] in ("A", "B", "C", "G", "H")]:
         tag, plane, seq, _, pump_nm, lam_s, lam_i, theta_deg, _, _, _, _ = pt
         lam_p = pump_nm / 1000.0
         wp0, ws0, wi0 = (lambda_um_to_omega(v) for v in (lam_p, lam_s, lam_i))

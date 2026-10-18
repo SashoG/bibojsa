@@ -13,6 +13,9 @@
 !/bibojsa/
 /bibojsa/survey/figures_png/
 
+# the September 2026 survey tables that v0.11 replaced (bibojsa/survey/README.txt)
+!/archive/
+
 # from manuscript/: only the figure pipeline and the exploration
 !/manuscript/
 /manuscript/*

@@ -23,10 +23,14 @@
 \definecolor{coeo}{RGB}{84,39,143}   % oeo  purple
 \definecolor{cooe}{RGB}{0,139,139}   % ooe  teal
 \definecolor{ceoe}{RGB}{120,120,120} % eoe  grey
-% GVM-condition colors (figs 1, 3, 4)
-\definecolor{cg0}{RGB}{31,119,180}   % theta_PM = 0  deg
-\definecolor{cg45}{RGB}{230,140,10}  % theta_PM = 45 deg
-\definecolor{cg90}{RGB}{44,120,44}   % theta_PM = 90 deg
+\definecolor{cxy}{RGB}{190,40,120}   % x-y plane type II (eoe = oee), 17 Oct 2026
+% GVM-condition colors (figs 1, 3, 4).  Since v0.11 (17 Oct 2026) the
+% conditions are named physically: cg0 = pump matched to the e wave
+% (k_p' = k_e'), cg45 = EPM, cg90 = pump matched to the o wave (k_p' = k_o');
+% for the type-I families the same colours keep their theta_PM meaning.
+\definecolor{cg0}{RGB}{31,119,180}   % k_p' = k_e'  (theta_PM = 0 on oeo)
+\definecolor{cg45}{RGB}{230,140,10}  % EPM          (theta_PM = 45)
+\definecolor{cg90}{RGB}{44,120,44}   % k_p' = k_o'  (theta_PM = 90 on oeo)
 % domain boundaries
 \definecolor{cbound}{RGB}{120,120,120}
 \definecolor{cwarn}{RGB}{200,60,60}

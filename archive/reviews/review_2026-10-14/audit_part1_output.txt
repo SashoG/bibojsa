@@ -1,0 +1,120 @@
+=== 1. Sellmeier coefficients and derivatives ===
+code coefficients vs LPR2010 Table 2 (MUK fit) as transcribed in my reference:
+  x: code (A,B,C,D)=(3.0759,0.03169,0.03323,0.01402) ref=(3.0759, 0.03169, 0.03323, 0.01402) match=True
+  y: code (A,B,C,D)=(3.1698,0.03666,0.03599,0.01819) ref=(3.1698, 0.03666, 0.03599, 0.01819) match=True
+  z: code (A,B,C,D)=(3.6546,0.05116,0.03713,0.02299) ref=(3.6546, 0.05116, 0.03713, 0.02299) match=True
+LPR2010 Table 3 reference indices:
+  0.6328 um: nx,ny,nz = 1.776678 1.806407 1.945819; |diff| = 1.6e-06 2.8e-06 9.0e-07
+  1.064 um: nx,ny,nz = 1.757517 1.783999 1.917106; |diff| = 2.8e-06 8.8e-07 3.8e-06
+  optic axis 2*Omega(632.8 nm) = 52.599 deg (LPR2010: 52.6); code: 52.599
+  optic axis 2*Omega(1064 nm) = 50.903 deg
+  cross-check with tan^2 Vz formula at 1064: 2Vz = 50.903
+
+k' and k'' : code finite differences vs analytic (rel. error)
+  x 0.4000 um: n_g code 1.997377227 ref 1.997377227 rel 1.1e-13;  k'' code 4.836168e-25 ref 4.836168e-25 rel 2.5e-09
+  x 0.6822 um: n_g code 1.820991933 ref 1.820991933 rel 3.0e-14;  k'' code 1.719565e-25 ref 1.719565e-25 rel 6.7e-09
+  x 1.0000 um: n_g code 1.786407951 ref 1.786407951 rel 2.0e-14;  k'' code 9.222527e-26 ref 9.222526e-26 rel 9.0e-08
+  x 1.3645 um: n_g code 1.776301455 ref 1.776301455 rel 3.8e-13;  k'' code 3.792781e-26 ref 3.792781e-26 rel 7.1e-08
+  x 2.2337 um: n_g code 1.779622583 ref 1.779622583 rel 3.9e-14;  k'' code -1.194338e-25 ref -1.194338e-25 rel 6.2e-08
+  x 3.0000 um: n_g code 1.793991970 ref 1.793991970 rel 5.1e-13;  k'' code -3.746239e-25 ref -3.746239e-25 rel 2.2e-08
+  y 0.4000 um: n_g code 2.067322621 ref 2.067322621 rel 7.7e-14;  k'' code 5.867783e-25 ref 5.867783e-25 rel 9.4e-10
+  y 0.6822 um: n_g code 1.857912487 ref 1.857912487 rel 4.6e-14;  k'' code 1.991251e-25 ref 1.991251e-25 rel 5.5e-09
+  y 1.0000 um: n_g code 1.818229085 ref 1.818229085 rel 4.3e-14;  k'' code 1.041158e-25 ref 1.041158e-25 rel 8.0e-09
+  y 1.3645 um: n_g code 1.807105065 ref 1.807105065 rel 2.5e-13;  k'' code 3.840069e-26 ref 3.840069e-26 rel 9.0e-09
+  y 2.2337 um: n_g code 1.812730811 ref 1.812730811 rel 5.7e-14;  k'' code -1.605370e-25 ref -1.605370e-25 rel 7.3e-09
+  y 3.0000 um: n_g code 1.831711651 ref 1.831711651 rel 2.6e-13;  k'' code -4.920049e-25 ref -4.920049e-25 rel 4.6e-09
+  z 0.4000 um: n_g code 2.287425328 ref 2.287425328 rel 1.9e-13;  k'' code 7.744669e-25 ref 7.744669e-25 rel 5.8e-10
+  z 0.6822 um: n_g code 2.012370315 ref 2.012370315 rel 5.1e-14;  k'' code 2.606255e-25 ref 2.606255e-25 rel 2.0e-09
+  z 1.0000 um: n_g code 1.960291986 ref 1.960291986 rel 2.5e-13;  k'' code 1.378320e-25 ref 1.378320e-25 rel 2.4e-08
+  z 1.3645 um: n_g code 1.945265354 ref 1.945265354 rel 1.8e-13;  k'' code 5.565817e-26 ref 5.565816e-26 rel 1.1e-07
+  z 2.2337 um: n_g code 1.950605685 ref 1.950605685 rel 2.8e-13;  k'' code -1.838564e-25 ref -1.838564e-25 rel 3.7e-08
+  z 3.0000 um: n_g code 1.972758119 ref 1.972758119 rel 1.6e-13;  k'' code -5.795077e-25 ref -5.795077e-25 rel 2.6e-08
+
+unit conventions: omega_to_lambda_um / lambda_um_to_omega round trip and fs/mm bookkeeping
+  omega(682.2 nm) = 2.761143e+15 rad/s = 2761.1427 rad/ps;  back: 0.682200 um
+  k'(s/m) * 1e12 = fs/mm?  1 s/m = 1e15 fs / 1e3 mm = 1e12 fs/mm -> factor 1e12: 1e+12 (landscape uses gd_ps_per_mm = k'*1e9: 1 s/m = 1e12 ps/1e3 mm = 1e9 ps/mm ok)
+  GD at A pump (o, 682.2): n_g/c = 6.197329 ps/mm (CSV GD_p 6.1973)
+
+=== 2. Biaxial optics: principal-plane eigenindices vs general Fresnel equation ===
+  xz angle= 10.000: code (o,e)=(1.776516,1.755491); Fresnel (fast,slow)=(1.755491,1.776516); D_fast=[-0.985  0.     0.174] D_slow=[0. 1. 0.]; sets agree=True
+  xz angle= 26.200: code (o,e)=(1.776516,1.778813); Fresnel (fast,slow)=(1.776516,1.778813); D_fast=[ 0. -1.  0.] D_slow=[ 0.897  0.    -0.442]; sets agree=True
+  xz angle= 30.000: code (o,e)=(1.776516,1.786817); Fresnel (fast,slow)=(1.776516,1.786817); D_fast=[ 0. -1.  0.] D_slow=[ 0.866  0.    -0.5  ]; sets agree=True
+  xz angle= 45.968: code (o,e)=(1.776516,1.827200); Fresnel (fast,slow)=(1.776516,1.827200); D_fast=[ 0. -1.  0.] D_slow=[ 0.695  0.    -0.719]; sets agree=True
+  xz angle= 70.000: code (o,e)=(1.776516,1.887334); Fresnel (fast,slow)=(1.776516,1.887334); D_fast=[ 0. -1.  0.] D_slow=[ 0.342  0.    -0.94 ]; sets agree=True
+  xz angle= 90.000: code (o,e)=(1.776516,1.907835); Fresnel (fast,slow)=(1.776516,1.907835); D_fast=[ 0. -1.  0.] D_slow=[ 0.  0. -1.]; sets agree=True
+  yz angle= 11.100: code (o,e)=(1.751321,1.780909); Fresnel (fast,slow)=(1.751321,1.780909); D_fast=[-1.  0.  0.] D_slow=[ 0.     0.981 -0.193]; sets agree=True
+  yz angle= 45.000: code (o,e)=(1.751321,1.838668); Fresnel (fast,slow)=(1.751321,1.838668); D_fast=[ 1. -0.  0.] D_slow=[ 0.     0.707 -0.707]; sets agree=True
+  yz angle=168.900: code (o,e)=(1.751321,1.780909); Fresnel (fast,slow)=(1.751321,1.780909); D_fast=[-1.  0. -0.] D_slow=[ 0.    -0.981 -0.193]; sets agree=True
+  xy angle= 10.000: code (o,e)=(1.907835,1.775741); Fresnel (fast,slow)=(1.775741,1.907835); D_fast=[ 0.174 -0.985  0.   ] D_slow=[ 0.  0. -1.]; sets agree=True
+  xy angle= 30.000: code (o,e)=(1.907835,1.770116); Fresnel (fast,slow)=(1.770116,1.907835); D_fast=[ 0.5   -0.866  0.   ] D_slow=[ 0.  0. -1.]; sets agree=True
+  xy angle= 60.000: code (o,e)=(1.907835,1.757520); Fresnel (fast,slow)=(1.757520,1.907835); D_fast=[ 0.866 -0.5    0.   ] D_slow=[ 0.  0. -1.]; sets agree=True
+  -> x-z plane: o-wave (code 'o') is y-polarised, n_o = n_y; e-wave is x-z polarised; e is SLOW (n_e > n_y) between the optic axes.
+  optic-axis half angle Omega(682.2 nm) = 26.150 deg; theta_A = 45.97 lies in (Omega, 180-Omega): True
+  n_e(theta=Omega) - n_y = -2.22e-16 (should be 0: theta is measured from z, optic axes at +-Omega from z)
+
+walk-off: code arctan((1/n)dn/dtheta) vs angle(D,E) from the Fresnel eigenvector, and closed form
+  lam=1.3645 theta=45.968: code 85.380 mrad, angle(D,E) 85.380, closed-form 85.380
+  lam=2.2337 theta=46.110: code 81.977 mrad, angle(D,E) 81.977, closed-form 81.977
+  lam=1.7392 theta=43.770: code 83.399 mrad, angle(D,E) 83.399, closed-form 83.399
+  lam=1.1560 theta=41.360: code 84.434 mrad, angle(D,E) 84.434, closed-form 84.434
+  lam=0.8187 theta=11.036: code 30.665 mrad, angle(D,E) 30.665, closed-form 30.665
+
+=== 3. Collinear phase matching and the three degenerate oeo GVM points (independent) ===
+  theta_PM= 0: pump 682.24 nm, theta 45.968 deg, D32=-0.00 D31=169.45 fs/mm, theta_PM(eq.4)=0.00 deg   [paper (682.2, 45.97)]
+      package theta at that pump: 45.968470 vs mine 45.968470 (diff 1.1e-13 deg)
+  theta_PM=45: pump 869.58 nm, theta 43.770 deg, D32=-72.86 D31=72.86 fs/mm, theta_PM(eq.4)=45.00 deg   [paper (869.6, 43.77)]
+      package theta at that pump: 43.770450 vs mine 43.770450 (diff 3.2e-13 deg)
+  theta_PM=90: pump 1116.84 nm, theta 46.110 deg, D32=-166.38 D31=0.00 fs/mm, theta_PM(eq.4)=90.00 deg   [paper (1116.8, 46.11)]
+      package theta at that pump: 46.110232 vs mine 46.110232 (diff 1.3e-14 deg)
+
+  type-I degenerate: tan(theta_PM) = -1 identically (k_s'=k_i')?
+    ooe lp=0.7: theta=9.723, ks'-ki'=0.00e+00 fs/mm, theta_PM=-45.00
+    ooe lp=0.8187: theta=11.036, ks'-ki'=0.00e+00 fs/mm, theta_PM=135.00
+    ooe lp=0.95: theta=9.866, ks'-ki'=0.00e+00 fs/mm, theta_PM=135.00
+    eeo lp=0.7: theta=36.096, ks'-ki'=0.00e+00 fs/mm, theta_PM=-45.00
+    eeo lp=0.8187: theta=35.066, ks'-ki'=0.00e+00 fs/mm, theta_PM=-45.00
+    eeo lp=0.95: theta=34.971, ks'-ki'=0.00e+00 fs/mm, theta_PM=135.00
+
+  landscape.gvm_functions at A: d31 = 169.446 fs/mm, d32 = 0.000, theta_pm = -0.000
+
+=== 4. d_eff: full point-group-2 Voigt contraction vs LPR2010 Table-1 expressions in the code ===
+  all nonzero tensor elements have an odd number of x indices (2-fold axis || x): True
+  xz oeo: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 4.44e-16
+  xz eoo: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 4.44e-16
+  xz eeo: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 4.44e-16
+  xz ooe: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 6.38e+00
+  xz eoe: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 4.44e-16
+  xz oee: max | |deff_ref| - |deff_code| | = 4.44e-16 pm/V;  max |deff_ref - deff_code| (signed) = 4.44e-16
+  yz eeo: max | |deff_ref| - |deff_code| | = 6.66e-16 pm/V;  max |deff_ref - deff_code| (signed) = 7.29e+00
+  yz oeo: max | |deff_ref| - |deff_code| | = 0.00e+00 pm/V;  max |deff_ref - deff_code| (signed) = 0.00e+00
+  yz eoo: max | |deff_ref| - |deff_code| | = 0.00e+00 pm/V;  max |deff_ref - deff_code| (signed) = 0.00e+00
+  xy ooe: max | |deff_ref| - |deff_code| | = 5.55e-17 pm/V;  max |deff_ref - deff_code| (signed) = 5.55e-17
+  xy eoe: max | |deff_ref| - |deff_code| | = 2.22e-16 pm/V;  max |deff_ref - deff_code| (signed) = 3.32e+00
+  xy oee: max | |deff_ref| - |deff_code| | = 2.22e-16 pm/V;  max |deff_ref - deff_code| (signed) = 3.32e+00
+  xy eeo (not in LPR2010 Table 1; pump o = z-polarised, largest index, not phase-matchable): tensor deff = [-0.568 -1.438 -1.66  -1.438 -0.568]
+  xy oeo (not in LPR2010 Table 1; pump o = z-polarised, largest index, not phase-matchable): tensor deff = [0.306 0.88  1.245 1.524 1.733]
+  check: in x-y, pump o has n_z (largest) -> k_p > k_s + k_i always? sample dk at 0.4->0.8 um, phi=45:
+    phi=11: n_p(z)=2.0168  n_e(daughters)=1.7930  -> Delta k = 2pi(n_p - n_e)/0.4 = +3.515 rad/um (>0, no PM)
+    phi=46: n_p(z)=2.0168  n_e(daughters)=1.7795  -> Delta k = 2pi(n_p - n_e)/0.4 = +3.726 rad/um (>0, no PM)
+    phi=80: n_p(z)=2.0168  n_e(daughters)=1.7669  -> Delta k = 2pi(n_p - n_e)/0.4 = +3.925 rad/um (>0, no PM)
+  yz eeo theta=11.1: tensor +2.3889, code phi=+90 -2.3889, code phi=-90 +3.6434
+  yz eeo theta=168.9: tensor +3.6434, code phi=+90 -3.6434, code phi=-90 +2.3889
+  yz eeo |deff| max over theta<90: 3.200 at 0.0 deg; theta>90: 3.704 at 163.1 deg (paper: 3.70 / 3.19 along the PM curve)
+
+  |deff| at the featured points (tensor contraction):
+    A: 2.2242 pm/V (paper 2.22); code 2.2242
+    B: 2.4018 pm/V (paper 2.4); code 2.4018
+    C: 2.2185 pm/V (paper 2.22); code 2.2185
+    D: 2.3108 pm/V (paper 2.31); code 2.3108
+    E: 3.1408 pm/V (paper 3.14); code 3.1408
+    F: 1.5581 pm/V (paper 1.56); code 1.5581
+    R: 2.4720 pm/V (paper 2.47); code 2.4720
+
+  Kleinman averages of the Ghotbi/Hellwig set: d12/d26 (2.93,3.48) -> 3.205; d13/d35 (-1.93,-1.58) -> -1.755; d14,d25,d36 (1.63,1.67,1.67) -> 1.657
+  'Kleinman violations': (3.48-2.93)/3.205 = 17.2 %, (1.93-1.58)/1.755 = 19.9 %
+
+=== 5. Negative results: x-y plane and y-z eeo (independent re-trace on a coarse grid) ===
+  xy ooe: phase-matching roots found: 0 (paper: none)
+  xy eoe: roots for pump 330-395 nm; theta_PM range -21.4 .. -19.4 deg (paper: <396 nm, -21.4..-19.4)
+  yz eeo: 402 roots; theta_PM range -45.0 .. 153.0 deg (paper: [-45, -6.9]); theta range 1.5-178.5
+  yz eeo |deff| along PM roots: max theta<90: 3.107, theta>90: 3.704 (paper 3.70 / 3.19)

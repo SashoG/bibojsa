@@ -3,7 +3,8 @@
 Consumes the traced landscape (`landscape_survey.py`) and produces the CSVs
 the paper's tables and figures are drawn from:
 
-  survey/headline_points.csv      one row per featured point (Table 1)
+  survey/headline_points.csv      one row per featured point (Table 2; A-F, R
+                                  and, since 17 Oct 2026, G, H, J, K, M)
   survey/headline_filter.csv      purity and transmitted heralding flux vs
                                   filter width, for the featured points
   survey/headline_convergence.csv purity vs (window scale, grid size) at each
@@ -53,6 +54,21 @@ FEATURED = [
      "triple-GVM degenerate point, eeo"),
     ("R", "xz", "oeo", 45,  810.000, 1.138800, 2.805300, 39.42211, 2.472,  5.0,  8.0,
      "nondegenerate EPM member (idler in the infrared absorption band)"),
+    # --- second half of the type-II surfaces (17 Oct 2026); seq is still
+    # idler-signal-pump with lambda_i >= lambda_s, so "eoo" = e daughter longer,
+    # "oee" (x-y) = z-polarized o daughter longer.  Cut angle = theta (x-z) or
+    # phi (x-y).  Selected by examples/landscape_headline_full.py (now folded
+    # in here): (L, bandwidth) = best unfiltered purity on the adaptive window.
+    ("G", "xz", "eoo", 90,  532.000, 0.773630, 1.703290, 67.74340, 1.212, 10.0,  4.0,
+     "continuation of A's k_p'=k_e' curve, e daughter longer; 532-nm pump"),
+    ("H", "xy", "oee", 90,  464.000, 0.622290, 1.824160, 44.91930, 1.660, 10.0,  2.0,
+     "x-y plane asymmetric GVM (pump matched to the z-polarized wave) at the d14 maximum"),
+    ("J", "xy", "oee", 45,  532.000, 0.673500, 2.532160, 31.47900, 1.479,  2.0,  2.0,
+     "x-y plane EPM member, 532-nm pump"),
+    ("K", "xz", "eoo", 45,  800.000, 1.335830, 1.994420, 48.22960, 2.132,  2.0,  8.0,
+     "x-z EPM member with both daughters below 2.6 um, 800-nm pump"),
+    ("M", "xz", "eoo",  0, 1150.000, 2.168230, 2.448820, 48.08110, 2.138, 10.0, 24.0,
+     "continuation of C's k_p'=k_o' curve, e daughter longer"),
 ]
 
 TRANSPARENCY_HI_UM = 2.60   # 1 cm^-1 absorption onset (Ghotbi 2006 OE; LPR2010 Table 4), not a transmission cutoff

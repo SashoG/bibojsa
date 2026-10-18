@@ -5,16 +5,19 @@
 % plotted on a log axis (on a linear P axis A-D and R all sat in 0.8-1.0),
 % and the filter acts on the *narrow* arm -- the idler at A, B, D, R, E, the
 % signal at C (landscape_headline.py, heralding_axis()).
-% Colours follow the GVM-condition scheme of figs 1/4 (cg0/cg45/cg90);
-% the triple-GVM point E is black.  F is omitted (qualitatively identical to E).
+% Colours follow the GVM-condition scheme of figs 1/3 (cg0/cg45/cg90);
+% the triple-GVM point E is black.  v0.11 (17 Oct 2026): G, H, K added, R dropped.
 % Data: data/filter_<tag>.csv
 % Compile standalone:  pdflatex fig6_filter.tex  (twice)
+% v0.10 (16 Oct 2026): panel widths/heights and separations reduced so that
+% the standalone PDF is natively the width it is included at in the
+% manuscript (fonts no longer scaled down); label collisions fixed.
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}[
-  bibopanel, width=76mm, height=54mm,
+  bibopanel, width=60mm, height=45mm,
   xmin=0.08, xmax=1.02, ymin=0.003, ymax=1.0, ymode=log,
   xlabel={fraction of heralding flux transmitted},
   ylabel={impurity $1-P$},
@@ -31,22 +34,28 @@
   \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.695,0.0032) {$P_{70}$};
   \addplot[cg0, solid] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_A.csv};
-  \addlegendentry{A\; $682$\,nm, $0^\circ$}
+  \addlegendentry{A\; $682$\,nm, $k_p'=k_e'$}
   \addplot[cg0, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_B.csv};
-  \addlegendentry{B\; $722$\,nm, $0^\circ$}
+  \addlegendentry{B\; $722$\,nm, $k_p'=k_e'$}
+  \addplot[cg0, densely dotted, line width=0.9pt] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
+    {\figdatadir/filter_G.csv};
+  \addlegendentry{G\; $532$\,nm, $k_p'=k_e'$}
+  \addplot[cg90, solid] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
+    {\figdatadir/filter_H.csv};
+  \addlegendentry{H\; $464$\,nm $x$--$y$, $k_p'=k_o'$}
   \addplot[cg90, densely dotted, line width=0.9pt]
     table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_C.csv};
-  \addlegendentry{C\; $1117$\,nm, $90^\circ$}
+  \addlegendentry{C\; $1117$\,nm, $k_p'=k_o'$}
   \addplot[cg45, densely dashdotted]
     table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_D.csv};
-  \addlegendentry{D\; $870$\,nm, $45^\circ$}
+  \addlegendentry{D\; $870$\,nm, EPM}
   \addplot[cg45, solid, line width=0.5pt]
     table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_R.csv};
-  \addlegendentry{R\; $810$\,nm, $45^\circ$}
+    {\figdatadir/filter_K.csv};
+  \addlegendentry{K\; $800$\,nm, EPM}
   \addplot[black, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
     {\figdatadir/filter_E.csv};
   \addlegendentry{E\; $819$\,nm, triple}

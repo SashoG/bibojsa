@@ -1,0 +1,82 @@
+[check] k' analytic 6.197328978191e-03 vs numeric 6.197328978885e-03 rel 1.1e-10 (o,0.6822)
+[check] k' analytic 6.196003847607e-03 vs numeric 6.196003848657e-03 rel 1.7e-10 (e,1.3645)
+[check] n at 632.8 nm: nx=1.77668 ny=1.80641 nz=1.94582 (LPR2010 Table 3: 1.77668, 1.80641, 1.94582)
+
+=== (a) oeo (idler o, signal e, pump o), x-z plane, degenerate ===
+  theta_PM= 0: pump = 682.24 nm, theta = 45.968 deg, D32=-0.00 D31=169.45 fs/mm   [claim 682.2 nm, 45.97 deg]
+  theta_PM=45: pump = 869.58 nm, theta = 43.770 deg, D32=-72.86 D31=72.86 fs/mm   [claim 869.6 nm, 43.77 deg]
+  theta_PM=90: pump = 1116.84 nm, theta = 46.110 deg, D32=-166.38 D31=0.00 fs/mm   [claim 1116.8 nm, 46.11 deg]
+  at A: k_p'(o)=6197.300, k_s'(e)=6197.300, k_i'(o)=6027.855 fs/mm*1e-? (ps/um*1e6)
+
+=== (b) oeo 0-degree family member at 722.0 nm ===
+  signal = 1.1558 um, idler = 1.9237 um, theta = 41.363 deg, D32 = 0.000, D31 = 137.17 fs/mm  (residuals [np.float64(0.0), np.float64(8.673617379884035e-13)])   [claim 1.156, 1.924, 41.36 deg, |D31| = 137.2]
+
+=== (c) d_eff = d12 cos(theta) (oeo, x-z, between optic axes) and walk-off ===
+  A: deff = 2.224 pm/V [claim 2.22];  walk-off of e-signal at 1.3645 um: 85.38 mrad [claim 85.4];  (e-index at pump wavelength would give 89.85 mrad)
+  B: deff = 2.402 pm/V [claim 2.4];  walk-off of e-signal at 1.1558 um: 84.44 mrad [claim 84.4];  (e-index at pump wavelength would give 87.40 mrad)
+  D: deff = 2.311 pm/V [claim 2.31];  walk-off of e-signal at 1.7392 um: 83.40 mrad [claim 83.4];  (e-index at pump wavelength would give 87.26 mrad)
+  C: deff = 2.218 pm/V [claim 2.22];  walk-off of e-signal at 2.2337 um: 81.98 mrad [claim 82.0];  (e-index at pump wavelength would give 86.45 mrad)
+  optic-axis half angle Omega at 682.2 nm = 26.15 deg (theta_A = 45.97 is between Omega and 180-Omega)
+
+=== (d) type-I triple-GVM degenerate points ===
+  ooe: pump = 818.70 nm, theta = 11.036 deg; k_p'-k_s' = -8.67e-13, k_p'-k_i' = -8.67e-13, k_s'-k_i' = 0.00e+00 fs/mm; deff = 3.141 pm/V   [claim (818.7, 11.04)]
+  eeo: pump = 896.76 nm, theta = 34.908 deg; k_p'-k_s' = -8.67e-13, k_p'-k_i' = -8.67e-13, k_s'-k_i' = 0.00e+00 fs/mm; deff = 1.558 pm/V   [claim (896.8, 34.91)]
+
+=== (e) ooe 0-degree family (k_p' = k_s'), nondegenerate members ===
+   lp(nm)   ls(um)   li(um)  theta(deg)  |kp'-ks'|  |kp'-ki'|  |ks'-ki'|  (fs/mm)
+    700.0  0.9298  2.8319    10.581      0.000     12.500     12.500   bound ok=True
+    740.0  1.0389  2.5720    10.688      0.000     12.705     12.705   bound ok=True
+    780.0  1.1865  2.2768    10.830      0.000     10.148     10.148   bound ok=True
+    800.0  1.2963  2.0894    10.918      0.000      7.494      7.494   bound ok=True
+    810.0  1.3783  1.9644    10.969      0.000      5.466      5.466   bound ok=True
+   830.0  no solution found
+   850.0  no solution found
+   900.0  no solution found
+   950.0  no solution found
+   1000.0  no solution found
+
+=== (f) Schmidt purity on square windows (pixel 0.5 rad/ps) ===
+  A(mine): L=10.0 mm, pump FWHM 8.0 nm -> intensity FWHM 32.38 rad/ps, sigma = 19.444 rad/ps
+    W= 6sigma  n=  468  P(complex, phase)=0.94877  P(|f|)=0.95230  P(real sinc, no phase)=0.95163   claim 0.9488
+    W= 8sigma  n=  623  P(complex, phase)=0.94709  P(|f|)=0.95076  P(real sinc, no phase)=0.94994   claim 
+    W=12sigma  n=  934  P(complex, phase)=0.94545  P(|f|)=0.94898  P(real sinc, no phase)=0.94830   claim 0.9455
+    W=16sigma  n= 1245  P(complex, phase)=0.94465  P(|f|)=0.94830  P(real sinc, no phase)=0.94749   claim 
+    W=24sigma  n= 1868  P(complex, phase)=0.94385  P(|f|)=0.94736  P(real sinc, no phase)=0.94669   claim 0.9439
+    fit P = P_inf + C/W (complex f): P_inf = 0.9422, C = 0.0394, max|resid| = 2.2e-05   claim (0.942, 0.039)
+    fit on |f|:                      P_inf = 0.9458, C = 0.0395, max|resid| = 7.8e-05
+    pixel 1.0 rad/ps, W=6: P = 0.94876
+    pixel 1.0 rad/ps, W=24: P = 0.94385
+    pixel 0.25 rad/ps, W=6: P = 0.94878
+  A(author params 682.241nm/45.96827deg): L=10.0 mm, pump FWHM 8.0 nm -> intensity FWHM 32.38 rad/ps, sigma = 19.443 rad/ps
+    W= 6sigma  n=  468  P(complex, phase)=0.94878  P(|f|)=0.95231  P(real sinc, no phase)=0.95164   claim 0.9488
+    W= 8sigma  n=  623  P(complex, phase)=0.94710  P(|f|)=0.95077  P(real sinc, no phase)=0.94995   claim 
+    W=12sigma  n=  934  P(complex, phase)=0.94546  P(|f|)=0.94899  P(real sinc, no phase)=0.94831   claim 0.9455
+    W=16sigma  n= 1245  P(complex, phase)=0.94466  P(|f|)=0.94832  P(real sinc, no phase)=0.94750   claim 
+    W=24sigma  n= 1868  P(complex, phase)=0.94386  P(|f|)=0.94737  P(real sinc, no phase)=0.94670   claim 0.9439
+    fit P = P_inf + C/W (complex f): P_inf = 0.9422, C = 0.0394, max|resid| = 2.2e-05   claim (0.942, 0.039)
+    fit on |f|:                      P_inf = 0.9458, C = 0.0395, max|resid| = 8.2e-05
+    pixel 1.0 rad/ps, W=6: P = 0.94877
+    pixel 1.0 rad/ps, W=24: P = 0.94386
+  D(mine): L=2.0 mm, pump FWHM 12.0 nm -> intensity FWHM 29.89 rad/ps, sigma = 17.952 rad/ps
+    W= 6sigma  n=  432  P(complex, phase)=0.83290  P(|f|)=0.84964  P(real sinc, no phase)=0.83309   claim 0.833
+    W= 8sigma  n=  575  P(complex, phase)=0.82421  P(|f|)=0.84077  P(real sinc, no phase)=0.82439   claim 
+    W=12sigma  n=  863  P(complex, phase)=0.81531  P(|f|)=0.83169  P(real sinc, no phase)=0.81549   claim 
+    W=16sigma  n= 1150  P(complex, phase)=0.81085  P(|f|)=0.82715  P(real sinc, no phase)=0.81103   claim 
+    W=24sigma  n= 1724  P(complex, phase)=0.80642  P(|f|)=0.82263  P(real sinc, no phase)=0.80660   claim 0.806
+    fit P = P_inf + C/W (complex f): P_inf = 0.7976, C = 0.2121, max|resid| = 8.1e-05   claim (0.798, 0.21)
+    fit on |f|:                      P_inf = 0.8136, C = 0.2163, max|resid| = 8.5e-05
+    pixel 1.0 rad/ps, W=6: P = 0.83283
+    pixel 1.0 rad/ps, W=24: P = 0.80642
+
+=== (g) Gaussian idler filter at A (6-sigma window, pixel 0.5) ===
+  T=0.9: filter intensity FWHM = 10.804 rad/ps = 10.68 nm, purity = 0.9876 (T achieved 0.9000)   [claim 10.7 nm, 0.988]
+  T=0.7: filter intensity FWHM = 3.678 rad/ps = 3.63 nm, purity = 0.9944 (T achieved 0.7000)   [claim 3.6 nm, 0.994]
+  (16-sigma window) T=0.9: FWHM = 10.88 nm, purity = 0.9874
+  (16-sigma window) T=0.7: FWHM = 3.65 nm, purity = 0.9944
+
+=== (h) first sinc zero ===
+  A: |D31| = 169.45 fs/mm -> linear estimate 2pi/(D31 L) = 3.708 rad/ps [claim 3.7]
+  A exact (Sellmeier) idler-axis zeros of sinc: dk L/2 = +pi at d_omega_i = [3.7014], -pi at [-3.7148] rad/ps
+  D: D32 = -72.86, D31 = 72.86 fs/mm -> linear antidiagonal zero 2pi/((D31-D32) L) = 21.558 rad/ps [claim 21.5]
+  D exact antidiagonal zeros (|dk L/2| = pi) at d_omega = [-21.4694  21.6494] rad/ps
+  D pump intensity FWHM = 29.89 rad/ps [claim 29.9]

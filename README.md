@@ -25,15 +25,19 @@ bibojsa/                 the Python project
   pyproject.toml         pip install -e bibojsa   (numpy, scipy, matplotlib)
   bibojsa/               package: sellmeier, biaxial, phasematch, deff, gvm,
                          jsa, landscape, materials/{bibo,kdp,ktp}
-  tests/                 104 pytest tests (KDP and KTP literature checks,
-                         BIBO Sellmeier, d_eff, GVM, EPM/JSA milestones)
+  tests/                 108 pytest tests (KDP and KTP literature checks,
+                         BIBO Sellmeier, d_eff, GVM, EPM/JSA milestones,
+                         both halves of the type-II surfaces)
   examples/              the survey scripts that wrote survey/
   notebooks/             validation and survey notebooks (.ipynb + jupytext .py)
   survey/                THE DATA — every CSV read by the manuscript;
                          survey/README.txt documents each file and column
+  SURVEY_FULL_2026-10-17.md  what the 17 Oct 2026 full survey added and why
+archive/survey_2026-09/  the September 2026 survey tables that v0.11 replaced
 manuscript/
-  figures/               pgfplots sources fig1–fig6, Makefile,
-                         make_figure_data.py, and data/ (the plot-ready slices)
+  figures/               pgfplots sources (fig1, fig3–fig6 = manuscript
+                         Figs. 1–5), Makefile, make_figure_data.py, and
+                         data/ (the plot-ready slices)
   exploration_2026-09-21/  independent-code checks reported in Sec. 4.5 and
                          Sec. 5.3: off-principal-plane GVM loci and the
                          absolute pair rate at point A
@@ -50,22 +54,26 @@ The manuscript text itself is not in this repository.
 git clone https://github.com/SashoG/bibojsa
 cd bibojsa/bibojsa
 pip install -e .[dev]
-python -m pytest tests                     # 104 tests, ~1 min
+python -m pytest tests                     # 108 tests, ~1 min
 
 python examples/landscape_survey.py all    # survey/landscape_*.csv (~hours)
+python examples/full_landscape_preview.py  # merged curves, survey/figdata/
 python examples/landscape_points.py        # survey/points2/, points2_summary.csv
 python examples/landscape_headline.py all  # Table 2, headline_*.csv, family_purity.csv
 python examples/window_tail.py             # window_tail.csv, length_extension.csv
 
 cd ../manuscript/figures
 python make_figure_data.py                 # survey → data/*.csv (seconds)
-make                                       # fig1–fig6 PDFs (fig5 needs lualatex)
+make                                       # figure PDFs (fig5 needs lualatex + luatex85)
 ```
 
-The committed `survey/` tree is the exact output the submitted manuscript
-was drawn from (regenerated 18 September 2026, manuscript v0.6–v0.7), so the
-long survey steps can be skipped; `make_figure_data.py` and `make` reproduce
-the six figures from it in minutes.
+The committed `survey/` tree is the exact output the manuscript was drawn
+from (regenerated 17 October 2026, manuscript v0.11: all twelve
+principal-plane interactions, i.e. both halves of every type-II
+phase-matching surface, x–y plane included), so the long survey steps can
+be skipped; `make_figure_data.py` and `make` reproduce the five figures
+from it in minutes. The eight-interaction run of 18 September 2026
+(manuscript v0.6–v0.10) is kept in `archive/survey_2026-09/`.
 
 ## Conventions (short form; full text in `bibojsa/survey/README.txt`)
 
@@ -80,9 +88,12 @@ pairs the filter transmits. The idler-transparency flag uses BIBO's
 1 cm⁻¹ absorption onset at 2.60 µm, not the 3.09 µm Sellmeier validity
 limit.
 
-Known label slip: the `d31_fs_mm` / `d32_fs_mm` / `scale_fs_mm` columns of
-`manuscript/exploration_2026-09-21/offplane_degenerate_loci.csv` are in
-**ps/mm** (multiply by 1000). All other files are as labelled.
+Since 17 October 2026 a type-II sequence also fixes which half of the
+phase-matching surface a row lies on: `oeo` (x–z) is the half on which the
+e daughter is the shorter one, `eoo` the half on which it is the longer
+one, and likewise `eoe`/`oee` for the z-polarized wave in the x–y plane;
+the GVM level curves are continuous across the two halves
+(`bibojsa/survey/README.txt`).
 
 ## Citing
 

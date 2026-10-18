@@ -7,8 +7,13 @@
 % data/jsa_mesh.tex, written by the same script).  Keep the xmin/xmax
 % below in step with JSA_WINDOW in make_figure_data.py.
 % v0.9 (14 Oct 2026): panel R cropped to its idler grid (no blank band).
+% v0.11 (17 Oct 2026): panels A, H, G (pump matched to one daughter), D, K
+% (EPM) and E (triple); B, C, R dropped (B, C are described in the text).
 % Compile standalone:  lualatex fig5_jsa_maps.tex
 %   (6 meshes of up to 150x150 cells exceed pdflatex's main memory)
+% v0.10 (16 Oct 2026): panel widths/heights and separations reduced so that
+% the standalone PDF is natively the width it is included at in the
+% manuscript (fonts no longer scaled down); label collisions fixed.
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
@@ -21,41 +26,38 @@
     table [col sep=comma, x=dws_rad_ps, y=dwi_rad_ps, meta=amp]
     {\figdatadir/jsa_#1.csv};}
 \begin{groupplot}[
-  group style={group size=3 by 2, horizontal sep=15mm, vertical sep=16mm},
-  bibopanel, width=37mm, height=37mm,
+  group style={group size=3 by 2, horizontal sep=13mm, vertical sep=11mm},
+  bibopanel, width=32mm, height=32mm,
   colormap name=viridis,
   point meta min=0, point meta max=1,
   xlabel={$\delta\omega_s$ (rad/ps)},
-  ylabel={$\delta\omega_i$ (rad/ps)},
   enlargelimits=false,
   title style={font=\scriptsize, align=center, yshift=-3pt},
 ]
-\nextgroupplot[title={A: $682$\,nm $oeo$, $0^\circ$\\$L=10$\,mm, $8$\,nm},
-  xmin=-70, xmax=70, ymin=-70, ymax=70, xtick={-50,0,50}, ytick={-50,0,50}]
+\nextgroupplot[title={A: $682$\,nm, $k_p'=k_e'$\\$x$--$z$, $L=10$\,mm, $8$\,nm},
+  xlabel={}, ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-70, xmax=70, ymin=-70, ymax=70, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{A}
-\nextgroupplot[title={B: $722$\,nm $oeo$, $0^\circ$\\$L=10$\,mm, $12$\,nm},
-  xmin=-80, xmax=80, ymin=-80, ymax=80, xtick={-50,0,50}, ytick={-50,0,50}]
-  \jsamap{B}
-\nextgroupplot[title={C: $1117$\,nm $oeo$, $90^\circ$\\$L=10$\,mm, $16$\,nm},
-  xmin=-60, xmax=60, ymin=-60, ymax=60, xtick={-50,0,50}, ytick={-50,0,50},
-  colorbar, colorbar style={width=2.5mm, tick label style={font=\tiny},
+\nextgroupplot[title={H: $464$\,nm, $k_p'=k_o'$\\$x$--$y$, $L=10$\,mm, $2$\,nm},
+  xlabel={}, xmin=-65, xmax=65, ymin=-65, ymax=65, xtick={-50,0,50}, ytick={-50,0,50}]
+  \jsamap{H}
+\nextgroupplot[title={G: $532$\,nm, $k_p'=k_e'$\\$x$--$z$, $L=10$\,mm, $4$\,nm},
+  xlabel={}, xmin=-89, xmax=89, ymin=-89, ymax=89, xtick={-50,0,50}, ytick={-50,0,50},
+  colorbar, colorbar style={width=2.5mm, tick label style={font=\scriptsize},
                             ylabel={}}]
-  \jsamap{C}
-\nextgroupplot[title={D: $870$\,nm $oeo$, $45^\circ$\\$L=2$\,mm, $12$\,nm},
-  xmin=-115, xmax=115, ymin=-115, ymax=115, xtick={-100,0,100},
+  \jsamap{G}
+\nextgroupplot[title={D: $870$\,nm, EPM\\$x$--$z$, $L=2$\,mm, $12$\,nm},
+  ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-115, xmax=115, ymin=-115, ymax=115, xtick={-100,0,100},
   ytick={-100,0,100}]
   \jsamap{D}
-\nextgroupplot[title={E: $819$\,nm $ooe$, triple\\$L=10$\,mm, $32$\,nm},
+\nextgroupplot[title={K: $800$\,nm, EPM\\$x$--$z$, $L=2$\,mm, $8$\,nm},
+  xmin=-90, xmax=90, ymin=-90, ymax=90, xtick={-50,0,50}, ytick={-50,0,50}]
+  \jsamap{K}
+\nextgroupplot[title={E: $819$\,nm $ooe$, triple\\$x$--$z$, $L=10$\,mm, $32$\,nm},
   xmin=-509, xmax=509, ymin=-509, ymax=509, xtick={-400,0,400},
-  ytick={-400,0,400}]
-  \jsamap{E}
-\nextgroupplot[title={R: $810$\,nm $oeo$, $45^\circ$\\$L=5$\,mm, $8$\,nm},
-  xmin=-92, xmax=92, ymin=-54, ymax=92, xtick={-50,0,50},
-  ytick={-50,0,50}, axis equal image,
-  colorbar, colorbar style={width=2.5mm, tick label style={font=\tiny},
+  ytick={-400,0,400},
+  colorbar, colorbar style={width=2.5mm, tick label style={font=\scriptsize},
                             ylabel={}}]
-  % v0.9: panel cropped to the idler grid (Sellmeier edge at -54 rad/ps)
-  \jsamap{R}
+  \jsamap{E}
 \end{groupplot}
 \end{tikzpicture}
 \end{document}

@@ -19,6 +19,20 @@ miss the parts of them that matter -- in particular the frequency-degenerate
 point, where each curve crosses lambda_s = 2*lambda_p.  This module traces
 the curves themselves.
 
+Coverage of the phase-matching surface (added 17 Oct 2026)
+---------------------------------------------------------
+`solve_theta_grid` keeps the LPR2010 ordering lambda_i >= lambda_s, so a
+type-II sequence such as "oeo" (idler o, signal e) covers only the half of
+the surface on which the e-polarized daughter is the *shorter* one.  The
+other half -- e daughter longer -- is the sequence "eoo", which LPR2010
+Table 1 writes as "oeo = eoo" because the d_eff *expression* is the same;
+its phase matching and GVM level curves are different, and the level curves
+of one sequence continue smoothly through the degenerate point into the
+other.  A complete survey must therefore trace both members of each "="
+pair: x-z oeo + eoo, x-z eoe + oee, x-y eoe + oee, y-z oeo + eoo (the last
+with d_eff = 0).  Note the labels flip across the pair: the physical
+condition k_p' = k_e' is "theta_PM = 0" on oeo and "theta_PM = 90" on eoo.
+
 Everything here is a vectorised re-expression of the scalar primitives in
 `bibojsa.phasematch`, `bibojsa.biaxial` and `bibojsa.gvm`; the agreement is
 asserted in `tests/test_landscape.py` at the 1e-9 level, so the landscape
@@ -106,14 +120,15 @@ def region_ok(plane: str, seq: str, theta_deg, lam_p_um, cx, cy, cz):
     the physically realised one.
 
     In the x-z plane the eigenmode ordering swaps at the optic axes: the
-    "+" interactions (eeo, oeo) exist between them, the "-" interactions
-    (ooe, eoe) outside.  The y-z and x-y planes have no such split.
+    "+" interactions (eeo, oeo and its partner eoo) exist between them,
+    the "-" interactions (ooe, eoe and its partner oee) outside.  The y-z
+    and x-y planes have no such split.
     """
     if plane != "xz":
         return np.ones_like(np.asarray(theta_deg, dtype=float), dtype=bool)
     om = optic_axis_angle_deg(lam_p_um, cx, cy, cz)
     inside = (np.asarray(theta_deg) > om) & (np.asarray(theta_deg) < 180.0 - om)
-    return inside if seq in ("eeo", "oeo") else ~inside
+    return inside if seq in ("eeo", "oeo", "eoo") else ~inside
 
 
 # ------------------------------------------------------- phase-matching roots

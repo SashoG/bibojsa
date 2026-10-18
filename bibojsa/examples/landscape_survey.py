@@ -22,7 +22,9 @@ Outputs (all CSV, all under survey/):
   landscape_coverage.csv    per-interaction record of what was found,
                             including the negative results
 
-Run:  python examples/landscape_survey.py [field|curves|degenerate|all]
+Run:  python examples/landscape_survey.py [field|curves|degenerate|all] [outdir]
+      (outdir defaults to survey/; the 17 Oct 2026 full-surface run was
+      written to survey_full/ so that the original files are kept)
 """
 import csv
 import os
@@ -38,12 +40,20 @@ from bibojsa.materials.bibo import BIBO
 
 X, Y, Z = BIBO["x"], BIBO["y"], BIBO["z"]
 
-# (plane, seq) with seq = idler-signal-pump o/e labels (LPR2010 Table 1)
+# (plane, seq) with seq = idler-signal-pump o/e labels (LPR2010 Table 1).
+# Each type-II entry of Table 1 is an "=" pair (oeo = eoo, eoe = oee) that
+# shares the d_eff expression but NOT the phase matching: with the
+# lambda_i >= lambda_s ordering, "oeo" is the half of the surface where the
+# e daughter is the shorter one and "eoo" the half where it is the longer.
+# Both must be traced (17 Oct 2026; the surveys before that date traced the
+# first eight entries only).
 INTERACTIONS = [
-    ("xy", "ooe"), ("xy", "eoe"),
-    ("yz", "eeo"), ("yz", "oeo"),
-    ("xz", "eeo"), ("xz", "oeo"), ("xz", "ooe"), ("xz", "eoe"),
+    ("xy", "ooe"), ("xy", "eoe"), ("xy", "oee"),
+    ("yz", "eeo"), ("yz", "oeo"), ("yz", "eoo"),
+    ("xz", "eeo"), ("xz", "oeo"), ("xz", "eoo"), ("xz", "ooe"),
+    ("xz", "eoe"), ("xz", "oee"),
 ]
+PARTNER = {"oeo": "eoo", "eoo": "oeo", "eoe": "oee", "oee": "eoe"}
 TARGETS = (0, 45, 90)
 BRANCHES = ("first", "second")
 
@@ -109,7 +119,7 @@ def enrich(p: L.GVMPoint) -> dict:
 def stage_field():
     """theta_PM sampled over the phase-matching surface, for the contour map."""
     pumps = np.arange(PUMP_LO, PUMP_HI + 1e-9, PUMP_STEP_FIELD)
-    with open("survey/landscape_field.csv", "w", newline="") as fh:
+    with open(out("landscape_field.csv"), "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["plane", "interaction", "branch", "pump_nm",
                     "lambda_s_um", "lambda_i_um", "angle_deg",
@@ -153,7 +163,7 @@ def stage_curves():
     """Trace every theta_PM = 0/45/90 level curve."""
     pumps = np.arange(PUMP_LO, PUMP_HI + 1e-9, PUMP_STEP_TRACE)
     cov = []
-    with open("survey/landscape_curves.csv", "w", newline="") as fh:
+    with open(out("landscape_curves.csv"), "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=CURVE_FIELDS)
         w.writeheader()
         for plane, seq in INTERACTIONS:
@@ -177,7 +187,7 @@ def stage_curves():
                 print(f"curve {plane}/{seq} target={target:>2}: {total} points, "
                       f"max|deff|={dmax:.3f} pm/V ({time.time()-t0:.1f} s)",
                       flush=True)
-    with open("survey/landscape_coverage.csv", "w", newline="") as fh:
+    with open(out("landscape_coverage.csv"), "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["plane", "interaction",
                                            "target_deg", "n_points",
                                            "max_abs_deff_pm_V"])
@@ -198,24 +208,34 @@ def stage_degenerate():
                     continue
                 row = enrich(p)
                 if any(abs(row["pump_nm"] - r["pump_nm"]) < 0.5
-                       and r["interaction"] == seq and r["plane"] == plane
+                       and r["interaction"] in (seq, PARTNER.get(seq))
+                       and r["plane"] == plane
                        for r in rows):
-                    continue
+                    continue   # the degenerate member is shared by an "=" pair
                 rows.append(row)
                 print(f"degenerate {plane}/{seq} target={target:>2} "
                       f"({branch}): pump {row['pump_nm']:.2f} nm -> "
                       f"{row['lambda_s_um']*1000:.1f} nm, theta="
                       f"{row['angle_deg']:.3f}, |deff|="
                       f"{row['abs_deff_pm_V']:.3f}", flush=True)
-    with open("survey/landscape_degenerate.csv", "w", newline="") as fh:
+    with open(out("landscape_degenerate.csv"), "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=CURVE_FIELDS)
         w.writeheader()
         w.writerows(rows)
 
 
+OUT = "survey"
+
+
+def out(name):
+    return os.path.join(OUT, name)
+
+
 if __name__ == "__main__":
-    os.makedirs("survey", exist_ok=True)
     stage = sys.argv[1] if len(sys.argv) > 1 else "all"
+    if len(sys.argv) > 2:
+        OUT = sys.argv[2]
+    os.makedirs(OUT, exist_ok=True)
     if stage in ("degenerate", "all"):
         stage_degenerate()
     if stage in ("curves", "all"):

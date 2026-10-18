@@ -98,6 +98,11 @@ TYPE_LABELS = {
     ("xz", "oeo"): "II+/III+",
     ("xz", "ooe"): "I-",
     ("xz", "eoe"): "II-/III-",
+    # partner sequences (e/o roles of the two daughters swapped; same deff)
+    ("xy", "oee"): "II-/III-",
+    ("yz", "eoo"): "II+/III+",
+    ("xz", "eoo"): "II+/III+",
+    ("xz", "oee"): "II-/III-",
 }
 
 
