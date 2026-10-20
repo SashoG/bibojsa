@@ -6,9 +6,9 @@ for high-purity photon pairs" (Data File 1).  All files are plain CSV
 with a header row.  Regenerated 17 October 2026 (v0.11 of the
 manuscript): the survey now covers BOTH halves of every type-II
 phase-matching surface (see "Interaction labels" below); the
-eight-interaction run of 18 September 2026 is kept in
-../archive/survey_2026-09/ (the tabular files that changed; its rows
-are a strict subset of these).  landscape_field.csv, points2/ and the
+eight-interaction run of 18 September 2026 is not part of the public
+repository (its rows are a strict subset of these; available from the
+author).  landscape_field.csv, points2/ and the
 superseded fixed-pump files were not regenerated and are unchanged.
 
 Conventions
@@ -137,8 +137,11 @@ window_tail.csv           Unfiltered purity of each featured point on
 length_extension.csv      Points A, B, C (and G, H at 0.4 rad/ps pixel)
                           at L = 10/15/20/30 mm over pump bandwidths
                           2-16 nm: P on the 6-sigma window and P_inf.
-                          H's 30-mm optimum lies below the 2-nm grid
-                          edge (0.968 at 1 nm, physics_check).
+                          20 Oct 2026: 1-nm rows for G and H added
+                          (examples/add_1nm_rows.py, 0.25 rad/ps pixel)
+                          so that H's 30-mm optimum, 0.968 at 1 nm, is
+                          in the file; the bandwidth grid of
+                          window_tail.py now starts at 1 nm.
 
 Superseded
 ----------

@@ -12,53 +12,48 @@
 % v0.10 (16 Oct 2026): panel widths/heights and separations reduced so that
 % the standalone PDF is natively the width it is included at in the
 % manuscript (fonts no longer scaled down); label collisions fixed.
+% v0.12 (20 Oct 2026): redrawn at full text width (was 0.60\linewidth,
+% text at 5.6-6.4 pt): legend moved below the axis (4 columns), P_90 / P_70
+% labels moved above the frame (they sat on the curves).
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
+\newcommand{\filt}[2]{% #1 tag, #2 style
+  \addplot[#2] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
+    {\figdatadir/filter_#1.csv};}
 \begin{axis}[
-  bibopanel, width=60mm, height=39mm,
+  bibopanel, scale only axis, width=72mm, height=38mm,
+  tick label style={font=\footnotesize}, label style={font=\footnotesize},
+  every axis plot/.append style={line width=0.8pt},
   xmin=0.08, xmax=1.02, ymin=0.003, ymax=1.0, ymode=log,
   xlabel={fraction of heralding flux transmitted},
   ylabel={impurity $1-P$},
   ytick={0.003,0.01,0.03,0.1,0.3,1}, yticklabels={0.003,0.01,0.03,0.1,0.3,1},
   log ticks with fixed point,
-  legend style={at={(1.03,1.0)}, anchor=north west, draw=none, fill=none},
+  clip mode=individual,
+  legend columns=1,
+  legend style={at={(1.03,1.0)}, anchor=north west, draw=none, fill=none,
+    font=\footnotesize,
+    /tikz/every even column/.append style={column sep=4mm},
+    /tikz/every odd column/.append style={column sep=1mm}},
   legend cell align=left,
 ]
   \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
     coordinates {(0.9,0.003) (0.9,1.0)};
   \addplot[cbound, densely dotted, line width=0.5pt, forget plot]
     coordinates {(0.7,0.003) (0.7,1.0)};
-  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.895,0.0032) {$P_{90}$};
-  \node[font=\scriptsize, cbound, anchor=south east] at (axis cs:0.695,0.0032) {$P_{70}$};
-  \addplot[cg0, solid] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_A.csv};
-  \addlegendentry{A\; $682$\,nm, $k_p'=k_e'$}
-  \addplot[cg0, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_B.csv};
-  \addlegendentry{B\; $722$\,nm, $k_p'=k_e'$}
-  \addplot[cg0, densely dotted, line width=0.9pt] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_G.csv};
-  \addlegendentry{G\; $532$\,nm, $k_p'=k_e'$}
-  \addplot[cg90, solid] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_H.csv};
-  \addlegendentry{H\; $464$\,nm $x$--$y$, $k_p'=k_o'$}
-  \addplot[cg90, densely dotted, line width=0.9pt]
-    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_C.csv};
-  \addlegendentry{C\; $1117$\,nm, $k_p'=k_o'$}
-  \addplot[cg45, densely dashdotted]
-    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_D.csv};
-  \addlegendentry{D\; $870$\,nm, EPM}
-  \addplot[cg45, solid, line width=0.5pt]
-    table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_K.csv};
-  \addlegendentry{K\; $800$\,nm, EPM}
-  \addplot[black, densely dashed] table [col sep=comma, x=transmission, y expr=1-\thisrow{purity}]
-    {\figdatadir/filter_E.csv};
-  \addlegendentry{E\; $819$\,nm, triple}
+  \node[font=\footnotesize, cbound, anchor=south, inner sep=1.5pt] at (axis cs:0.9,1.0) {$P_{90}$};
+  \node[font=\footnotesize, cbound, anchor=south, inner sep=1.5pt] at (axis cs:0.7,1.0) {$P_{70}$};
+  % legend (one column at the right): grouped by GVM condition
+  \filt{A}{cg0, solid}                         \addlegendentry{A\; $682$\,nm, $k_p'=k_e'$}
+  \filt{B}{cg0, densely dashed}                \addlegendentry{B\; $722$\,nm, $k_p'=k_e'$}
+  \filt{G}{cg0, densely dotted, line width=1.0pt} \addlegendentry{G\; $532$\,nm, $k_p'=k_e'$}
+  \filt{H}{cg90, solid}                        \addlegendentry{H\; $464$\,nm ($x$--$y$), $k_p'=k_o'$}
+  \filt{C}{cg90, densely dotted, line width=1.0pt} \addlegendentry{C\; $1117$\,nm, $k_p'=k_o'$}
+  \filt{D}{cg45, densely dashdotted}           \addlegendentry{D\; $870$\,nm, EPM}
+  \filt{K}{cg45, solid, line width=0.6pt}      \addlegendentry{K\; $800$\,nm, EPM}
+  \filt{E}{black, densely dashed}              \addlegendentry{E\; $819$\,nm, triple}
 \end{axis}
 \end{tikzpicture}
 \end{document}

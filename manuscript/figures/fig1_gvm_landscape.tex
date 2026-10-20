@@ -7,9 +7,16 @@
 % curve through its frequency-degenerate member; the e-wave and o-wave
 % wavelengths are the two arms.  Panel 2 is the x-y plane (new); panel 3
 % merges the two type-I interactions.
+% v0.12 (20 Oct 2026): redrawn for legibility at full text width.  Natural
+% width ~ 5.25 in (Optica \linewidth), so the manuscript includes it at
+% scale ~1 and footnotesize text prints at 8 pt (was 7 pt x 0.78 = 5.5 pt).
+% Shared y range (0.45-3.25 um) with tick labels on the left panel only;
+% legend moved below the panels (4 columns) via legend to name.
 % Data: data/gvmcurve_xz_<cond>.csv, gvmcurve_xy_<cond>.csv,
 %       gvmcurve_<seq>_<target>.csv (type I).
 % Compile standalone:  pdflatex fig1_gvm_landscape.tex  (twice)
+% 20 Oct 2026 (physics check): legend reads 'condition / theta_PM' -- the
+% condition names apply to type II, the angles to the type-I panel.
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
@@ -28,12 +35,18 @@
   \addplot[transline, domain=#1:#2]{2.60};
   \addplot[sellline, domain=#1:#2]{3.05};}
 \begin{groupplot}[
-  group style={group size=3 by 1, horizontal sep=7mm},
-  bibopanel, width=38mm, height=38mm, title style={font=\scriptsize, yshift=-2pt, align=center},
+  group style={group size=3 by 1, horizontal sep=3mm,
+               y descriptions at=edge left},
+  bibopanel, scale only axis, width=38mm, height=37mm,
+  tick label style={font=\footnotesize},
+  label style={font=\footnotesize},
+  title style={font=\footnotesize, yshift=-2pt, align=center},
+  every axis plot/.append style={line width=0.8pt},
+  ymin=0.45, ymax=3.25, ytick={0.5,1,1.5,2,2.5,3},
   ylabel={daughter wavelengths ($\mu$m)},
 ]
 \nextgroupplot[title={$x$--$z$, type II},
-  xmin=0.46, xmax=1.26, ymin=0.55, ymax=3.25, xtick={0.5,0.7,0.9,1.1}]
+  xmin=0.46, xmax=1.26, xtick={0.5,0.7,0.9,1.1}]
   \winlimits{0.46}{1.26}
   \gvmpairII{xz}{ke}{g0line}
   \gvmpairII{xz}{epm}{g45line}
@@ -42,26 +55,29 @@
     (0.869583,1.739166) (1.116841,2.233682)};
   \addplot[degmark, fill=white, forget plot] coordinates {(0.722,1.155982)
     (0.722,1.923690) (0.532,0.773630) (0.532,1.703290) (0.800,1.335830) (0.800,1.994420)};
-  \node[font=\scriptsize, anchor=east, inner sep=1pt] at (axis cs:0.672,1.364) {A};
-  \node[font=\scriptsize, anchor=north west, inner sep=1pt] at (axis cs:0.728,1.14) {B};
-  \node[font=\scriptsize, anchor=south west, inner sep=1pt] at (axis cs:0.878,1.75) {D};
-  \node[font=\scriptsize, anchor=south east, inner sep=1pt] at (axis cs:1.105,2.26) {C};
-  \node[font=\scriptsize, anchor=south west, inner sep=1pt] at (axis cs:0.540,1.72) {G};
-  \node[font=\scriptsize, anchor=north east, inner sep=1pt] at (axis cs:0.792,1.98) {K};
-\nextgroupplot[title={$x$--$y$, type II}, ylabel={},
+  \node[font=\footnotesize, anchor=east, inner sep=1pt] at (axis cs:0.672,1.364) {A};
+  \node[font=\footnotesize, anchor=north west, inner sep=1pt] at (axis cs:0.728,1.14) {B};
+  \node[font=\footnotesize, anchor=south west, inner sep=1pt] at (axis cs:0.878,1.75) {D};
+  \node[font=\footnotesize, anchor=south east, inner sep=1pt] at (axis cs:1.105,2.26) {C};
+  \node[font=\footnotesize, anchor=south west, inner sep=1pt] at (axis cs:0.540,1.72) {G};
+  \node[font=\footnotesize, anchor=north east, inner sep=1pt] at (axis cs:0.792,1.98) {K};
+\nextgroupplot[title={$x$--$y$, type II},
   xlabel={pump wavelength ($\mu$m)},
-  xmin=0.425, xmax=0.565, ymin=0.45, ymax=2.75, xtick={0.44,0.48,0.52}]
+  xmin=0.425, xmax=0.565, xtick={0.44,0.48,0.52}]
   \addplot[transline, domain=0.425:0.565]{2.60};
   \gvmpairII{xy}{ko}{g90line}
   \gvmpairII{xy}{epm}{g45line}
   \addplot[degmark, fill=white, forget plot] coordinates {(0.464,0.622290)
     (0.464,1.824160) (0.532,0.673500) (0.532,2.532160)};
-  \node[font=\scriptsize, anchor=south, inner sep=1pt] at (axis cs:0.464,1.88) {H};
-  \node[font=\scriptsize, anchor=north, inner sep=1pt] at (axis cs:0.532,2.47) {J};
-\nextgroupplot[title={$x$--$z$, type I}, ylabel={},
-  xmin=0.64, xmax=0.92, ymin=0.80, ymax=3.25, xtick={0.7,0.8,0.9},
-  legend style={at={(1.04,1.0)}, anchor=north west, draw=none,
-                fill=none, cells={anchor=west}},
+  \node[font=\footnotesize, anchor=south, inner sep=1pt] at (axis cs:0.464,1.88) {H};
+  \node[font=\footnotesize, anchor=north, inner sep=1pt] at (axis cs:0.532,2.47) {J};
+\nextgroupplot[title={$x$--$z$, type I},
+  xmin=0.64, xmax=0.92, xtick={0.7,0.8,0.9},
+  legend to name=fig1legend,
+  legend columns=4,
+  legend style={font=\footnotesize, draw=none, fill=none,
+                /tikz/every even column/.append style={column sep=4mm},
+                /tikz/every odd column/.append style={column sep=1.5mm}},
   legend cell align=left,
 ]
   \winlimits{0.64}{0.92}
@@ -72,15 +88,17 @@
   \gvmpair{eeo}{45}{g45line, line width=0.4pt}
   \gvmpair{eeo}{90}{g90line, line width=0.5pt}
   \addplot[degmark, forget plot] coordinates {(0.818696,1.637392) (0.896760,1.793520)};
-  \node[font=\scriptsize, anchor=north] at (axis cs:0.819,1.58) {E};
-  \node[font=\scriptsize, anchor=south] at (axis cs:0.897,1.86) {F};
-  \addlegendimage{g0line}\addlegendentry{$k_p'=k_e'$ ($\theta_{\mathrm{PM}}=0^\circ$)}
-  \addlegendimage{g45line}\addlegendentry{EPM ($45^\circ$)}
-  \addlegendimage{g90line}\addlegendentry{$k_p'=k_o'$ ($90^\circ$)}
+  \node[font=\footnotesize, anchor=north] at (axis cs:0.819,1.58) {E};
+  \node[font=\footnotesize, anchor=south] at (axis cs:0.897,1.86) {F};
+  \addlegendimage{g0line}\addlegendentry{$k_p'=k_e'$ / $\theta_{\mathrm{PM}}=0^\circ$}
+  \addlegendimage{g45line}\addlegendentry{EPM / $45^\circ$}
+  \addlegendimage{g90line}\addlegendentry{$k_p'=k_o'$ / $90^\circ$}
+  \addlegendimage{degmark}\addlegendentry{degenerate}
   \addlegendimage{cwarn, dashdotted}\addlegendentry{1\,cm$^{-1}$ absorption}
   \addlegendimage{cbound, densely dotted}\addlegendentry{Sellmeier limit}
-  \addlegendimage{degmark}\addlegendentry{degenerate}
   \addlegendimage{degmark, fill=white}\addlegendentry{featured, nondegenerate}
 \end{groupplot}
+\node[anchor=north] at (group c2r1.outer south)
+  {\pgfplotslegendfromname{fig1legend}};
 \end{tikzpicture}
 \end{document}

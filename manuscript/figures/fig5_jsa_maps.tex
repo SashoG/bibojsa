@@ -14,6 +14,11 @@
 % v0.10 (16 Oct 2026): panel widths/heights and separations reduced so that
 % the standalone PDF is natively the width it is included at in the
 % manuscript (fonts no longer scaled down); label collisions fixed.
+% v0.12 (20 Oct 2026): redrawn at full text width (was 0.70\linewidth,
+% text at 6.0-6.9 pt): panels 31 mm (scale only axis), footnotesize ticks
+% and labels, one colour bar for all six panels (was drawn twice), y label
+% on the left column only.  One-line panel titles (crystal length and pump
+% bandwidth are in Table 1).
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
@@ -26,38 +31,47 @@
     table [col sep=comma, x=dws_rad_ps, y=dwi_rad_ps, meta=amp]
     {\figdatadir/jsa_#1.csv};}
 \begin{groupplot}[
-  group style={group size=3 by 2, horizontal sep=13mm, vertical sep=11mm},
-  bibopanel, width=32mm, height=32mm,
+  group style={group size=3 by 2, horizontal sep=9mm, vertical sep=10mm},
+  bibopanel, scale only axis, width=28mm, height=28mm,
   colormap name=viridis,
   point meta min=0, point meta max=1,
+  tick label style={font=\footnotesize}, label style={font=\footnotesize},
   xlabel={$\delta\omega_s$ (rad/ps)},
   enlargelimits=false,
-  title style={font=\scriptsize, align=center, yshift=-3pt},
+  title style={font=\footnotesize, yshift=-2pt},
 ]
-\nextgroupplot[title={A: $682$\,nm, $k_p'=k_e'$\\$x$--$z$, $L=10$\,mm, $8$\,nm},
+\nextgroupplot[title={A: $682$\,nm, $k_p'=k_e'$},
   xlabel={}, ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-70, xmax=70, ymin=-70, ymax=70, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{A}
-\nextgroupplot[title={H: $464$\,nm, $k_p'=k_o'$\\$x$--$y$, $L=10$\,mm, $2$\,nm},
+\nextgroupplot[title={H: $464$\,nm, $k_p'=k_o'$},
   xlabel={}, xmin=-65, xmax=65, ymin=-65, ymax=65, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{H}
-\nextgroupplot[title={G: $532$\,nm, $k_p'=k_e'$\\$x$--$z$, $L=10$\,mm, $4$\,nm},
-  xlabel={}, xmin=-89, xmax=89, ymin=-89, ymax=89, xtick={-50,0,50}, ytick={-50,0,50},
-  colorbar, colorbar style={width=2.5mm, tick label style={font=\scriptsize},
-                            ylabel={}}]
+\nextgroupplot[title={G: $532$\,nm, $k_p'=k_e'$},
+  xlabel={}, xmin=-89, xmax=89, ymin=-89, ymax=89, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{G}
-\nextgroupplot[title={D: $870$\,nm, EPM\\$x$--$z$, $L=2$\,mm, $12$\,nm},
+\nextgroupplot[title={D: $870$\,nm, EPM},
   ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-115, xmax=115, ymin=-115, ymax=115, xtick={-100,0,100},
   ytick={-100,0,100}]
   \jsamap{D}
-\nextgroupplot[title={K: $800$\,nm, EPM\\$x$--$z$, $L=2$\,mm, $8$\,nm},
+\nextgroupplot[title={K: $800$\,nm, EPM},
   xmin=-90, xmax=90, ymin=-90, ymax=90, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{K}
-\nextgroupplot[title={E: $819$\,nm $ooe$, triple\\$x$--$z$, $L=10$\,mm, $32$\,nm},
+\nextgroupplot[title={E: $819$\,nm, triple},
   xmin=-509, xmax=509, ymin=-509, ymax=509, xtick={-400,0,400},
-  ytick={-400,0,400},
-  colorbar, colorbar style={width=2.5mm, tick label style={font=\scriptsize},
-                            ylabel={}}]
+  ytick={-400,0,400}]
   \jsamap{E}
 \end{groupplot}
+% one colour bar for all panels, spanning both rows: a hidden dummy axis
+% of the full two-row height whose colour bar sits at its right edge
+\begin{axis}[
+  at={(group c3r2.south east)}, anchor=south west, xshift=1mm,
+  hide axis, scale only axis, width=0.1mm, height=66mm,
+  colormap name=viridis, point meta min=0, point meta max=1,
+  colorbar, colorbar style={width=2.5mm,
+    tick label style={font=\footnotesize},
+    ytick={0,0.2,0.4,0.6,0.8,1}},
+]
+  \addplot[draw=none, point meta=0] coordinates {(0,0)};
+\end{axis}
 \end{tikzpicture}
 \end{document}

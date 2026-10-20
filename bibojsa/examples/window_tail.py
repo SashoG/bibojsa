@@ -20,8 +20,8 @@ Outputs
   survey/window_tail.csv          per point: P at each W, P_inf, C, fit residual,
                                   the paper's window in sigma and in nm, and the
                                   filtered purities at 6 and 16 sigma
-  survey/length_extension.csv     P (paper window) and P_inf for A, B, C at
-                                  L = 10...30 mm over pump bandwidths
+  survey/length_extension.csv     P (6-sigma window) and P_inf for A, B, C, G, H at
+                                  L = 10...30 mm over pump bandwidths 1-16 nm
 """
 import csv
 import os
@@ -154,7 +154,7 @@ def length_rows():
         lam_p = pump_nm / 1000.0
         wp0, ws0, wi0 = (lambda_um_to_omega(v) for v in (lam_p, lam_s, lam_i))
         for L_mm in (10.0, 15.0, 20.0, 30.0):
-            for bw in (2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 16.0):
+            for bw in (1.0, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 16.0):   # 1 nm added 20 Oct 2026 (H's 30-mm optimum)
                 fw = fwhm_omega_from_fwhm_wavelength(bw * 1e-3, lam_p)
                 sig = gaussian_pump_sigma(fw)
                 Ps, Ws = [], []

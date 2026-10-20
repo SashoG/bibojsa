@@ -33,7 +33,6 @@ bibojsa/                 the Python project
   survey/                THE DATA — every CSV read by the manuscript;
                          survey/README.txt documents each file and column
   SURVEY_FULL_2026-10-17.md  what the 17 Oct 2026 full survey added and why
-archive/survey_2026-09/  the September 2026 survey tables that v0.11 replaced
 manuscript/
   figures/               pgfplots sources (fig1, fig3–fig6 = manuscript
                          Figs. 1–5), Makefile, make_figure_data.py, and
@@ -73,7 +72,8 @@ principal-plane interactions, i.e. both halves of every type-II
 phase-matching surface, x–y plane included), so the long survey steps can
 be skipped; `make_figure_data.py` and `make` reproduce the five figures
 from it in minutes. The eight-interaction run of 18 September 2026
-(manuscript v0.6–v0.10) is kept in `archive/survey_2026-09/`.
+(manuscript v0.6–v0.10) is not part of this repository; its rows are a
+strict subset of the present tables.
 
 ## Conventions (short form; full text in `bibojsa/survey/README.txt`)
 
