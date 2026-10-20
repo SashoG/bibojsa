@@ -4,8 +4,9 @@
 
 Code and data underlying
 
-> A. Gaydardzhiev, *Mapping group-velocity matching in monoclinic BiB₃O₆ for
-> high-purity photon pairs*, submitted to Optics Express (2026).
+> A. Gaydardzhiev, *Group-velocity-matched photon pairs in BiB₃O₆: a map of
+> nondegenerate purity loci across all twelve interactions*, submitted to
+> Optics Express (2026).
 
 `bibojsa` computes collinear spontaneous parametric down-conversion in
 biaxial crystals: Sellmeier dispersion and group indices, biaxial
@@ -58,8 +59,9 @@ python -m pytest tests                     # 108 tests, ~1 min
 python examples/landscape_survey.py all    # survey/landscape_*.csv (~hours)
 python examples/full_landscape_preview.py  # merged curves, survey/figdata/
 python examples/landscape_points.py        # survey/points2/, points2_summary.csv
-python examples/landscape_headline.py all  # Table 2, headline_*.csv, family_purity.csv
+python examples/landscape_headline.py all  # Table 1, headline_*.csv, family_purity.csv
 python examples/window_tail.py             # window_tail.csv, length_extension.csv
+python examples/add_1nm_rows.py            # 1-nm pump rows of length_extension.csv (G, H)
 
 cd ../manuscript/figures
 python make_figure_data.py                 # survey → data/*.csv (seconds)
@@ -67,7 +69,8 @@ make                                       # figure PDFs (fig5 needs lualatex + 
 ```
 
 The committed `survey/` tree is the exact output the manuscript was drawn
-from (regenerated 17 October 2026, manuscript v0.11: all twelve
+from (regenerated 17 October 2026, manuscript v0.11, 1-nm length rows added
+20 October 2026: all twelve
 principal-plane interactions, i.e. both halves of every type-II
 phase-matching surface, x–y plane included), so the long survey steps can
 be skipped; `make_figure_data.py` and `make` reproduce the five figures
