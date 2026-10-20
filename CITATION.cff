@@ -10,17 +10,16 @@ abstract: >-
   Sellmeier dispersion, biaxial phase matching, point-group-2 effective
   nonlinearity, group-velocity-matching classification as level curves in pump
   wavelength, and joint-spectral-amplitude purity of heralded photons.
-version: 1.0.0
-date-released: "2026-09-22"
+version: 1.1.0
+date-released: "2026-10-20"
 license: MIT
 repository-code: "https://github.com/SashoG/bibojsa"
-doi: 10.5281/zenodo.XXXXXXX
 authors:
   - family-names: Gaydardzhiev
     given-names: Alexander
     email: a.gaydardzhiev@phys.uni-sofia.bg
     affiliation: "Faculty of Physics, Sofia University \"St. Kliment Ohridski\", 5 James Bourchier Blvd., 1164 Sofia, Bulgaria"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0000-0001-9419-494X"
 keywords:
   - spontaneous parametric down-conversion
   - group-velocity matching
@@ -33,11 +32,11 @@ keywords:
   - nonlinear optics
 preferred-citation:
   type: article
-  title: "Mapping group-velocity matching in monoclinic BiB3O6 for high-purity photon pairs"
+  title: "Group-velocity-matched photon pairs in BiB3O6: a map of nondegenerate purity loci across all twelve interactions"
   authors:
     - family-names: Gaydardzhiev
       given-names: Alexander
-      orcid: "https://orcid.org/0000-0000-0000-0000"
+      orcid: "https://orcid.org/0000-0001-9419-494X"
   journal: "Optics Express"
   year: 2026
   notes: "submitted"
