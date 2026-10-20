@@ -1,6 +1,6 @@
 # bibojsa — group-velocity matching and photon-pair purity in BiB₃O₆
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23510814.svg)](https://doi.org/10.5281/zenodo.23510814)
 
 Code and data underlying
 
@@ -105,7 +105,7 @@ Please cite the paper and, for the code and data, the Zenodo record
 
 ```
 Gaydardzhiev, A. (2026). bibojsa: group-velocity matching and photon-pair
-purity in BiB3O6 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+purity in BiB3O6 (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.23510815
 ```
 
 ## Licence
