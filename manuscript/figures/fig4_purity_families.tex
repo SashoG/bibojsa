@@ -15,10 +15,19 @@
 % 0.78\linewidth, text at 5.2-5.9 pt).  Panels 1-2 share the y range and
 % tick labels; legend moved below the panels (one row); the "EPM sinc value"
 % note moved to the empty lower right of panel 1 (it overlapped markers).
+% v1.0-R1 (Nov 2026, reviewer 2 minor 2): panels labelled (a)-(c); the
+% operating points of Fig. 1 marked at their Table-1 purity from
+% data/points.tex (black ring around the family marker, with the letter).
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
+\input{\figdatadir/points}
+\newcommand{\ptv}[2]{\csname pt#1#2\endcsname}% operating-point data (make_figure_data.py)
+\newcommand{\ptmark}[2]{% #1 tag, #2 label anchor
+  \addplot[only marks, mark=o, mark size=2.6pt, black, line width=0.5pt,
+    forget plot] coordinates {(\ptv{pump}{#1},\ptv{purity}{#1})}
+    node[font=\footnotesize, anchor=#2, inner sep=2.6pt, black] {#1};}
 \newcommand{\purplot}[5][*]{% [#1 mark: * or triangle*], #2 plane-or-seq,
   % #3 cond-or-target, #4 colour, #5 extra style.  The scatter classes set the
   % mark, so the marker shape must be passed in here (v0.12 fix: eeo
@@ -36,23 +45,31 @@
   title style={font=\footnotesize, yshift=-2pt},
   every axis plot/.append style={line width=0.8pt},
 ]
-\nextgroupplot[title={$x$--$z$, type II}, ylabel={heralded purity $P$},
+\nextgroupplot[title={(a) $x$--$z$, type II}, ylabel={heralded purity $P$},
   xmin=0.46, xmax=1.26, ymin=0.70, ymax=1.0, xtick={0.5,0.7,0.9,1.1},
   ytick={0.7,0.8,0.9,1.0}]
   \addplot[cbound, densely dotted, forget plot, domain=0.40:1.30]{0.8315};
   \purplot{xz}{ke}{cg0}{solid}
   \purplot{xz}{epm}{cg45}{densely dashed}
   \purplot{xz}{ko}{cg90}{densely dotted, line width=1.0pt}
-\nextgroupplot[title={$x$--$y$, type II},
+  \ptmark{A}{south}
+  \ptmark{B}{south west}
+  \ptmark{G}{south}
+  \ptmark{C}{south east}
+  \ptmark{D}{south west}
+  \ptmark{K}{south east}
+\nextgroupplot[title={(b) $x$--$y$, type II},
   xlabel={pump wavelength ($\mu$m)},
   xmin=0.425, xmax=0.565, ymin=0.70, ymax=1.0, xtick={0.44,0.48,0.52},
   ytick={0.7,0.8,0.9,1.0}, yticklabels={}]
   \addplot[cbound, densely dotted, forget plot, domain=0.40:0.60]{0.8315};
   \purplot{xy}{ko}{cg90}{densely dotted, line width=1.0pt}
   \purplot{xy}{epm}{cg45}{densely dashed}
+  \ptmark{H}{south}
+  \ptmark{J}{south}
   \node[font=\footnotesize, anchor=north west, cbound, inner sep=1pt, align=left]
     at (axis cs:0.428,0.826) {EPM sinc\\value};
-\nextgroupplot[title={$x$--$z$, type I},
+\nextgroupplot[title={(c) $x$--$z$, type I},
   xmin=0.64, xmax=0.92, ymin=0, ymax=1.0, xtick={0.7,0.8,0.9},
   ytick={0,0.2,0.4,0.6,0.8,1.0},
   yticklabel pos=right,
@@ -68,6 +85,8 @@
   \purplot[triangle*]{eeo}{0}{cg0}{only marks, mark size=1.8pt}
   \purplot[triangle*]{eeo}{45}{cg45}{only marks, mark size=1.8pt}
   \purplot[triangle*]{eeo}{90}{cg90}{only marks, mark size=1.8pt}
+  \ptmark{E}{south}
+  \ptmark{F}{south west}
   \addlegendimage{g0line, mark=*, mark size=1.3pt}\addlegendentry{$k_p'=k_e'$ / $0^\circ$}
   \addlegendimage{g45line, mark=*, mark size=1.3pt}\addlegendentry{EPM / $45^\circ$}
   \addlegendimage{g90line, mark=*, mark size=1.3pt}\addlegendentry{$k_p'=k_o'$ / $90^\circ$}

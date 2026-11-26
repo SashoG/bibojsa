@@ -9,9 +9,9 @@ bibojsa/survey/*.csv  --make_figure_data.py-->  data/*.csv  --fig<N>.tex-->  fig
 
 | figure | source file | data files | manuscript label |
 |---|---|---|---|
-| 1 | `fig1_gvm_landscape.tex` | `data/gvmcurve_xz_{ke,epm,ko}.csv`, `data/gvmcurve_xy_{ko,epm}.csv`, `data/gvmcurve_{ooe,eeo}_{0,45,90}.csv` (the 2.60/3.05 µm idler limits are drawn as constants) | `fig:landscape` |
-| 2 | `fig3_deff.tex` | `data/deff_*.csv` (same families) | `fig:deff` |
-| 3 | `fig4_purity_families.tex` | `data/purity_*.csv` (same families) | `fig:familypurity` |
+| 1 | `fig1_gvm_landscape.tex` | `data/gvmcurve_xz_{ke,epm,ko}.csv`, `data/gvmcurve_xy_{ko,epm}.csv`, `data/gvmcurve_{ooe,eeo}_{0,45,90}.csv`, `data/points.tex` (the 2.60/3.05 µm idler limits are drawn as constants) | `fig:landscape` |
+| 2 | `fig3_deff.tex` | `data/deff_*.csv` (same families), `data/points.tex` | `fig:deff` |
+| 3 | `fig4_purity_families.tex` | `data/purity_*.csv` (same families), `data/points.tex` | `fig:familypurity` |
 | 4 | `fig5_jsa_maps.tex` | `data/jsa_{A,H,G,D,K,E}.csv`, `data/jsa_mesh.tex` | `fig:jsa` |
 | 5 | `fig6_filter.tex` | `data/filter_{A,B,C,D,G,H,K,E}.csv` | `fig:filter` |
 
@@ -35,7 +35,7 @@ make                         # builds the five PDFs from data/
 python make_figure_data.py   # only if the survey changed: re-derives data/
 ```
 
-`data/` (47 CSVs plus `jsa_mesh.tex`; only files a figure reads) is kept in the folder. It is derived output —
+`data/` (47 CSVs plus `jsa_mesh.tex` and `points.tex`; only files a figure reads) is kept in the folder. It is derived output —
 `make_figure_data.py` regenerates it from `../../bibojsa/survey` in a few
 seconds — but it is the exact input the five figures were drawn from, so
 it is version-controlled with them rather than reconstructed on demand.
@@ -100,6 +100,15 @@ compile the figures there.
   every x–z family folds back in pump, so sorting by pump interleaves
   its two arms. Fixed 18 Sep 2026; the old ordering had silently dropped
   most of the oeo 0° family from figs 1 and 3.
+- Operating-point markers (v1.2.0, first revision of the manuscript):
+  `make_figure_data.py` writes `data/points.tex` from
+  `survey/headline_points.csv` — one macro per point and quantity
+  (`\ptpumpA`, `\ptlsA`, `\ptliA`, `\ptdeffA`, `\ptscaleA`,
+  `\ptpurityA`, …, read through `\ptv{<quantity>}{<tag>}`). figs 1, 3
+  and 4 draw their lettered markers from it; only the label anchors are
+  set by hand. Never type marker coordinates into a figure source.
+- Panels carry labels (a), (b), … in their titles since v1.2.0; the
+  manuscript refers to them as Fig. 1(a) etc.
 - `data/` is derived output; never edit it by hand.
 
 `make_figure_data.py` reads `../../bibojsa/survey` (the layout of the

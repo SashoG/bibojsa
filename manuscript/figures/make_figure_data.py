@@ -15,6 +15,12 @@ Writes  data/*.csv
   fig4  jsa_<tag>.csv              |f| in angular-frequency detuning, cropped
         jsa_mesh.tex               mesh/cols, mesh/rows per panel
   fig5  filter_<tag>.csv           purity vs transmitted heralding flux
+  figs 1-3  points.tex             pump wavelength, daughter wavelengths,
+                                   |deff|, group-delay scale and unfiltered
+                                   purity of the featured operating points
+                                   (survey/headline_points.csv) as TeX macros,
+                                   so that the markers in Figs. 1-3 are drawn
+                                   from the survey and not typed in (v1.2.0)
 
 cond:  ke  = pump matched to the e wave (k_p' = k_e'), x-z: oeo/0 + eoo/90
        epm = extended phase matching,                 x-z: oeo/45 + eoo/45
@@ -184,6 +190,31 @@ def jsa_and_filter():
            [[r["transmission"], r["purity"], r["ratio"], r["filter_fwhm_nm"]] for r in rows])
 
 
+POINT_TAGS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"]  # marked in Figs. 1-3
+
+
+def points():
+    """Featured operating points as TeX macros \\pt<quantity><tag>."""
+    rows = {r["tag"]: r for r in rd("headline_points.csv")}
+    with open(os.path.join(OUT, "points.tex"), "w") as fh:
+        fh.write("% written by make_figure_data.py from survey/headline_points.csv --\n")
+        fh.write("% featured operating points for the markers of figs 1, 3 and 4\n")
+        fh.write("% (manuscript Figs. 1-3): pump and daughter wavelengths (um), |deff|\n")
+        fh.write("% (pm/V), group-delay scale max(|D31|,|D32|) (fs/mm), unfiltered purity\n")
+        for tag in POINT_TAGS:
+            r = rows[tag]
+            scale = max(abs(float(r["d31_fs_mm"])), abs(float(r["d32_fs_mm"])))
+            vals = {"pump": f"{float(r['pump_nm']) / 1000.0:.6f}",
+                    "ls": f"{float(r['lambda_s_um']):.5f}",
+                    "li": f"{float(r['lambda_i_um']):.5f}",
+                    "deff": f"{float(r['abs_deff_pm_V']):.3f}",
+                    "scale": f"{scale:.3f}",
+                    "purity": f"{float(r['purity']):.5f}"}
+            for k, v in vals.items():
+                fh.write(f"\\expandafter\\def\\csname pt{k}{tag}\\endcsname{{{v}}}\n")
+    print("  data/points.tex:", POINT_TAGS)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for f in os.listdir(OUT):
@@ -191,4 +222,5 @@ if __name__ == "__main__":
     print("fig1 / fig2 data"); curves_and_deff()
     print("fig3 data"); purity()
     print("fig4 / fig5 data"); jsa_and_filter()
+    print("operating-point markers"); points()
     print("done")

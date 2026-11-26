@@ -1,7 +1,7 @@
 {
   "title": "bibojsa: group-velocity matching and photon-pair purity in BiB3O6",
   "upload_type": "software",
-  "description": "<p>Python package, survey data and figure sources underlying <em>Group-velocity-matched photon pairs in BiB<sub>3</sub>O<sub>6</sub>: a map of nondegenerate purity loci across all twelve interactions</em> (A. Gaydardzhiev, submitted to Optics Express, 2026).</p><p><code>bibojsa</code> computes collinear spontaneous parametric down-conversion in biaxial crystals: Sellmeier dispersion and group indices, biaxial phase matching from the Fresnel equation of wave normals, the full point-group-2 effective nonlinearity, classification of the group-velocity-matching conditions as level curves in pump wavelength, and the joint spectral amplitude with its Schmidt decomposition and heralded-photon purity. The repository contains the package with 108 tests, the survey scripts, the complete survey output as CSV (<code>bibojsa/survey/</code>: the 2193 traced GVM points of all twelve principal-plane interactions, the frequency-degenerate members, per-point purity/convergence/JSA/Schmidt/brightness tables, window and length dependence, Sellmeier sensitivity), the plot-ready slices and pgfplots sources of the five manuscript figures, and the independent-code off-principal-plane and pair-rate checks of 21 September 2026.</p><p>Code is MIT-licensed; the data files (<code>bibojsa/survey/</code>, <code>manuscript/figures/data/</code>, exploration CSVs) are released under CC BY 4.0 (see <code>LICENSE-DATA</code>).</p>",
+  "description": "<p>Python package, survey data and figure sources underlying <em>Group-velocity-matched photon pairs in BiB<sub>3</sub>O<sub>6</sub>: a map of nondegenerate purity loci across all twelve interactions</em> (A. Gaydardzhiev, Optics Express, under review, 2026).</p><p><code>bibojsa</code> computes collinear spontaneous parametric down-conversion in biaxial crystals: Sellmeier dispersion and group indices, biaxial phase matching from the Fresnel equation of wave normals, the full point-group-2 effective nonlinearity, classification of the group-velocity-matching conditions as level curves in pump wavelength, and the joint spectral amplitude with its Schmidt decomposition and heralded-photon purity. The repository contains the package with 114 tests, the survey scripts, the complete survey output as CSV (<code>bibojsa/survey/</code>: the 2193 traced GVM points of all twelve principal-plane interactions, the frequency-degenerate members, per-point purity/convergence/JSA/Schmidt/brightness tables, window and length dependence, Sellmeier sensitivity, and the numerical checks added for the first revision of the manuscript: grid resolution of the curve folds and ends, the negative results at finer resolution, the x-y curves under alternative Sellmeier fits, the collection-window prescription and the fit-range sensitivity of the band-independent purity), the plot-ready slices and pgfplots sources of the five manuscript figures, and the independent-code off-principal-plane and pair-rate checks of 21 September 2026.</p><p>Code is MIT-licensed; the data files (<code>bibojsa/survey/</code>, <code>manuscript/figures/data/</code>, exploration CSVs) are released under CC BY 4.0 (see <code>LICENSE-DATA</code>).</p>",
   "creators": [
     {
       "name": "Gaydardzhiev, Alexander",
@@ -18,12 +18,13 @@
     "heralded single photons",
     "spectral purity",
     "BiB3O6",
+    "BiBO",
     "BIBO",
     "biaxial crystal",
     "nonlinear optics"
   ],
   "language": "eng",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "related_identifiers": [
     {
       "identifier": "https://github.com/SashoG/bibojsa",

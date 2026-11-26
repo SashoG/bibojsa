@@ -1,0 +1,9 @@
+tag,L_mm,pump_fwhm_nm,fwhm_definition,fwhm_signal_rad_ps,fwhm_idler_rad_ps,R_full_width_rad_ps,halfwidth_pump_sigma,halfwidth_signal_nm,halfwidth_idler_nm,P_prescription,adaptive_halfwidth_pump_sigma,P_adaptive
+A,10.0,8.0,cuts through the peak,32.29,3.27,177.8,4.57,87.9,87.9,0.95099,5.44,0.94948
+A,10.0,8.0,marginal spectra,33.03,3.29,181.6,4.67,89.8,89.8,0.95079,5.44,0.94948
+B,10.0,12.0,cuts through the peak,42.59,4.05,233.2,4.48,82.7,229.0,0.94614,5.49,0.94447
+B,10.0,12.0,marginal spectra,44.17,4.07,241.2,4.63,85.6,237.0,0.94584,5.49,0.94447
+H,10.0,2.0,cuts through the peak,1.86,17.47,96.7,4.6,9.9,85.4,0.95367,6.15,0.95124
+H,10.0,2.0,marginal spectra,1.88,17.88,98.8,4.7,10.2,87.2,0.95346,6.15,0.95124
+D,2.0,12.0,cuts through the peak,23.74,23.74,237.4,6.61,190.6,190.6,0.83035,6.34,0.83147
+D,2.0,12.0,marginal spectra,23.52,23.52,235.2,6.55,188.8,188.8,0.83068,6.34,0.83147

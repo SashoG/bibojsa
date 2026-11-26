@@ -6,15 +6,17 @@ type: software
 title: "bibojsa: group-velocity matching and photon-pair purity in BiB3O6"
 abstract: >-
   Python package, survey data and figure sources for collinear spontaneous
-  parametric down-conversion in the monoclinic biaxial crystal BiB3O6 (BIBO):
+  parametric down-conversion in the monoclinic biaxial crystal BiB3O6 (BiBO):
   Sellmeier dispersion, biaxial phase matching, point-group-2 effective
   nonlinearity, group-velocity-matching classification as level curves in pump
   wavelength, and joint-spectral-amplitude purity of heralded photons.
-version: 1.1.0
-date-released: "2026-10-20"
+version: 1.2.0
+date-released: "2026-11-25"
 license: MIT
 repository-code: "https://github.com/SashoG/bibojsa"
-doi: 10.5281/zenodo.23510815
+# Concept DOI (all versions). The version DOI of v1.2.0 is minted by Zenodo
+# when the GitHub release is published; v1.1.0 is 10.5281/zenodo.23510815.
+doi: 10.5281/zenodo.23510814
 authors:
   - family-names: Gaydardzhiev
     given-names: Alexander
@@ -28,6 +30,7 @@ keywords:
   - heralded single photons
   - spectral purity
   - BiB3O6
+  - BiBO
   - BIBO
   - biaxial crystal
   - nonlinear optics
@@ -40,4 +43,4 @@ preferred-citation:
       orcid: "https://orcid.org/0000-0001-9419-494X"
   journal: "Optics Express"
   year: 2026
-  notes: "submitted"
+  notes: "under review (manuscript 622047)"

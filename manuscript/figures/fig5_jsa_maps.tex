@@ -19,6 +19,8 @@
 % and labels, one colour bar for all six panels (was drawn twice), y label
 % on the left column only.  One-line panel titles (crystal length and pump
 % bandwidth are in Table 1).
+% v1.0-R1 (Nov 2026, reviewer 2 minor 2): panels labelled (a)-(f) in
+% front of the operating-point letter.
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
@@ -40,23 +42,23 @@
   enlargelimits=false,
   title style={font=\footnotesize, yshift=-2pt},
 ]
-\nextgroupplot[title={A: $682$\,nm, $k_p'=k_e'$},
+\nextgroupplot[title={(a) A: $682$\,nm, $k_p'=k_e'$},
   xlabel={}, ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-70, xmax=70, ymin=-70, ymax=70, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{A}
-\nextgroupplot[title={H: $464$\,nm, $k_p'=k_o'$},
+\nextgroupplot[title={(b) H: $464$\,nm, $k_p'=k_o'$},
   xlabel={}, xmin=-65, xmax=65, ymin=-65, ymax=65, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{H}
-\nextgroupplot[title={G: $532$\,nm, $k_p'=k_e'$},
+\nextgroupplot[title={(c) G: $532$\,nm, $k_p'=k_e'$},
   xlabel={}, xmin=-89, xmax=89, ymin=-89, ymax=89, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{G}
-\nextgroupplot[title={D: $870$\,nm, EPM},
+\nextgroupplot[title={(d) D: $870$\,nm, EPM},
   ylabel={$\delta\omega_i$ (rad/ps)}, xmin=-115, xmax=115, ymin=-115, ymax=115, xtick={-100,0,100},
   ytick={-100,0,100}]
   \jsamap{D}
-\nextgroupplot[title={K: $800$\,nm, EPM},
+\nextgroupplot[title={(e) K: $800$\,nm, EPM},
   xmin=-90, xmax=90, ymin=-90, ymax=90, xtick={-50,0,50}, ytick={-50,0,50}]
   \jsamap{K}
-\nextgroupplot[title={E: $819$\,nm, triple},
+\nextgroupplot[title={(f) E: $819$\,nm, triple},
   xmin=-509, xmax=509, ymin=-509, ymax=509, xtick={-400,0,400},
   ytick={-400,0,400}]
   \jsamap{E}

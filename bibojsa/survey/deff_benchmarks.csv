@@ -1,0 +1,4 @@
+tag,pump_nm,theta_deg,deff_kleinman_3p2_pm_V,deff_d26_3p48_pm_V,deff_jin2020_pm_V,jin_minus_kleinman_percent,jin_minus_d26_percent,rho_mrad,miller_factor,reconstruction_d26_cos_theta_minus_rho_miller_pm_V
+A,682.241,45.96827,2.224,2.419,2.5,12.4,3.4,85.4,0.9516,2.496
+D,869.583,43.77035,2.311,2.513,2.48,7.3,-1.3,83.4,0.9107,2.463
+C,1116.841,46.10995,2.218,2.413,2.3,3.7,-4.7,82.0,0.8656,2.259

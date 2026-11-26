@@ -11,10 +11,20 @@
 % type-I curves of each interaction coincide).  Right panel: colour as on the
 % left, line style = GVM condition.  One shared two-row legend below the
 % panels replaces the in-panel legends and labels that overlapped curves.
+% v1.0-R1 (Nov 2026, reviewer 2 minor 2): panels labelled (a), (b); the
+% operating points of Fig. 1 marked on their curves from data/points.tex
+% (filled = degenerate, open = nondegenerate, as in fig1).  E and F have a
+% group-delay scale of ~0.002 fs/mm, below the log axis of panel (b).
 \documentclass[margin=2pt]{standalone}
 \input{bibofig-preamble}
 \begin{document}
 \begin{tikzpicture}
+\input{\figdatadir/points}
+\newcommand{\ptv}[2]{\csname pt#1#2\endcsname}% operating-point data (make_figure_data.py)
+\newcommand{\ptmark}[4][]{% [#1 style], #2 tag, #3 quantity, #4 label anchor
+  \addplot[degmark, mark size=1.5pt, forget plot, #1] coordinates
+    {(\ptv{pump}{#2},\ptv{#3}{#2})}
+    node[font=\footnotesize, anchor=#4, inner sep=1.6pt, black] {#2};}
 \newcommand{\deffplot}[3]{% #1 plane-or-seq, #2 cond-or-target, #3 style
   \addplot[#3, forget plot] table [col sep=comma, x=lam_p_um, y=abs_deff]
     {\figdatadir/deff_#1_#2.csv};}
@@ -30,7 +40,8 @@
   xmin=0.42, xmax=1.24, xtick={0.5,0.7,0.9,1.1},
   xlabel={pump wavelength ($\mu$m)},
 ]
-\nextgroupplot[ylabel={$|d_{\mathrm{eff}}|$ (pm/V)}, ymin=0, ymax=3.6]
+\nextgroupplot[title={(a) effective nonlinearity},
+  ylabel={$|d_{\mathrm{eff}}|$ (pm/V)}, ymin=0, ymax=3.6]
   \deffplot{xz}{ke}{coeo}
   \deffplot{xz}{epm}{coeo}
   \deffplot{xz}{ko}{coeo}
@@ -42,8 +53,19 @@
   \deffplot{eeo}{0}{ceeo}
   \deffplot{eeo}{45}{ceeo}
   \deffplot{eeo}{90}{ceeo}
-\nextgroupplot[ylabel={$\max(|\Delta_{31}|,|\Delta_{32}|)$ (fs/mm)},
-  ymode=log, ymin=0.3, ymax=400,
+  \ptmark{A}{deff}{north east}
+  \ptmark[fill=white]{B}{deff}{south west}
+  \ptmark{D}{deff}{north west}
+  \ptmark{C}{deff}{south west}
+  \ptmark[fill=white]{G}{deff}{north west}
+  \ptmark[fill=white]{K}{deff}{north}
+  \ptmark[fill=white]{H}{deff}{south}
+  \ptmark[fill=white]{J}{deff}{south west}
+  \ptmark{E}{deff}{south}
+  \ptmark{F}{deff}{north west}
+\nextgroupplot[title={(b) group-delay scale},
+  ylabel={$\max(|\Delta_{31}|,|\Delta_{32}|)$ (fs/mm)},
+  ymode=log, ymin=0.3, ymax=900,
   legend to name=fig3legend, legend columns=4,
   legend style={font=\footnotesize, draw=none, fill=none,
     /tikz/every even column/.append style={column sep=4mm},
@@ -60,6 +82,14 @@
   \gvmplot{eeo}{0}{ceeo, solid}
   \gvmplot{eeo}{45}{ceeo, densely dashed}
   \gvmplot{eeo}{90}{ceeo, densely dotted, line width=1.0pt}
+  \ptmark{A}{scale}{north east}
+  \ptmark[fill=white]{B}{scale}{north}
+  \ptmark{D}{scale}{south west}
+  \ptmark{C}{scale}{north west}
+  \ptmark[fill=white]{G}{scale}{south west}
+  \ptmark[fill=white]{K}{scale}{south west}
+  \ptmark[fill=white]{H}{scale}{south}
+  \ptmark[fill=white]{J}{scale}{north}
   \addlegendimage{coeo, line width=1.4pt}\addlegendentry{$x$--$z$ type II}
   \addlegendimage{cxy, line width=1.4pt}\addlegendentry{$x$--$y$ type II}
   \addlegendimage{cooe, line width=1.4pt}\addlegendentry{$x$--$z$ $ooe$}

@@ -143,6 +143,64 @@ length_extension.csv      Points A, B, C (and G, H at 0.4 rad/ps pixel)
                           in the file; the bandwidth grid of
                           window_tail.py now starts at 1 nm.
 
+Checks added for the first revision (examples/revision_checks.py, v1.2.0)
+-------------------------------------------------------------------------
+resolution_check.csv      Folds and ends of the five type-II GVM curves
+                          and the two weak x-z eoe features, retraced
+                          on a 0.1-nm pump grid at the survey's node
+                          counts (320 signal nodes, 1201 angles) and at
+                          1280 / 2401.  Folds: 722.6 nm (k_p' = k_e')
+                          and 882.4 nm (EPM); curve ends move by at
+                          most 4 nm against the 2-nm survey grid; the
+                          eoe theta_PM = 45 deg feature spans 776-786 nm.
+negative_results_check.csv  x-y ooe, x-y eoe, x-z oee and y-z eeo
+                          re-scanned at 1 nm / 640 signal nodes / 2401
+                          angles (survey field: 5 nm / 220 / 1201), both
+                          roots: nodes tested, nodes phase matched, and
+                          the theta_PM range, mapped to (-90, 90] deg.
+xy_altfit_curves.csv      The two x-y type-II GVM curves traced with the
+                          Miyata-Umemura-Kato fit (the survey's), the
+                          Hellwig (2000) fit and the Umemura (2007) fit.
+                          lambda_e = in-plane daughter, lambda_o =
+                          z-polarized daughter.  inside_fit_range = 1
+                          when pump and idler lie inside the fit's own
+                          stated range (the fits are evaluated outside
+                          it where the curve requires).
+xy_altfit_H.csv           The member of the x-y k_p' = k_o' curve pumped
+                          at 464 nm under each fit, with its purity
+                          (10 mm, 2 nm) on 6- and 12-sigma windows.
+window_prescription.csv   Adaptive window against the prescription
+                          R = 10 x (mean FWHM of the signal and idler
+                          central peaks) of Cai, Baek, Jin & Kaneda,
+                          Adv. Phys. Res. 4, e00167 (2025), at A, B, H
+                          and D; FWHMs from cuts through the JSI peak
+                          and from the marginal spectra.
+window_tail_dense.csv     P(W) at A, B, C, D, G, H on every window
+                          half-width listed in revision_checks.DENSE
+                          that the Sellmeier range allows.
+window_tail_fits.csv      (P_inf, C) of P = P_inf + C/W fitted over
+                          sub-ranges of those windows, including the
+                          three windows {6, 8, 12} sigma on which the
+                          B and C entries of window_tail.csv rest.
+window_tail_conditions.csv  Tail coefficient of the EPM point D at
+                          10 mm (2, 2.4, 3 nm) against its tabulated
+                          2 mm, 12 nm.  Recomputed here on five windows;
+                          agrees with window_tail.csv to about 1e-4 in
+                          P and 1e-3 in C (frequency grid and windows
+                          fitted; compare window_tail_fits.csv).
+deff_benchmarks.csv       |d_eff| at A, D, C with the Kleinman average
+                          (3.2 pm/V) and with d26 = 3.48 pm/V, against
+                          Jin et al. (2020); the last columns are a
+                          reconstruction (d26 cos(theta - rho) x Miller
+                          factor), an inference and not a statement of
+                          that paper.
+
+headline_points.csv and the other headline_*.csv are unchanged from
+v1.1.0; examples/landscape_headline.py now carries the traced inputs of
+G, H, J, K, M at full precision and regenerates them byte for byte
+(v1.1.0 listed rounded inputs, which gave H on a 5.90- instead of a
+6.15-sigma window: 0.95152 instead of the tabulated 0.95124).
+
 Superseded
 ----------
 survey_loci.csv, survey_crossings.csv, survey_summary.csv,
@@ -160,4 +218,5 @@ Reproducing
     python examples/landscape_headline.py all     # tables and figures
     python examples/window_tail.py                # window/length tables
     python examples/full_landscape_preview.py     # merged curves + preview
-    python -m pytest tests                        # 108 tests
+    python examples/revision_checks.py            # the revision checks above
+    python -m pytest tests                        # 114 tests

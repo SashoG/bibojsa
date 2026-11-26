@@ -52,23 +52,38 @@ FEATURED = [
      "triple-GVM degenerate point, largest deff"),
     ("F", "xz", "eeo",  0,  896.760, 1.793520, 1.793520, 34.90800, 1.558, 10.0, 32.0,
      "triple-GVM degenerate point, eeo"),
-    ("R", "xz", "oeo", 45,  810.000, 1.138800, 2.805300, 39.42211, 2.472,  5.0,  8.0,
-     "nondegenerate EPM member (idler in the infrared absorption band)"),
     # --- second half of the type-II surfaces (17 Oct 2026); seq is still
     # idler-signal-pump with lambda_i >= lambda_s, so "eoo" = e daughter longer,
     # "oee" (x-y) = z-polarized o daughter longer.  Cut angle = theta (x-z) or
-    # phi (x-y).  Selected by examples/landscape_headline_full.py (now folded
-    # in here): (L, bandwidth) = best unfiltered purity on the adaptive window.
-    ("G", "xz", "eoo", 90,  532.000, 0.773630, 1.703290, 67.74340, 1.212, 10.0,  4.0,
+    # phi (x-y).  (L, bandwidth) = best unfiltered purity on the adaptive window.
+    #
+    # v1.2.0 (November 2026): G, H, J, K and M carry the values traced by
+    # landscape.trace_gvm_curve() at full precision, as in the run that wrote
+    # the released headline_*.csv and window_tail.csv.  v1.1.0 listed them
+    # rounded to six digits.  The rounding changed auxiliary columns of G, J,
+    # K, M in the last digit and, at H, moved the adaptive window of
+    # landscape_points.adaptive_axes() from 6.15 to 5.90 pump sigma and the
+    # purity from the released 0.95124 to 0.95152 -- the difference Eq. (7)
+    # of the manuscript predicts for that change of window, but not the
+    # released number.  The list is in tag order, the row order of the CSVs.
+    # tests/test_headline_inputs.py pins both.
+    ("G", "xz", "eoo", 90,  532.000, 0.7736334885388051, 1.7032945987391472,
+     67.74341504087901, 1.212, 10.0,  4.0,
      "continuation of A's k_p'=k_e' curve, e daughter longer; 532-nm pump"),
-    ("H", "xy", "oee", 90,  464.000, 0.622290, 1.824160, 44.91930, 1.660, 10.0,  2.0,
-     "x-y plane asymmetric GVM (pump matched to the z-polarized wave) at the d14 maximum"),
-    ("J", "xy", "oee", 45,  532.000, 0.673500, 2.532160, 31.47900, 1.479,  2.0,  2.0,
+    ("H", "xy", "oee", 90,  464.000, 0.6222867328620912, 1.8241645324727163,
+     44.91927191933922, 1.660, 10.0,  2.0,
+     "x-y plane asymmetric GVM at the d14 maximum (phi = 45 deg)"),
+    ("J", "xy", "oee", 45,  532.000, 0.6735007525001095, 2.5321589744180395,
+     31.47903496958292, 1.479,  2.0,  2.0,
      "x-y plane EPM member, 532-nm pump"),
-    ("K", "xz", "eoo", 45,  800.000, 1.335830, 1.994420, 48.22960, 2.132,  2.0,  8.0,
+    ("K", "xz", "eoo", 45,  800.000, 1.3358264973624756, 1.9944164821081125,
+     48.229593208691746, 2.132,  2.0,  8.0,
      "x-z EPM member with both daughters below 2.6 um, 800-nm pump"),
-    ("M", "xz", "eoo",  0, 1150.000, 2.168230, 2.448820, 48.08110, 2.138, 10.0, 24.0,
+    ("M", "xz", "eoo",  0, 1150.000, 2.168233652116512, 2.4488178079275182,
+     48.08106048713468, 2.138, 10.0, 24.0,
      "continuation of C's k_p'=k_o' curve, e daughter longer"),
+    ("R", "xz", "oeo", 45,  810.000, 1.138800, 2.805300, 39.42211, 2.472,  5.0,  8.0,
+     "nondegenerate EPM member (idler in the infrared absorption band)"),
 ]
 
 TRANSPARENCY_HI_UM = 2.60   # 1 cm^-1 absorption onset (Ghotbi 2006 OE; LPR2010 Table 4), not a transmission cutoff

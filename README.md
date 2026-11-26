@@ -5,8 +5,8 @@
 Code and data underlying
 
 > A. Gaydardzhiev, *Group-velocity-matched photon pairs in BiB₃O₆: a map of
-> nondegenerate purity loci across all twelve interactions*, submitted to
-> Optics Express (2026).
+> nondegenerate purity loci across all twelve interactions*, Optics Express,
+> under review (2026).
 
 `bibojsa` computes collinear spontaneous parametric down-conversion in
 biaxial crystals: Sellmeier dispersion and group indices, biaxial
@@ -26,9 +26,10 @@ bibojsa/                 the Python project
   pyproject.toml         pip install -e bibojsa   (numpy, scipy, matplotlib)
   bibojsa/               package: sellmeier, biaxial, phasematch, deff, gvm,
                          jsa, landscape, materials/{bibo,kdp,ktp}
-  tests/                 108 pytest tests (KDP and KTP literature checks,
-                         BIBO Sellmeier, d_eff, GVM, EPM/JSA milestones,
-                         both halves of the type-II surfaces)
+  tests/                 114 pytest tests (KDP and KTP literature checks,
+                         BiBO Sellmeier, d_eff, GVM, EPM/JSA milestones,
+                         both halves of the type-II surfaces, featured-
+                         point inputs)
   examples/              the survey scripts that wrote survey/
   notebooks/             validation and survey notebooks (.ipynb + jupytext .py)
   survey/                THE DATA — every CSV read by the manuscript;
@@ -54,7 +55,7 @@ The manuscript text itself is not in this repository.
 git clone https://github.com/SashoG/bibojsa
 cd bibojsa/bibojsa
 pip install -e .[dev]
-python -m pytest tests                     # 108 tests, ~1 min
+python -m pytest tests                     # 114 tests, ~1 min
 
 python examples/landscape_survey.py all    # survey/landscape_*.csv (~hours)
 python examples/full_landscape_preview.py  # merged curves, survey/figdata/
@@ -62,6 +63,9 @@ python examples/landscape_points.py        # survey/points2/, points2_summary.cs
 python examples/landscape_headline.py all  # Table 1, headline_*.csv, family_purity.csv
 python examples/window_tail.py             # window_tail.csv, length_extension.csv
 python examples/add_1nm_rows.py            # 1-nm pump rows of length_extension.csv (G, H)
+python examples/revision_checks.py         # v1.2.0: resolution, negative results, alternative
+                                           # Sellmeier fits, window prescription, tail-fit range,
+                                           # d_eff benchmarks (tailfit stage ~30 min)
 
 cd ../manuscript/figures
 python make_figure_data.py                 # survey → data/*.csv (seconds)
@@ -70,7 +74,7 @@ make                                       # figure PDFs (fig5 needs lualatex + 
 
 The committed `survey/` tree is the exact output the manuscript was drawn
 from (regenerated 17 October 2026, manuscript v0.11, 1-nm length rows added
-20 October 2026: all twelve
+20 October 2026, revision checks added 25 November 2026: all twelve
 principal-plane interactions, i.e. both halves of every type-II
 phase-matching surface, x–y plane included), so the long survey steps can
 be skipped; `make_figure_data.py` and `make` reproduce the five figures
@@ -87,7 +91,7 @@ plane. θ_PM is the JSA ridge orientation measured from the signal axis:
 0° means k′_p = k′_s, 90° means k′_p = k′_i, +45° is symmetric GVM
 (extended phase matching). Purities are Schmidt purities of the complex
 JSA, and every filtered purity is reported together with the fraction of
-pairs the filter transmits. The idler-transparency flag uses BIBO's
+pairs the filter transmits. The idler-transparency flag uses BiBO's
 1 cm⁻¹ absorption onset at 2.60 µm, not the 3.09 µm Sellmeier validity
 limit.
 
@@ -105,8 +109,12 @@ Please cite the paper and, for the code and data, the Zenodo record
 
 ```
 Gaydardzhiev, A. (2026). bibojsa: group-velocity matching and photon-pair
-purity in BiB3O6 (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.23510815
+purity in BiB3O6 (v1.2.0). Zenodo. https://doi.org/10.5281/zenodo.23510814
 ```
+
+The DOI above is the concept DOI, which always resolves to the latest
+version; each release also has its own version DOI on the Zenodo record
+(v1.1.0: 10.5281/zenodo.23510815).
 
 ## Licence
 
